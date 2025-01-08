@@ -1,0 +1,88 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-base: 250 240 235;
+    --color-surface: 255 250 243;
+    --color-overlay: 242 233 225;
+    --color-muted: 152 147 165;
+    --color-subtle: 121 117 147;
+    --color-text: 87 82 121;
+    --color-love: 180 99 122;
+    --color-gold: 234 157 52;
+    --color-rose: 215 130 126;
+    --color-pine: 40 105 131;
+    --color-foam: 86 148 159;
+    --color-iris: 144 122 169;
+    --color-highlight-low: 244 237 232;
+    --color-highlight-med: 223 218 217;
+    --color-highlight-high: 206 202 205;
+  }
+ 
+  .dark {
+    --color-base: 35 33 54;
+    --color-surface: 42 39 63;
+    --color-overlay: 57 53 82;
+    --color-muted: 110 106 134;
+    --color-subtle: 144 140 170;
+    --color-text: 224 222 244;
+    --color-love: 235 111 146;
+    --color-gold: 246 193 119;
+    --color-rose: 234 154 151;
+    --color-pine: 62 143 176;
+    --color-foam: 156 207 216;
+    --color-iris: 196 167 231;
+    --color-highlight-low: 42 40 62;
+    --color-highlight-med: 68 65 90;
+    --color-highlight-high: 86 82 110;
+  }
+
+  .light {
+  --color-base: 250 244 237;
+  --color-surface: 255 250 243;
+  --color-overlay: 242 233 225;
+  --color-muted: 152 147 165;
+  --color-subtle: 121 117 147;
+  --color-text: 87 82 121;
+  --color-love: 180 99 122;
+  --color-gold: 234 157 52;
+  --color-rose: 215 130 126;
+  --color-pine: 40 105 131;
+  --color-foam: 86 148 159;
+  --color-iris: 144 122 169;
+  --color-highlight-low: 244 237 232;
+  --color-highlight-med: 223 218 217;
+  --color-highlight-high: 206 202 205;
+}
+
+  body {
+    @apply bg-rosePine-base text-rosePine-text;
+  }
+}
+
+@layer utilities {
+  .bg-rosePine-base {
+    background-color: rgb(var(--color-base) / 1);
+  }
+  .bg-rosePine-surface {
+    background-color: rgb(var(--color-surface) / 1);
+  }
+  .text-rosePine-text {
+    color: rgb(var(--color-text) / 1);
+  }
+  .text-rosePine-muted {
+    color: rgb(var(--color-muted) / 1);
+  }
+  .text-rosePine-love {
+    color: rgb(var(--color-love) / 1);
+  }
+  .text-rosePine-gold {
+    color: rgb(var(--color-gold) / 1);
+  }
+  .text-rosePine-pine {
+    color: rgb(var(--color-pine) / 1);
+  }
+}
+

@@ -1,0 +1,91 @@
+import fs from 'fs'
+import path from 'path'
+import matter from 'gray-matter'
+import { MDXRemote } from 'next-mdx-remote/rsc'
+import Link from 'next/link'
+import { Metadata } from 'next'
+import Image from 'next/image'
+
+export async function generateStaticParams() {
+  const projectsDirectory = path.join(process.cwd(), 'projects')
+  const fileNames = fs.readdirSync(projectsDirectory)
+
+  return fileNames
+    .filter(fileName => fileName.endsWith('.mdx'))
+    .map((fileName) => ({
+      slug: fileName.replace(/\.mdx$/, ''),
+    }))
+}
+
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  const fullPath = path.join(process.cwd(), 'projects', `${params.slug}.mdx`)
+  const fileContents = fs.readFileSync(fullPath, 'utf8')
+  const { data } = matter(fileContents)
+
+  return {
+    title: `Project: ${data.title}`,
+    description: data.description || `Learn more about the project: ${data.title}`,
+    openGraph: {
+      title: `Project: ${data.title}`,
+      description: data.description || `Learn more about the project: ${data.title}`,
+      type: 'article',
+      images: [
+        {
+          url: data.image || '/placeholder.svg?height=600&width=1200',
+          width: 1200,
+          height: 600,
+          alt: data.title,
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `Project: ${data.title}`,
+      description: data.description || `Learn more about the project: ${data.title}`,
+    },
+  }
+}
+
+export default async function Project({ params }: { params: { slug: string } }) {
+  const fullPath = path.join(process.cwd(), 'projects', `${params.slug}.mdx`)
+  const fileContents = fs.readFileSync(fullPath, 'utf8')
+  const { data, content } = matter(fileContents)
+
+  return (
+    <div className="max-w-3xl mx-auto p-4">
+      <h1 className="text-3xl font-bold mb-4">{data.title}</h1>
+      {data.image && (
+        <div className="mb-6">
+          <Image
+            src={data.image}
+            alt={data.title}
+            width={1200}
+            height={600}
+            className="rounded-lg shadow-md"
+          />
+        </div>
+      )}
+      <div className="mb-6">
+        <span className="font-semibold">Status:</span> {data.status}
+        <span className="mx-2">|</span>
+        <span className="font-semibold">Technologies:</span> {data.technologies.join(', ')}
+      </div>
+      <div className="prose max-w-none">
+        <MDXRemote source={content} />
+      </div>
+      {data.link && (
+        <div className="mt-8">
+          <a href={data.link} target="_blank" rel="noopener noreferrer" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+            View Project
+          </a>
+        </div>
+      )}
+      <div className="mt-8">
+        <Link href="/projects" className="text-blue-500 hover:underline">
+          ← Back to all projects
+        </Link>
+      </div>
+    </div>
+  )
+}
+

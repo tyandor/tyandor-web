@@ -1,0 +1,109 @@
+import fs from 'fs'
+import path from 'path'
+import matter from 'gray-matter'
+import { MDXRemote } from 'next-mdx-remote/rsc'
+import Link from 'next/link'
+import { Metadata } from 'next'
+import { compareDesc } from 'date-fns'
+
+interface Idea {
+  id: string;
+  title: string;
+  date: string;
+}
+
+function getAdjacentIdeas(currentId: string): { prev: Idea | null; next: Idea | null } {
+  const ideasDirectory = path.join(process.cwd(), 'ideas')
+  const fileNames = fs.readdirSync(ideasDirectory)
+
+  const ideas: Idea[] = fileNames
+    .filter(fileName => fileName.endsWith('.mdx'))
+    .map((fileName) => {
+      const fullPath = path.join(ideasDirectory, fileName)
+      const fileContents = fs.readFileSync(fullPath, 'utf8')
+      const { data } = matter(fileContents)
+      
+      return {
+        id: fileName.replace(/\.mdx$/, ''),
+        title: data.title,
+        date: data.date,
+      }
+    })
+
+  ideas.sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)))
+
+  const currentIndex = ideas.findIndex(idea => idea.id === currentId)
+
+  return {
+    prev: currentIndex > 0 ? ideas[currentIndex - 1] : null,
+    next: currentIndex < ideas.length - 1 ? ideas[currentIndex + 1] : null,
+  }
+}
+
+export async function generateStaticParams() {
+  const ideasDirectory = path.join(process.cwd(), 'ideas')
+  const fileNames = fs.readdirSync(ideasDirectory)
+
+  return fileNames
+    .filter(fileName => fileName.endsWith('.mdx'))
+    .map((fileName) => ({
+      id: fileName.replace(/\.mdx$/, ''),
+    }))
+}
+
+export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
+  const fullPath = path.join(process.cwd(), 'ideas', `${params.id}.mdx`)
+  const fileContents = fs.readFileSync(fullPath, 'utf8')
+  const { data } = matter(fileContents)
+
+  return {
+    title: `Idea: ${data.title}`,
+    description: data.summary || `Explore this innovative idea: ${data.title}`,
+    openGraph: {
+      title: `Idea: ${data.title}`,
+      description: data.summary || `Explore this innovative idea: ${data.title}`,
+      type: 'article',
+    },
+    twitter: {
+      card: 'summary',
+      title: `Idea: ${data.title}`,
+      description: data.summary || `Explore this innovative idea: ${data.title}`,
+    },
+  }
+}
+
+export default async function Idea({ params }: { params: { id: string } }) {
+  const fullPath = path.join(process.cwd(), 'ideas', `${params.id}.mdx`)
+  const fileContents = fs.readFileSync(fullPath, 'utf8')
+  const { data, content } = matter(fileContents)
+
+  const { prev, next } = getAdjacentIdeas(params.id)
+
+  return (
+    <div className="max-w-2xl mx-auto p-4">
+      <h1 className="text-3xl font-bold mb-4">{data.title}</h1>
+      <p className="text-gray-600 italic mb-6">{data.summary}</p>
+      <div className="prose max-w-none">
+        <MDXRemote source={content} />
+      </div>
+      <div className="mt-8">
+        <Link href="/ideas" className="text-blue-500 hover:underline">
+          ← Back to all ideas
+        </Link>
+      </div>
+      <div className="mt-8 flex justify-between">
+      {prev && (
+        <Link href={`/ideas/${prev.id}`} className="text-rosePine-foam dark:text-rosePineDawn-foam hover:text-rosePine-pine dark:hover:text-rosePineDawn-pine transition-colors">
+          ← {prev.title}
+        </Link>
+      )}
+      {next && (
+        <Link href={`/ideas/${next.id}`} className="text-rosePine-foam dark:text-rosePineDawn-foam hover:text-rosePine-pine dark:hover:text-rosePineDawn-pine transition-colors">
+          {next.title} →
+        </Link>
+      )}
+    </div>
+    </div>
+  )
+}
+
