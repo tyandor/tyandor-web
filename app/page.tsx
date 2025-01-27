@@ -7,7 +7,6 @@ const AnimatedHomeArticleCard = dynamic(() => import('./components/AnimatedHomeA
 const AnimatedHomeQuote = dynamic(() => import('./components/AnimatedHomeQuote'), { ssr: false })
 const AnimatedHomeToolCard = dynamic(() => import('./components/AnimatedHomeToolCard'), { ssr: false })
 const AnimatedHomeDesignCard = dynamic(() => import('./components/AnimatedHomeDesignCard'), { ssr: false })
-const AnimatedBox = dynamic(() => import('./components/AnimatedBox'), { ssr: false })
 
 interface Article {
   slug: string
@@ -68,7 +67,7 @@ function getRecentTools(): Tool[] {
       const fullPath = path.join(toolsDirectory, fileName)
       const fileContents = fs.readFileSync(fullPath, 'utf8')
       const { data } = matter(fileContents)
-      
+
       return {
         slug: fileName.replace(/\.mdx$/, ''),
         title: data.title,
@@ -92,7 +91,7 @@ function getRecentDesigns(): Design[] {
       const fullPath = path.join(designsDirectory, fileName)
       const fileContents = fs.readFileSync(fullPath, 'utf8')
       const { data } = matter(fileContents)
-      
+
       return {
         slug: fileName.replace(/\.mdx$/, ''),
         title: data.title,
@@ -115,7 +114,7 @@ export default function Home() {
       const fullPath = path.join(articlesDirectory, fileName)
       const fileContents = fs.readFileSync(fullPath, 'utf8')
       const { data } = matter(fileContents)
-      
+
       return {
         slug: fileName.replace(/\.mdx$/, ''),
         title: data.title,
@@ -133,55 +132,61 @@ export default function Home() {
   const recentDesigns = getRecentDesigns()
 
   return (
-    <div className="max-w-4xl mx-auto">
-      <div className="grid grid-cols-1 gap-4 mb-12 articles-section"> {/* Added articles-section class */}
-        <h2 className="text-2xl mb-0 font-bold text-rosePine-rose dark:text-rosePineMoon-rose">// articles</h2>
-        {recentArticles.map((article) => (
-          <AnimatedHomeArticleCard
-            key={article.slug}
-            slug={article.slug}
-            title={article.title}
-            description={article.description}
+    <>
+      <div className="max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 gap-4 mb-12 articles-section"> {/* Added articles-section class */}
+          <h2 className="text-2xl mb-0 font-bold text-rosePine-rose dark:text-rosePineMoon-rose">// articles</h2>
+          {recentArticles.map((article) => (
+            <AnimatedHomeArticleCard
+              key={article.slug}
+              slug={article.slug}
+              title={article.title}
+              description={article.description}
+            />
+          ))}
+        </div>
+      </div>
+      <div className="max-w-7xl py-8 mx-auto">
+        {randomQuote && (
+          <AnimatedHomeQuote
+            quote={randomQuote.quote}
+            author={randomQuote.author}
+            slug={randomQuote.slug}
           />
-        ))}
+        )}
       </div>
-      {randomQuote && (
-        <AnimatedHomeQuote
-          quote={randomQuote.quote}
-          author={randomQuote.author}
-          slug={randomQuote.slug}
-        />
-      )}
-      <div className="mt-12 mb-12">
-        <h2 className="text-2xl mb-4 font-bold text-rosePine-rose dark:text-rosePineMoon-rose">// recent tools</h2>
-        <div className="grid gap-6 md:grid-cols-2">
-          {recentTools.map((tool) => (
-            <AnimatedHomeToolCard
-              key={tool.slug}
-              slug={tool.slug}
-              title={tool.title}
-              description={tool.description}
-              category={tool.category}
-              image={tool.image}
-            />
-          ))}
+      <div className="max-w-6xl mx-auto">
+        <div className="mt-12 mb-12">
+          <h2 className="text-2xl mb-4 font-bold text-rosePine-rose dark:text-rosePineMoon-rose">// recent tools</h2>
+          <div className="grid gap-6 md:grid-cols-2">
+            {recentTools.map((tool) => (
+              <AnimatedHomeToolCard
+                key={tool.slug}
+                slug={tool.slug}
+                title={tool.title}
+                description={tool.description}
+                category={tool.category}
+                image={tool.image}
+              />
+            ))}
+          </div>
+        </div>
+        <div className="mt-12">
+          <h2 className="text-2xl mb-4 font-bold text-rosePine-rose dark:text-rosePineMoon-rose">// recent designs</h2>
+          <div className="grid gap-6 md:grid-cols-3">
+            {recentDesigns.map((design) => (
+              <AnimatedHomeDesignCard
+                key={design.slug}
+                slug={design.slug}
+                title={design.title}
+                description={design.description}
+                image={design.image}
+              />
+            ))}
+          </div>
         </div>
       </div>
-      <div className="mt-12">
-        <h2 className="text-2xl mb-4 font-bold text-rosePine-rose dark:text-rosePineMoon-rose">// recent designs</h2>
-        <div className="grid gap-6 md:grid-cols-3">
-          {recentDesigns.map((design) => (
-            <AnimatedHomeDesignCard
-              key={design.slug}
-              slug={design.slug}
-              title={design.title}
-              description={design.description}
-              image={design.image}
-            />
-          ))}
-        </div>
-      </div>
-    </div>
+    </>
   )
 }
 

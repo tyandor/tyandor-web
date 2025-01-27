@@ -48,16 +48,12 @@ const AnimatedArticleCard: React.FC<AnimatedArticleCardProps> = ({ slug, title, 
       className="bg-rosePine-surface dark:bg-rosePineMoon-surface shadow-md rounded-lg overflow-hidden border border-rosePine-highlightLow dark:border-rosePineMoon-highlightLow"
     >
       <div className="p-6">
-        <Link href={`/articles/${slug}`} className="text-xl font-semibold text-rosePine-gold dark:text-rosePineMoon-gold hover:text-rosePine-rose dark:hover:text-rosePineMoon-rose transition-colors mb-2 block">
+        <Link href={`/articles/${slug}`} className="text-2xl font-bold text-rosePine-text dark:text-rosePineMoon-gold hover:text-rosePine-rose dark:hover:text-rosePineMoon-rose transition-colors mb-2 block">
           {title}
         </Link>
         <p className="text-rosePine-text dark:text-rosePineMoon-text mb-4">
           {description}
         </p>
-        <div className="flex justify-between items-center text-sm text-rosePine-subtle dark:text-rosePineMoon-subtle">
-          <span>{author}</span>
-          <span>{new Date(date).toLocaleDateString()}</span>
-        </div>
         <Link href={`/articles/${slug}`} className="mt-4 inline-block text-rosePine-foam dark:text-rosePineMoon-foam hover:text-rosePine-pine dark:hover:text-rosePineMoon-pine transition-colors">
           Read more
         </Link>

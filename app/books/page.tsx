@@ -31,7 +31,7 @@ export default function BooksPage() {
       const fullPath = path.join(booksDirectory, fileName)
       const fileContents = fs.readFileSync(fullPath, 'utf8')
       const { data } = matter(fileContents)
-      
+
       return {
         slug: fileName.replace(/\.mdx$/, ''),
         title: data.title,
@@ -44,7 +44,8 @@ export default function BooksPage() {
 
   return (
     <div className="max-w-6xl mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-8">Book Reviews</h1>
+      <h1 className="text-7xl font-bold mb-2 text-rosePine-rose">Books</h1>
+      <p className="text-2xl mb-8">Notes and reviews</p>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {books.map((book) => (
           <AnimatedBookCard

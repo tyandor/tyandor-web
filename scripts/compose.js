@@ -1,13 +1,8 @@
 import fs from 'fs/promises';
 import path from 'path';
-import readline from 'readline';
+import inquirer from 'inquirer';
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
-});
-
-const contentTypes = ['post', 'quote', 'article', 'idea', 'project'];
+const contentTypes = ['post', 'quote', 'article', 'idea', 'project', 'tool', 'design', 'book'];
 
 function generateFrontmatter(type, title) {
   const date = new Date().toISOString().split('T')[0];
@@ -28,6 +23,15 @@ function generateFrontmatter(type, title) {
       break;
     case 'project':
       frontmatter += 'description: ""\nstatus: "In Progress"\ntechnologies: []\nimage: "/placeholder.svg?height=600&width=1200"\nlink: ""\n';
+      break;
+    case 'tool':
+      frontmatter += 'description: ""\ncategory: ""\nimage: "/placeholder.svg?height=600&width=1200"\nlink: ""\n';
+      break;
+    case 'design':
+      frontmatter += 'description: ""\ncategory: ""\nimage: "/placeholder.svg?height=600&width=1200"\n';
+      break;
+    case 'book':
+      frontmatter += 'author: ""\ndescription: ""\ngenre: ""\nrating: 0\nimage: "/placeholder.svg?height=600&width=1200"\n';
       break;
   }
 
@@ -65,39 +69,34 @@ async function createMdxFile(type, title) {
   }
 }
 
-function promptForTitle(type) {
-  return new Promise((resolve) => {
-    rl.question(`Enter the title for the new ${type}: `, (title) => {
-      resolve(title);
-    });
-  });
-}
-
 async function main() {
-  if (process.argv.length < 3) {
-    console.log('Usage: node compose.js <content-type>');
-    console.log('Available content types:', contentTypes.join(', '));
-    process.exit(1);
+  try {
+    const { type } = await inquirer.prompt([
+      {
+        type: 'list',
+        name: 'type',
+        message: 'Select the content type:',
+        choices: contentTypes
+      }
+    ]);
+
+    const { title } = await inquirer.prompt([
+      {
+        type: 'input',
+        name: 'title',
+        message: `Enter the title for the new ${type}:`,
+        validate: (input) => input.trim() !== '' || 'Title cannot be empty'
+      }
+    ]);
+
+    await createMdxFile(type, title);
+  } catch (error) {
+    console.error('An error occurred:', error);
   }
-
-  const type = process.argv[2].toLowerCase();
-
-  if (!contentTypes.includes(type)) {
-    console.error(`Error: Invalid content type. Available types are: ${contentTypes.join(', ')}`);
-    process.exit(1);
-  }
-
-  const title = await promptForTitle(type);
-  await createMdxFile(type, title);
-  rl.close();
 }
 
 main();
 
 // Example usage:
-// node compose.js post
-// node compose.js quote
-// node compose.js article
-// node compose.js idea
-// node compose.js project
+// node compose.js
 

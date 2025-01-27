@@ -20,7 +20,7 @@
     --color-highlight-med: 223 218 217;
     --color-highlight-high: 206 202 205;
   }
- 
+
   .dark {
     --color-base: 35 33 54;
     --color-surface: 42 39 63;
@@ -40,22 +40,22 @@
   }
 
   .light {
-  --color-base: 250 244 237;
-  --color-surface: 255 250 243;
-  --color-overlay: 242 233 225;
-  --color-muted: 152 147 165;
-  --color-subtle: 121 117 147;
-  --color-text: 87 82 121;
-  --color-love: 180 99 122;
-  --color-gold: 234 157 52;
-  --color-rose: 215 130 126;
-  --color-pine: 40 105 131;
-  --color-foam: 86 148 159;
-  --color-iris: 144 122 169;
-  --color-highlight-low: 244 237 232;
-  --color-highlight-med: 223 218 217;
-  --color-highlight-high: 206 202 205;
-}
+    --color-base: 250 244 237;
+    --color-surface: 255 250 243;
+    --color-overlay: 242 233 225;
+    --color-muted: 152 147 165;
+    --color-subtle: 121 117 147;
+    --color-text: 87 82 121;
+    --color-love: 180 99 122;
+    --color-gold: 234 157 52;
+    --color-rose: 215 130 126;
+    --color-pine: 40 105 131;
+    --color-foam: 86 148 159;
+    --color-iris: 144 122 169;
+    --color-highlight-low: 244 237 232;
+    --color-highlight-med: 223 218 217;
+    --color-highlight-high: 206 202 205;
+  }
 
   body {
     @apply bg-rosePine-base text-rosePine-text;
@@ -66,23 +66,41 @@
   .bg-rosePine-base {
     background-color: rgb(var(--color-base) / 1);
   }
+
   .bg-rosePine-surface {
     background-color: rgb(var(--color-surface) / 1);
   }
+
   .text-rosePine-text {
     color: rgb(var(--color-text) / 1);
   }
+
   .text-rosePine-muted {
     color: rgb(var(--color-muted) / 1);
   }
+
   .text-rosePine-love {
     color: rgb(var(--color-love) / 1);
   }
+
   .text-rosePine-gold {
     color: rgb(var(--color-gold) / 1);
   }
+
   .text-rosePine-pine {
     color: rgb(var(--color-pine) / 1);
   }
 }
 
+.prose {
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  strong,
+  em {
+    color: rgb(var(--color-text) / 1);
+  }
+}

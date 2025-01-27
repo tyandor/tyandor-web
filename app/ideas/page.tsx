@@ -31,7 +31,7 @@ export default function IdeasPage() {
       const fullPath = path.join(ideasDirectory, fileName)
       const fileContents = fs.readFileSync(fullPath, 'utf8')
       const { data } = matter(fileContents)
-      
+
       return {
         id: fileName.replace(/\.mdx$/, ''),
         title: data.title,
@@ -51,7 +51,7 @@ export default function IdeasPage() {
 
   return (
     <div className="max-w-4xl mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-8">Innovative Ideas</h1>
+      <h1 className="text-7xl font-bold mb-8 text-rosePine-rose">Ideas</h1>
       {Object.entries(groupedIdeas).map(([category, categoryIdeas]) => (
         <div key={category} className="mb-8">
           <h2 className="text-2xl font-semibold mb-4">{category}</h2>

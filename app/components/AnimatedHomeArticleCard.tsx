@@ -41,7 +41,7 @@ const AnimatedHomeArticleCard: React.FC<AnimatedHomeArticleCardProps> = ({ slug,
   return (
     <div ref={cardRef} className="bg-rosePine-surface dark:bg-rosePineMoon-surface shadow-md rounded-lg overflow-hidden border border-rosePine-highlightLow dark:border-rosePineMoon-highlightLow">
       <div className="p-6">
-        <Link href={`/articles/${slug}`} className="text-xl font-semibold text-rosePine-gold dark:text-rosePineMoon-gold hover:text-rosePine-rose dark:hover:text-rosePineMoon-rose transition-colors mb-2 block">
+        <Link href={`/articles/${slug}`} className="text-2xl font-bold text-rosePine-text dark:text-rosePineMoon-gold hover:text-rosePine-rose dark:hover:text-rosePineMoon-rose transition-colors mb-2 block">
           {title}
         </Link>
         <p className="text-rosePine-text dark:text-rosePineMoon-text mb-4">

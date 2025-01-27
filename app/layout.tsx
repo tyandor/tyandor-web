@@ -1,10 +1,12 @@
 import './globals.css'
 import { Inter } from 'next/font/google'
 import { Metadata } from 'next'
+import Image from 'next/image';
 import Link from 'next/link'
+import Script from 'next/script'
 import { ThemeProvider } from './components/ThemeProvider'
 import { ThemeToggle } from './components/ThemeToggle'
-import Script from 'next/script'
+import Logo from '../public/tyandor-logo.svg';
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -55,7 +57,7 @@ export default function RootLayout({
             <nav className="container mx-auto px-4 py-6">
               <div className="flex justify-between items-center">
                 <Link href="/" className="text-3xl font-bold text-rosePine-love hover:text-rosePine-gold transition-colors">
-                  &and;&or;
+                  <Image src={Logo} width={70} alt="logo for tyandor.com" />
                 </Link>
                 <ul className="flex space-x-6 items-center">
                   <li><Link href="/" className="text-rosePine-text hover:text-rosePine-pine transition-colors">Home</Link></li>
@@ -75,7 +77,7 @@ export default function RootLayout({
           <main className="flex-grow container mx-auto px-4 py-8">
             {children}
           </main>
-          <footer className="bg-rosePine-surface text-rosePine-muted py-6">
+          <footer className="bg-rosePine-base text-rosePineDawn-text dark:text-rosePine-text py-12">
             <div className="container mx-auto px-4 text-center">
               <p>&copy; {new Date().getFullYear()} &and; &or;. All rights reserved.</p>
             </div>

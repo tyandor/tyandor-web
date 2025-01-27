@@ -4,7 +4,6 @@ import matter from 'gray-matter'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import Link from 'next/link'
 import { Metadata } from 'next'
-// import { useState } from 'react' //Removed as per update 1
 import { compareDesc } from 'date-fns'
 import { Counter } from '@/app/components/Counter'
 
@@ -85,33 +84,48 @@ export default async function Article({ params }: { params: { slug: string } }) 
   const fullPath = path.join(process.cwd(), 'articles', `${params.slug}.mdx`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
   const { data, content } = matter(fileContents)
-
   const { prev, next } = getAdjacentArticles(params.slug)
 
   return (
-    <>
+    <article className="mt-14">
       <div className="text-center">
         <h1 className="text-7xl font-bold mb-4">{data.title}</h1>
-        <p className="text-gray-500 mb-2">By {data.author} on {new Date(data.date).toLocaleDateString()}</p>
+        <p className="text-gray-500 mb-2">Published {new Date(data.date).toLocaleDateString()}</p>
+        <p className="text-2xl mt-8 text-rosePineMoon-muted dark:text-rosePine-muted">&sect;</p>
       </div>
       <div className="max-w-4xl mx-auto p-4">
-        <div className="prose max-w-none mt-10">
+        <div className="prose text-rosePine-text dark:prose-rosePine-text max-w-none mt-10">
           <MDXRemote source={content} components={components} />
         </div>
-        <div className="mt-8 flex justify-between">
-          {prev && (
-            <Link href={`/articles/${prev.slug}`} className="text-rosePine-foam dark:text-rosePineMoon-foam hover:text-rosePine-pine dark:hover:text-rosePineMoon-pine transition-colors">
-              ← {prev.title}
-            </Link>
+      </div>
+      <div className="max-w-6xl mx-auto text-center p-4">
+        <div className="my-12 inline-flex rounded-md" role="group">
+          {prev ? (
+            <div className="px-8 py-4 text-lg text-gray-900 border border-rosePine-foam rounded-s-lg focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-700 dark:text-white dark:focus:ring-blue-500 dark:focus:text-white">
+              <Link href={`/articles/${prev.slug}`} className="text-rosePine-foam dark:text-rosePineMoon-foam dark:hover:text-rosePineMoon-pine transition-colors">
+                ← {prev.title}
+              </Link>
+            </div>
+          ) : (
+            <div className="px-8 py-4 text-lg text-gray-900 border border-rosePine-foam rounded-s-lg focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-700 dark:text-white dark:focus:ring-blue-500 dark:focus:text-white">
+              <span className="text-rosePine-foam">&#10033;</span>
+            </div>
           )}
-          {next && (
-            <Link href={`/articles/${next.slug}`} className="text-rosePine-foam dark:text-rosePineMoon-foam hover:text-rosePine-pine dark:hover:text-rosePineMoon-pine transition-colors">
-              {next.title} →
+          <div className="px-8 py-4 text-lg text-gray-900 border-t border-b border-rosePine-foam focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-700 dark:text-white dark:focus:ring-blue-500 dark:focus:text-white">
+            <Link href="/articles" className="text-rosePine-foam dark:text-rosePineMoon-foam dark:hover:text-rosePineMoon-pine transition-colors">
+              All Articles
             </Link>
+          </div>
+          {next && (
+            <div className="px-8 py-4 text-lg text-gray-900 border border-rosePine-foam rounded-e-lg focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-700 dark:text-white dark:focus:ring-blue-500 dark:focus:text-white">
+              <Link href={`/articles/${next.slug}`} className="text-rosePine-foam dark:text-rosePineMoon-foam dark:hover:text-rosePineMoon-pine transition-colors">
+                {next.title} →
+              </Link>
+            </div>
           )}
         </div>
       </div>
-    </>
+    </article>
   )
 }
 

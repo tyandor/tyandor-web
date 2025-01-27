@@ -31,7 +31,7 @@ export default function DesignsPage() {
       const fullPath = path.join(designsDirectory, fileName)
       const fileContents = fs.readFileSync(fullPath, 'utf8')
       const { data } = matter(fileContents)
-      
+
       return {
         slug: fileName.replace(/\.mdx$/, ''),
         title: data.title,
@@ -43,7 +43,7 @@ export default function DesignsPage() {
 
   return (
     <div className="max-w-6xl mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-8">Designs</h1>
+      <h1 className="text-7xl font-bold mb-8 text-rosePine-rose">Design</h1>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {designs.map((design) => (
           <AnimatedDesignCard

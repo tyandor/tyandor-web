@@ -1,6 +1,6 @@
 'use client'
 
-import { Metadata } from 'next'
+// import { Metadata } from 'next'
 import { useRef, useEffect } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -44,33 +44,54 @@ export default function AboutPage() {
 
   return (
     <div className="max-w-2xl mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-6 text-rosePine-rose">About Me</h1>
+      <h1 className="text-7xl font-bold mb-8 text-rosePine-rose">About</h1>
       <div ref={contentRef} className="prose prose-rosePine dark:prose-rosePineDawn opacity-0">
-        <p className="mb-4">
-          Hello! I'm the author of this blog. I'm passionate about technology, writing, and sharing knowledge with others.
+        <p>
+          I'm a Colorado Springs based Software Engineer. I'm also a philosopher. This is my personal website, so of course any opinions expressed here should be taken as mine alone.
         </p>
-        <p className="mb-4">
-          This blog is a platform where I share my thoughts, experiences, and insights on various topics including web development, technology trends, and personal growth.
+        <h2>
+          About this website
+        </h2>
+        <p>
+          What I write and share here comes from a wide range of interests. I often have ideas, tools, and tips that will interest engineers and developers. Some will be useful to anyone. Primarily, though, I'm using this as a documentation system. The audience I most often have in mind is my future self. Also, much of the content here is in a draft state.
         </p>
-        <p className="mb-4">
-          Feel free to explore my posts, articles, ideas, and projects. If you have any questions or just want to chat, don't hesitate to reach out!
+        <p>
+          That said, I do occasionally write <a href="/articles">articles</a> with a more general audience in mind. If you happen to share some of my interests you might find other content here useful as well. If that's the case, this system is designed with ways to drill down into specific topics, and make connections among them.
         </p>
-        <h2 className="text-2xl font-semibold mt-8 mb-4 text-rosePine-gold">My Background</h2>
-        <p className="mb-4">
-          I have a background in computer science and have been working in the tech industry for several years. My expertise includes web development, cloud computing, and artificial intelligence.
+        <h2>
+          Research interests
+        </h2>
+        <p>
+          Specific to software engineering, a few current areas of interests are
         </p>
-        <h2 className="text-2xl font-semibold mt-8 mb-4 text-rosePine-gold">Blog's Purpose</h2>
-        <p className="mb-4">
-          The main purpose of this blog is to:
-        </p>
-        <ul className="list-disc pl-6 mb-4">
-          <li>Share knowledge and insights from my experiences</li>
-          <li>Discuss latest trends and technologies in the tech world</li>
-          <li>Provide tutorials and how-to guides for fellow developers</li>
-          <li>Explore innovative ideas and concepts</li>
+        <ul>
+          <li>Systems thinking</li>
+          <li>Complexity sciences</li>
+          <li>Experimentation design</li>
+          <li>Design thinking</li>
+          <li>Artificial intelligence (of course)</li>
         </ul>
-        <p className="mb-4">
-          Thank you for visiting, and I hope you find the content here valuable and engaging!
+        <p>
+          In addition to my current professional interests in software engineering, I also publish content, albeit less frequently, on various topics philosophy. I was a university professor for many years before transitioning to tech, and continue to do research in several areas.
+        </p>
+        <ul>
+          <li>Philosophy of science</li>
+          <li>Philosophy of mind</li>
+          <li>Ordinary language philosophy</li>
+          <li>Natural language processing</li>
+          <li>Linguistics and general semantics</li>
+          <li>Category theory</li>
+          <li>Logic and philosophy of mathematics</li>
+          <li>Mythology and storytelling</li>
+          <li>Fantasy and science fiction literature</li>
+          <li>Poetry and poetics</li>
+        </ul>
+        <h2>Design notes</h2>
+        <p>
+          My logo - &and;&or; - is a symbolic form of my last name. It combines two of the symbols used in formal logic for conjunction (and) and disjunction (or).
+        </p>
+        <p>
+          This site is built using Next.js/React and Tailwind. The theme is based on one of my favorite colorschemes for editing code, <a href="https://rosepinetheme.com/" target="_blank">Rose Pine</a>.
         </p>
       </div>
     </div>

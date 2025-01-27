@@ -31,7 +31,7 @@ export default function ArticlesPage() {
       const fullPath = path.join(articlesDirectory, fileName)
       const fileContents = fs.readFileSync(fullPath, 'utf8')
       const { data } = matter(fileContents)
-      
+
       return {
         slug: fileName.replace(/\.mdx$/, ''),
         title: data.title,
@@ -45,7 +45,7 @@ export default function ArticlesPage() {
 
   return (
     <div className="max-w-4xl mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-8">Articles</h1>
+      <h1 className="text-7xl font-bold mb-8 text-rosePine-rose">Articles</h1>
       <div className="space-y-8">
         {articles.map((article) => (
           <AnimatedArticleCard
