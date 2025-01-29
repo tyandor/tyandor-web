@@ -31,7 +31,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       description: data.description || `Read the full article: ${data.title}`,
       type: 'article',
       publishedTime: data.date,
-      authors: [data.author || 'Blog Author'],
+      authors: [data.author || 'Tyler Andor'],
       tags: data.tags,
     },
     twitter: {

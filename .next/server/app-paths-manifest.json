@@ -1,8 +1,21 @@
 {
-  "/quotes/[id]/page": "app/quotes/[id]/page.js",
-  "/books/page": "app/books/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
   "/page": "app/page.js",
-  "/quotes/page": "app/quotes/page.js",
   "/about/page": "app/about/page.js",
-  "/designs/page": "app/designs/page.js"
+  "/articles/[slug]/page": "app/articles/[slug]/page.js",
+  "/articles/page": "app/articles/page.js",
+  "/books/[slug]/page": "app/books/[slug]/page.js",
+  "/designs/page": "app/designs/page.js",
+  "/books/page": "app/books/page.js",
+  "/category/[category]/page": "app/category/[category]/page.js",
+  "/ideas/page": "app/ideas/page.js",
+  "/designs/[slug]/page": "app/designs/[slug]/page.js",
+  "/ideas/[id]/page": "app/ideas/[id]/page.js",
+  "/projects/page": "app/projects/page.js",
+  "/projects/[slug]/page": "app/projects/[slug]/page.js",
+  "/quotes/page": "app/quotes/page.js",
+  "/quotes/[id]/page": "app/quotes/[id]/page.js",
+  "/tools/page": "app/tools/page.js",
+  "/tag/[tag]/page": "app/tag/[tag]/page.js",
+  "/tools/[slug]/page": "app/tools/[slug]/page.js"
 }

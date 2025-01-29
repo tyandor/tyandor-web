@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { Metadata } from 'next'
 
 export async function generateStaticParams() {
-  const postsDirectory = path.join(process.cwd(), 'posts')
+  const postsDirectory = path.join(process.cwd(), 'articles')
   const fileNames = fs.readdirSync(postsDirectory)
 
   const categories = new Set<string>()
@@ -28,24 +28,24 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: { category: string } }): Promise<Metadata> {
   const categoryName = params.category.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
   return {
-    title: `Posts in category: ${categoryName}`,
-    description: `Browse all blog posts in the ${categoryName} category`,
+    title: `Items in category: ${categoryName}`,
+    description: `Browse all items in the ${categoryName} category`,
     openGraph: {
-      title: `Posts in category: ${categoryName}`,
-      description: `Browse all blog posts in the ${categoryName} category`,
+      title: `Items in category: ${categoryName}`,
+      description: `Browse all items in the ${categoryName} category`,
     },
     twitter: {
       card: 'summary_large_image',
-      title: `Posts in category: ${categoryName}`,
-      description: `Browse all blog posts in the ${categoryName} category`,
+      title: `Items in category: ${categoryName}`,
+      description: `Browse all items in the ${categoryName} category`,
     },
   }
 }
 
 export default function CategoryPage({ params }: { params: { category: string } }) {
-  const postsDirectory = path.join(process.cwd(), 'posts')
+  const postsDirectory = path.join(process.cwd(), 'articles')
   const fileNames = fs.readdirSync(postsDirectory)
-  
+
   const posts = fileNames
     .map((fileName) => {
       if (!fileName.endsWith('.md') && !fileName.endsWith('.mdx')) return null
@@ -53,7 +53,7 @@ export default function CategoryPage({ params }: { params: { category: string } 
       const fullPath = path.join(postsDirectory, fileName)
       const fileContents = fs.readFileSync(fullPath, 'utf8')
       const { data } = matter(fileContents)
-      
+
       if (data.category && data.category.toLowerCase().replace(/ /g, '-') === params.category) {
         return {
           slug: fileName.replace(/\.(md|mdx)$/, ''),
@@ -65,7 +65,7 @@ export default function CategoryPage({ params }: { params: { category: string } 
     })
     .filter(Boolean)
 
-  posts.sort((a, b) => a.date < b.date ? 1 : -1)
+  posts.sort((a, b) => a?.date < b?.date ? 1 : -1)
 
   const categoryName = params.category.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
 
@@ -74,11 +74,11 @@ export default function CategoryPage({ params }: { params: { category: string } 
       <h1 className="text-3xl font-bold mb-8">Posts in category: {categoryName}</h1>
       <ul className="space-y-4">
         {posts.map((post) => (
-          <li key={post.slug} className="border p-4 rounded-md">
-            <Link href={`/posts/${post.slug}`} className="text-xl font-semibold hover:underline">
-              {post.title}
+          <li key={post?.slug} className="border p-4 rounded-md">
+            <Link href={`/posts/${post?.slug}`} className="text-xl font-semibold hover:underline">
+              {post?.title}
             </Link>
-            <p className="text-gray-500 mt-1">{new Date(post.date).toLocaleDateString()}</p>
+            <p className="text-gray-500 mt-1">{new Date(post?.date).toLocaleDateString()}</p>
           </li>
         ))}
       </ul>
