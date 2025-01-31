@@ -99,6 +99,8 @@
   h3,
   h4,
   h5,
+  a,
+  blockquote,
   strong,
   em {
     color: rgb(var(--color-text) / 1);

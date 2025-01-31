@@ -31,14 +31,14 @@ const AnimatedQuote: React.FC<AnimatedQuoteProps> = ({ quote, author, content })
   }, [quote, author, content]) // Re-run the animation when these props change
 
   return (
-    <div>
-      <blockquote ref={quoteRef} className="text-2xl font-semibold italic mb-4">
-        "{quote}"
+    <div className="mb-16">
+      <blockquote ref={quoteRef} className="text-4xl leading-10 font-serif font-semibold italic mt-8">
+        {quote}
       </blockquote>
-      <p ref={authorRef} className="text-right text-rosePine-muted mb-8">- {author}</p>
-      <div ref={contextRef}>
-        <h2 className="text-xl font-bold mb-4">Context:</h2>
-        <div className="prose max-w-none">
+      <p ref={authorRef} className="text-right text-rosePine-muted mb-12 mt-8">{author}</p>
+      <div ref={contextRef} className="max-w-2xl mx-auto mt-8">
+        <h2 className="text-xl text-rosePine-rose font-bold mb-4">Context</h2>
+        <div className="prose text-rosePine-text dark:prose-rosePine-text max-w-none">
           {content}
         </div>
       </div>

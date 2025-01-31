@@ -57,7 +57,7 @@ export default function RootLayout({
             <nav className="container mx-auto px-4 py-6">
               <div className="flex justify-between items-center">
                 <Link href="/" className="text-3xl font-bold text-rosePine-love hover:text-rosePine-gold transition-colors">
-                  <Image src={Logo} width={70} alt="logo for tyandor.com" />
+                  <Image src={Logo} width={77} alt="logo for tyandor.com" />
                 </Link>
                 <ul className="flex space-x-6 items-center">
                   <li><Link href="/" className="text-rosePine-text hover:text-rosePine-pine transition-colors">Home</Link></li>

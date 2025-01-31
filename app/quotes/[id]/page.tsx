@@ -25,7 +25,7 @@ function getAdjacentQuotes(currentId: string): { prev: Quote | null; next: Quote
       const fullPath = path.join(quotesDirectory, fileName)
       const fileContents = fs.readFileSync(fullPath, 'utf8')
       const { data } = matter(fileContents)
-      
+
       return {
         id: fileName.replace(/\.mdx$/, ''),
         author: data.author,
@@ -83,24 +83,22 @@ export default async function Quote({ params }: { params: { id: string } }) {
   const { prev, next } = getAdjacentQuotes(params.id)
 
   return (
-    <div className="max-w-2xl mx-auto p-4">
-      <AnimatedQuote 
-        key={params.id} 
-        quote={data.quote} 
-        author={data.author} 
-        content={<MDXRemote source={content} />} 
+    <div className="max-w-5xl mx-auto p-4">
+      <AnimatedQuote
+        key={params.id}
+        quote={data.quote}
+        author={data.author}
+        content={<MDXRemote source={content} />}
       />
-      <div className="mt-8">
-        <Link href="/quotes" className="text-blue-500 hover:underline">
-          ← Back to all quotes
-        </Link>
-      </div>
-      <div className="mt-8 flex justify-between">
+      <div className="mt-16 flex justify-between">
         {prev && (
           <Link href={`/quotes/${prev.id}`} className="text-rosePine-foam dark:text-rosePineDawn-foam hover:text-rosePine-pine dark:hover:text-rosePineDawn-pine transition-colors">
             ← {prev.author}
           </Link>
         )}
+        <Link href="/quotes" className="text-blue-500 hover:underline">
+          All quotes
+        </Link>
         {next && (
           <Link href={`/quotes/${next.id}`} className="text-rosePine-foam dark:text-rosePineDawn-foam hover:text-rosePine-pine dark:hover:text-rosePineDawn-pine transition-colors">
             {next.author} →
