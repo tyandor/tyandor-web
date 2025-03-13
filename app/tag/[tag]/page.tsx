@@ -5,6 +5,7 @@ import Link from 'next/link'
 import { Metadata } from 'next'
 
 export async function generateStaticParams() {
+  // TODO: add other post types
   const postsDirectory = path.join(process.cwd(), 'articles')
   const fileNames = fs.readdirSync(postsDirectory)
 

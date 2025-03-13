@@ -1,0 +1,30 @@
+---
+title: "The house of being"
+date: 2022-09-22
+description: "Some scattered thoughts on the philosophy of language, and an interesting observation from a hyperpolyglot."
+tags: ["language", "linguistics", "Sapir-Whorf hypothesis", "philosophy of language"]
+---
+
+Martin Heidegger called language _the house of being_. It's an inspiring metaphor, and captures the spirit of the 20th century philosophical and linguistic movements that called attention to language as either, or both, the cause of and/or the solution to conceptual problems.
+
+Perhaps the next most famous remark on language comes from Ludwig Wittgenstein: "the limits of my language mean the limits of my world." Witt's work epitomizes the "linguistic turn" in Anglo-American analytic philosophy.[^1] 
+
+Equally influential apart from philosophy was the work of linguist Benjamin Lee Whorf and anthropologist Edward Sapir. Inaugurated by Whorf's paper "Science and Linguistics"[^2], their work postulated that a culture's language limits what it is possible for a person of that culture to think and believe. This came to be known as the _Sapir-Whorf hypothesis_.
+
+## More recently
+
+John McWhorter has argued against the idea of nearly any version of the Sapir-Whorf hypothesis, attempting a kind of grammatical reduction of linguistic relativity. As Anthony Webster points out in an informative review of _The Language Hoax_, however, McWhorter is not a linguistic anthropologist, and does not in his *Hoax* even consider the the most important arguments and examples representaive of such relativity.[^3]
+
+The complexity of the interrelation between language, thought, and being deserves more attention.
+
+I recently heard an interview with one of the world's relatively small number of hyperpolyglots. Vaughn Smith, in a conversation with Tyler Cowen, painted this picture from his experience:
+
+> Language is a key to someone's culture, to someone's world. Even if you do not happen to be in that person's country at that time. It's very sacred, and it's very private for some people. \[...\] When you get into learning the language, you start to think in a different way. You realize every language works differently, it makes people think differently...there's a soul to the language. It's like you're starting to become this new, miniature other person/version of yourself when you use that language. It comes with the native speaker's sense of home, sense of belonging, sense of identity. Language _is_ identity for many people. ...you're going into a different world.[^4]
+
+It strikes me that how we understand the relationship between language and being might do well to take some input from thoughtful human experience, rather than looking to the often isolated and insulated perspective of academic study as its guiding light. At least this kind of _phenomenological_ approach, to wrap it in a bit of academic jargon, captures something that hyper-specialized approaches are almost sure to miss.
+
+[^1]: Wittgenstein, Ludwig. *Tractatus Logico-Philosophicus*, 5.6. 471st ed., Dover Publications, 1998.
+[^2]: Whorf, B. L. "Science and linguistics" in *Technology Review*, 42, 229-231. 1940.
+[^3]: Webster, Anthony K., "Why the World Doesn’t Sound the Same in Any Language and Why that Might Matter: A Review of The Language Hoax: Why the World Looks the Same in Any Language" *Journal of Linguistic Anthropology*, Vol. 25, Issue 1, pp. 87–104.
+[^4]: *Conversations with Tyler*, [Episode 159](https://conversationswithtyler.com/episodes/vaughn-smith/)
+

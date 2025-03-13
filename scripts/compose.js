@@ -13,7 +13,7 @@ function generateFrontmatter(type, title) {
       frontmatter += 'tags: []\ncategory: "Uncategorized"\n';
       break;
     case 'quote':
-      frontmatter += 'author: ""\n';
+      frontmatter += 'author: ""\nquote: ""\n';
       break;
     case 'article':
       frontmatter += 'author: ""\ndescription: ""\ntags: []\n';

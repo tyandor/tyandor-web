@@ -91,7 +91,7 @@ export default function AboutPage() {
           My logo - &and;&or; - is a symbolic form of my last name. It combines two of the symbols used in formal logic for conjunction (and) and disjunction (or).
         </p>
         <p>
-          This site is built using Next.js/React and Tailwind. The theme is based on one of my favorite colorschemes for editing code, <a href="https://rosepinetheme.com/" target="_blank">Rose Pine</a>.
+          This site is built using <a href="https://nextjs.org/" target="_blank">Next.js/React</a> and <a href="https://tailwindcss.com/" target="_blank">Tailwind</a>. The theme is based on one of my favorite colorschemes for editing code, <a href="https://rosepinetheme.com/" target="_blank">Rose Pine</a>.
         </p>
       </div>
     </div>

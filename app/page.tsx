@@ -157,7 +157,7 @@ export default function Home() {
       </div>
       <div className="max-w-6xl mx-auto">
         <div className="mt-12 mb-12">
-          <h2 className="text-2xl mb-4 font-bold text-rosePine-rose dark:text-rosePineMoon-rose">// recent tools</h2>
+          <h2 className="text-2xl mb-4 font-bold text-rosePine-rose dark:text-rosePineMoon-rose">// tools</h2>
           <div className="grid gap-6 md:grid-cols-2">
             {recentTools.map((tool) => (
               <AnimatedHomeToolCard
@@ -172,7 +172,7 @@ export default function Home() {
           </div>
         </div>
         <div className="mt-12">
-          <h2 className="text-2xl mb-4 font-bold text-rosePine-rose dark:text-rosePineMoon-rose">// recent designs</h2>
+          <h2 className="text-2xl mb-4 font-bold text-rosePine-rose dark:text-rosePineMoon-rose">// design</h2>
           <div className="grid gap-6 md:grid-cols-3">
             {recentDesigns.map((design) => (
               <AnimatedHomeDesignCard

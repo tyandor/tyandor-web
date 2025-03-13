@@ -7,7 +7,7 @@ import gsap from 'gsap'
 interface AnimatedQuoteProps {
   quote: string;
   author: string;
-  content: any; // Change this to 'any' to accept the MDX content
+  content: any; // set to 'any' to accept the MDX content
 }
 
 const AnimatedQuote: React.FC<AnimatedQuoteProps> = ({ quote, author, content }) => {
