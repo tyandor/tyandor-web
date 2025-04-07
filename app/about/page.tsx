@@ -53,16 +53,16 @@ export default function AboutPage() {
           About this website
         </h2>
         <p>
-          What I write and share here comes from a wide range of interests. I often have ideas, tools, and tips that will interest engineers and developers. Some will be useful to anyone. Primarily, though, I'm using this as a documentation system. The audience I most often have in mind is my future self. Also, much of the content here is in a draft state.
+          What I write and share here comes from a wide range of interests. I often have ideas, tools, and tips that will interest engineers and developers. Some will be useful to anyone. Primarily, though, I'm using this as a documentation system. The audience I most often have in mind is my future self. Also, much of the content here is in a draft state, so...
         </p>
         <p>
-          That said, I do occasionally write <a href="/articles">articles</a> with a more general audience in mind. If you happen to share some of my interests you might find other content here useful as well. If that's the case, this system is designed with ways to drill down into specific topics, and make connections among them.
+          That said, I do occasionally write <a href="/articles">articles</a> with a more general audience in mind. If you happen to share some of my interests you might find other content here useful as well. If that's the case, this system is designed with ways to drill down into specific topics and make connections among them. On most pages you'll find catgories and tags with links to related content.
         </p>
         <h2>
           Research interests
         </h2>
         <p>
-          Specific to software engineering, a few current areas of interests are
+          Some current areas of interests, specific to software engineering:
         </p>
         <ul>
           <li>Systems thinking</li>
@@ -72,7 +72,7 @@ export default function AboutPage() {
           <li>Artificial intelligence (of course)</li>
         </ul>
         <p>
-          In addition to my current professional interests in software engineering, I also publish content, albeit less frequently, on various topics philosophy. I was a university professor for many years before transitioning to tech, and continue to do research in several areas.
+          In addition to my current professional interests in software engineering, I also publish content, albeit less frequently, on various topics philosophy. I was a university professor for many years, and continue to do research in several areas:
         </p>
         <ul>
           <li>Philosophy of science</li>
