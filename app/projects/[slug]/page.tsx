@@ -5,6 +5,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc'
 import Link from 'next/link'
 import { Metadata } from 'next'
 import Image from 'next/image'
+import { CategoryTagDisplay } from '@/app/components/CategoryTagDisplay'
 
 export async function generateStaticParams() {
   const projectsDirectory = path.join(process.cwd(), 'projects')
@@ -70,6 +71,11 @@ export default async function Project({ params }: { params: { slug: string } }) 
         <span className="mx-2">|</span>
         <span className="font-semibold">Technologies:</span> {data.technologies.join(', ')}
       </div>
+      <CategoryTagDisplay 
+        categories={data.categories} 
+        tags={data.tags} 
+        className="mb-6" 
+      />
       <div className="prose max-w-none">
         <MDXRemote source={content} />
       </div>

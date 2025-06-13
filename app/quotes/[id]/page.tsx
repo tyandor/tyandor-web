@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { Metadata } from 'next'
 import { compareDesc } from 'date-fns'
 import dynamic from 'next/dynamic'
+import { CategoryTagDisplay } from '@/app/components/CategoryTagDisplay'
 
 const AnimatedQuote = dynamic(() => import('../../components/AnimatedQuote'), { ssr: false })
 
@@ -84,6 +85,11 @@ export default async function Quote({ params }: { params: { id: string } }) {
 
   return (
     <div className="max-w-5xl mx-auto p-4">
+      <CategoryTagDisplay 
+        categories={data.categories} 
+        tags={data.tags} 
+        className="justify-center mb-6" 
+      />
       <AnimatedQuote
         key={params.id}
         quote={data.quote}

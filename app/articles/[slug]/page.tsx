@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { Metadata } from 'next'
 import { compareDesc } from 'date-fns'
 import { Counter } from '@/app/components/Counter'
+import { CategoryTagDisplay } from '@/app/components/CategoryTagDisplay'
 
 export async function generateStaticParams() {
   const articlesDirectory = path.join(process.cwd(), 'articles')
@@ -91,6 +92,11 @@ export default async function Article({ params }: { params: { slug: string } }) 
       <div className="text-center">
         <h1 className="text-7xl font-bold mb-4">{data.title}</h1>
         <p className="text-gray-500 mb-2">Published {new Date(data.date).toLocaleDateString()}</p>
+        <CategoryTagDisplay 
+          categories={data.categories} 
+          tags={data.tags} 
+          className="justify-center mb-4" 
+        />
         <p className="text-2xl mt-8 text-rosePineMoon-muted dark:text-rosePine-muted">&sect;</p>
       </div>
       <div className="max-w-4xl mx-auto p-4">

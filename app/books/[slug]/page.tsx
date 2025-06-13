@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { Metadata } from 'next'
 import Image from 'next/image'
 import { compareDesc } from 'date-fns'
+import { CategoryTagDisplay } from '@/app/components/CategoryTagDisplay'
 
 interface Book {
   slug: string;
@@ -108,6 +109,11 @@ export default async function Book({ params }: { params: { slug: string } }) {
         <span className="mx-2">|</span>
         <span className="font-semibold">Rating:</span> {data.rating}/5
       </div>
+      <CategoryTagDisplay 
+        categories={data.categories} 
+        tags={data.tags} 
+        className="mb-6" 
+      />
       <div className="prose max-w-none">
         <MDXRemote source={content} />
       </div>

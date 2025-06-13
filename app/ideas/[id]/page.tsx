@@ -5,6 +5,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc'
 import Link from 'next/link'
 import { Metadata } from 'next'
 import { compareDesc } from 'date-fns'
+import { CategoryTagDisplay } from '@/app/components/CategoryTagDisplay'
 
 interface Idea {
   id: string;
@@ -83,6 +84,11 @@ export default async function Idea({ params }: { params: { id: string } }) {
     <div className="max-w-2xl mx-auto p-4">
       <h1 className="text-3xl font-bold mb-4">{data.title}</h1>
       <p className="text-gray-600 italic mb-6">{data.summary}</p>
+      <CategoryTagDisplay 
+        categories={data.categories} 
+        tags={data.tags} 
+        className="mb-6" 
+      />
       <div className="prose max-w-none">
         <MDXRemote source={content} />
       </div>
