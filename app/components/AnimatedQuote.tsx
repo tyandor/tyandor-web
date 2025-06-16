@@ -31,8 +31,8 @@ const AnimatedQuote: React.FC<AnimatedQuoteProps> = ({ quote, author, content })
   }, [quote, author, content]) // Re-run the animation when these props change
 
   return (
-    <div className="mb-16">
-      <blockquote ref={quoteRef} className="text-4xl leading-10 font-serif font-semibold italic mt-8">
+    <div className="mb-16" style={{minHeight:500}}>
+      <blockquote ref={quoteRef} className="text-4xl leading-10 leading-[1.5] font-serif font-semibold italic mt-8">
         {quote}
       </blockquote>
       <p ref={authorRef} className="text-right text-rosePine-muted mb-12 mt-8">{author}</p>
