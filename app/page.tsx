@@ -134,8 +134,8 @@ export default function Home() {
   return (
     <>
       <div className="max-w-4xl mx-auto">
-        <div className="grid grid-cols-1 gap-4 mb-12 articles-section"> {/* Added articles-section class */}
-          <h2 className="text-2xl mb-0 font-bold text-rosePine-rose dark:text-rosePineMoon-rose">// articles</h2>
+        <div className="grid grid-cols-1 gap-4 my-10 articles-section">
+          <h2 className="text-2xl mb-2 font-bold font-mono text-rosePine-rose dark:text-rosePineMoon-rose">// articles</h2>
           {recentArticles.map((article) => (
             <AnimatedHomeArticleCard
               key={article.slug}
@@ -146,7 +146,7 @@ export default function Home() {
           ))}
         </div>
       </div>
-      <div className="max-w-7xl py-8 mx-auto">
+      <div className="max-w-7xl py-4 mx-auto">
         {randomQuote && (
           <AnimatedHomeQuote
             quote={randomQuote.quote}
@@ -156,8 +156,8 @@ export default function Home() {
         )}
       </div>
       <div className="max-w-6xl mx-auto">
-        <div className="mt-12 mb-12">
-          <h2 className="text-2xl mb-4 font-bold text-rosePine-rose dark:text-rosePineMoon-rose">// tools</h2>
+        <div className="mt-4 mb-12">
+          <h2 className="text-2xl mb-4 font-bold font-mono text-rosePine-rose dark:text-rosePineMoon-rose">// tools</h2>
           <div className="grid gap-6 md:grid-cols-2">
             {recentTools.map((tool) => (
               <AnimatedHomeToolCard
@@ -171,8 +171,8 @@ export default function Home() {
             ))}
           </div>
         </div>
-        <div className="mt-12">
-          <h2 className="text-2xl mb-4 font-bold text-rosePine-rose dark:text-rosePineMoon-rose">// design</h2>
+        <div className="my-10">
+          <h2 className="text-2xl mb-4 font-bold font-mono text-rosePine-rose dark:text-rosePineMoon-rose">// design</h2>
           <div className="grid gap-6 md:grid-cols-3">
             {recentDesigns.map((design) => (
               <AnimatedHomeDesignCard

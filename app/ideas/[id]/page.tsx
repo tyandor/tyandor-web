@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { Metadata } from 'next'
 import { compareDesc } from 'date-fns'
 import { CategoryTagDisplay } from '@/app/components/CategoryTagDisplay'
+import ContentNavigation from '@/components/ContentNavigation'
 
 interface Idea {
   id: string;
@@ -77,38 +78,27 @@ export default async function Idea({ params }: { params: { id: string } }) {
   const fullPath = path.join(process.cwd(), 'ideas', `${params.id}.mdx`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
   const { data, content } = matter(fileContents)
-
   const { prev, next } = getAdjacentIdeas(params.id)
 
   return (
     <div className="max-w-2xl mx-auto p-4">
       <h1 className="text-3xl font-bold mb-4">{data.title}</h1>
       <p className="text-gray-600 italic mb-6">{data.summary}</p>
+      <div className="prose max-w-none">
+        <MDXRemote source={content} />
+      </div>
       <CategoryTagDisplay 
         categories={data.categories} 
         tags={data.tags} 
         className="mb-6" 
       />
-      <div className="prose max-w-none">
-        <MDXRemote source={content} />
-      </div>
-      <div className="mt-8">
-        <Link href="/ideas" className="text-blue-500 hover:underline">
-          ← Back to all ideas
-        </Link>
-      </div>
-      <div className="mt-8 flex justify-between">
-      {prev && (
-        <Link href={`/ideas/${prev.id}`} className="text-rosePine-foam dark:text-rosePineDawn-foam hover:text-rosePine-pine dark:hover:text-rosePineDawn-pine transition-colors">
-          ← {prev.title}
-        </Link>
-      )}
-      {next && (
-        <Link href={`/ideas/${next.id}`} className="text-rosePine-foam dark:text-rosePineDawn-foam hover:text-rosePine-pine dark:hover:text-rosePineDawn-pine transition-colors">
-          {next.title} →
-        </Link>
-      )}
-    </div>
+      <ContentNavigation
+        currentSlug={params.id}
+        contentType="ideas"
+        contentDirectory="ideas"
+        allContentHref="/ideas"
+        allContentLabel="All Ideas"
+      />
     </div>
   )
 }

@@ -43,22 +43,14 @@ const AnimatedArticleCard: React.FC<AnimatedArticleCardProps> = ({ slug, title, 
   }, [])
 
   return (
-    <div
-      ref={cardRef}
-      className="bg-rosePine-surface dark:bg-rosePineMoon-surface shadow-md rounded-lg overflow-hidden border border-rosePine-highlightLow dark:border-rosePineMoon-highlightLow"
-    >
-      <div className="p-6">
-        <Link href={`/articles/${slug}`} className="text-2xl font-bold text-rosePine-text dark:text-rosePineMoon-gold hover:text-rosePine-rose dark:hover:text-rosePineMoon-rose transition-colors mb-2 block">
-          {title}
-        </Link>
-        <p className="text-rosePine-text dark:text-rosePineMoon-text mb-4">
+    <Link href={`/articles/${slug}`}>
+      <div className="w-full my-8 px-6 py-8 border rounded-lg hover:shadow-lg transition-shadow bg-rosePine-surface dark:bg-rosePineMoon-surface">
+        <h2 className="text-lg font-bold font-mono">{title}</h2>
+        <p className="text-sm text-rosePine-text dark:text-rosePineMoon-text">
           {description}
         </p>
-        <Link href={`/articles/${slug}`} className="mt-4 inline-block text-rosePine-foam dark:text-rosePineMoon-foam hover:text-rosePine-pine dark:hover:text-rosePineMoon-pine transition-colors">
-          Read more
-        </Link>
       </div>
-    </div>
+    </Link>
   )
 }
 

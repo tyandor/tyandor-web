@@ -51,7 +51,7 @@ const AnimatedHomeQuote: React.FC<AnimatedHomeQuoteProps> = ({ quote, author, sl
   }, [])
 
   return (
-    <div ref={quoteRef} className="my-16 p-4 opacity-0"> {/* Add opacity-0 to hide it initially */}
+    <div ref={quoteRef} className="my-8 p-4 opacity-0"> {/* Add opacity-0 to hide it initially */}
       <blockquote className="text-4xl italic font-bold font-serif text-rosePine-text dark:text-rosePineMoon-text">
         "{quote}"
         <footer>
@@ -61,8 +61,8 @@ const AnimatedHomeQuote: React.FC<AnimatedHomeQuoteProps> = ({ quote, author, sl
         </footer>
       </blockquote>
       <div className="my-8 text-center">
-        <Link href="/quotes" className="mt-4 inline-block text-rosePine-foam dark:text-rosePineMoon-foam hover:text-rosePine-pine dark:hover:text-rosePineMoon-pine transition-colors">
-          More quotes
+        <Link href="/quotes" className="mt-4 inline-block text-rosePine-love dark:text-rosePineMoon-text hover:text-rosePine-pine dark:hover:text-rosePineMoon-pine transition-colors">
+          <span className="text-2xl">&#10077;</span> Quotes 
         </Link>
       </div>
     </div>

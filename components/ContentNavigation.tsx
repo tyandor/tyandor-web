@@ -57,11 +57,11 @@ export default function ContentNavigation({
 
   return (
     <div className="max-w-6xl mx-auto text-center p-4">
-      <div className="my-12 inline-flex rounded-md shadow-2xl" role="group">
+      <div className="mt-12 inline-flex rounded-md" role="group">
         {prev ? (
           <div className="px-8 py-4 text-lg text-gray-900 rounded-s-lg focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:text-white dark:focus:ring-blue-500 dark:focus:text-white">
             <Link href={`/${contentType}/${prev.slug}`} className="text-rosePine-foam dark:text-rosePineMoon-foam dark:hover:text-rosePineMoon-pine transition-colors">
-              ← {prev.title}
+              <span className="text-xl">&#8606;</span> {prev.title}
             </Link>
           </div>
         ) : (
@@ -77,7 +77,7 @@ export default function ContentNavigation({
         {next ? (
           <div className="px-8 py-4 text-lg text-gray-900 rounded-e-lg focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:text-white dark:focus:ring-blue-500 dark:focus:text-white">
             <Link href={`/${contentType}/${next.slug}`} className="text-rosePine-foam dark:text-rosePineMoon-foam dark:hover:text-rosePineMoon-pine transition-colors">
-              {next.title} →
+              {next.title} <span className="text-xl">&#8608;</span>
             </Link>
           </div>
         ) : (
