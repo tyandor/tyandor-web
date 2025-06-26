@@ -8,7 +8,7 @@ function generateFrontmatter(type, answers) {
   const date = new Date().toISOString().split("T")[0]
   let frontmatter = `---
     title: "${answers.title}"
-    author: "Tyler Andor"
+    author: "${answers.author}"
     date: "${date}"
     categories: ${JSON.stringify(answers.categories)}
     tags: ${JSON.stringify(answers.tags)}
@@ -19,10 +19,10 @@ function generateFrontmatter(type, answers) {
       frontmatter += `description: "${answers.description}"\n`
       break
     case "quote":
-      frontmatter += `author: "${answers.author}"\n`
+      frontmatter += `quote: "${answers.quote}"\n`
       break
     case "article":
-      frontmatter += `author: "${answers.author}"\ndescription: "${answers.description}"\n`
+      frontmatter += `description: "${answers.description}"\n`
       break
     case "idea":
       frontmatter += `summary: "${answers.summary}"\n`

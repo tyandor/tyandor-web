@@ -10,6 +10,7 @@ node_modules/
 .DS_Store
 
 # Local environment files
+.env
 .env*.local
 
 # Vercel
