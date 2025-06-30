@@ -49,7 +49,6 @@ const components = {
   Counter: Counter, //Updated as per update 2
 }
 
-
 export default async function Article({ params }: { params: { slug: string } }) {
   const fullPath = path.join(process.cwd(), 'articles', `${params.slug}.mdx`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
@@ -58,8 +57,13 @@ export default async function Article({ params }: { params: { slug: string } }) 
   return (
     <article className="mt-14">
       <div className="text-center">
-        <h1 className="text-8xl font-bold mb-4">{data.title}</h1>
-        <p className="text-gray-500 mt-8 font-serif">Published {new Date(data.date).toLocaleDateString()}</p>
+        <h1 className="text-8xl font-bold font-mono leading-[1.4] mb-4">{data.title}</h1>
+        <p className="text-gray-500 mt-8 font-serif">
+          Published {new Date(data.date).toLocaleDateString()} | Updated &nbsp;
+          {data.updated ?? (
+            <span> {new Date(data.updated).toLocaleDateString()}</span>
+          )}
+        </p>
         <p className="text-2xl mt-6 text-rosePineMoon-muted dark:text-rosePine-muted">&sect;</p>
       </div>
       <div className="max-w-4xl mx-auto p-4">
