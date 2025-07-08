@@ -72,7 +72,7 @@ export default function AboutPage() {
           <li>Artificial intelligence (of course)</li>
         </ul>
         <p>
-          In addition to my current professional interests in software engineering, I also publish content, albeit less frequently, on various topics philosophy. I was a university professor for many years, and continue to do research in several areas:
+          In addition to my current professional interests in software engineering, I also publish content, albeit less frequently, on various topics in philosophy. I was a university professor for many years, and continue to do research in several areas:
         </p>
         <ul>
           <li>Philosophy of science</li>
