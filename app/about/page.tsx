@@ -69,7 +69,8 @@ export default function AboutPage() {
           <li>Complexity sciences</li>
           <li>Experimentation design</li>
           <li>Design thinking</li>
-          <li>Artificial intelligence (of course)</li>
+          <li>Natural language processing</li>
+          <li>AI (of course)</li>
         </ul>
         <p>
           In addition to my current professional interests in software engineering, I also publish content, albeit less frequently, on various topics in philosophy. I was a university professor for many years, and continue to do research in several areas:
@@ -78,10 +79,12 @@ export default function AboutPage() {
           <li>Philosophy of science</li>
           <li>Philosophy of mind</li>
           <li>Ordinary language philosophy</li>
-          <li>Natural language processing</li>
           <li>Linguistics and general semantics</li>
+          <li>Epistemology</li>
+          <li>Erotetics</li>
+          <li>Logic</li>
+          <li>Semiotics</li>
           <li>Category theory</li>
-          <li>Logic and philosophy of mathematics</li>
           <li>Mythology and storytelling</li>
           <li>Fantasy and science fiction literature</li>
           <li>Poetry and poetics</li>
