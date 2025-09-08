@@ -25,15 +25,17 @@ This is a Next.js 14 personal website built with the App Router architecture. Th
 - Content is processed server-side using `gray-matter` and `fs` for file system operations
 
 ### Styling & Theming
-- Uses Tailwind CSS with custom color scheme based on Rosé Pine theme
-- Custom color variables: `rosePine-*`, `rosePineDawn-*`, `rosePineMoon-*`
-- Dark/light theme support via `next-themes` with system preference detection
+- Uses Tailwind CSS with custom Rosé Pine color scheme implemented via CSS custom properties
+- Custom color variables: `--color-base`, `--color-surface`, `--color-text`, `--color-love`, etc. with utilities like `bg-rosePine-base`, `text-rosePine-text`
+- Dark/light theme support via `next-themes` with system preference detection and class-based theme switching
 - Shadcn/ui component library for UI primitives
+- Typography styling with `@tailwindcss/typography` for prose content
 
 ### Animation & Interactions
-- GSAP for scroll-triggered animations
+- GSAP for scroll-triggered animations loaded via external CDN scripts in layout
 - Dynamic imports for animated components to prevent SSR issues
 - Animated components follow naming pattern: `Animated*Card`, `Animated*Box`
+- Custom loading animation and theme provider wrapping
 
 ### Key Patterns
 - Server-side content processing in page components
@@ -43,10 +45,13 @@ This is a Next.js 14 personal website built with the App Router architecture. Th
 - SVG logo and icons stored in `/public`
 
 ### File Structure
-- `/app` - Next.js App Router pages and components
+- `/app` - Next.js App Router pages and components with app-level components in `/app/components`
 - `/components/ui` - Shadcn/ui reusable components
+- `/components` - Global reusable components (ContentNavigation, etc.)
 - `/lib/utils.ts` - Utility functions (cn for className merging)
-- `/scripts` - Content creation automation tools
+- `/lib/integrations` - API integration clients (Instapaper, Snipd)
+- `/scripts` - Content creation automation tools (Node.js and Python versions)
+- `/hooks` - Custom React hooks
 - Content directories at root level contain `.mdx` files with frontmatter
 
 ### Content Types Schema
