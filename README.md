@@ -6,14 +6,14 @@ A Next.js 14 personal website built with the App Router architecture, featuring 
 
 ### Prerequisites
 - Node.js 18+ 
-- npm or yarn
+- bun
 
 ### Installation
 ```bash
 git clone <repository-url>
 cd tyandor-web
-npm install
-npm run dev
+bun install
+bun run dev
 ```
 
 Visit `http://localhost:3000` to see the site.
@@ -43,10 +43,10 @@ Visit `http://localhost:3000` to see the site.
 ## 🛠 Available Scripts
 
 ### Development
-- `npm run dev` - Start Next.js development server
-- `npm run build` - Build the application for production
-- `npm run start` - Start production server
-- `npm run lint` - Run ESLint
+- `bun run dev` - Start Next.js development server
+- `bun run build` - Build the application for production
+- `bun run start` - Start production server
+- `bun run lint` - Run ESLint
 
 ### Content Creation
 - `node scripts/compose.js` - Interactive CLI tool to create new MDX content files
