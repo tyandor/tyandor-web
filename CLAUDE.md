@@ -5,10 +5,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ### Development
-- `npm run dev` - Start Next.js development server
-- `npm run build` - Build the application for production
-- `npm run start` - Start production server
-- `npm run lint` - Run ESLint
+- `bun run dev` - Start Next.js development server
+- `bun run build` - Build the application for production
+- `bun run start` - Start production server
+- `bun run lint` - Run ESLint
 
 ### Content Creation
 - `node scripts/compose.js` - Interactive CLI tool to create new MDX content files
@@ -63,3 +63,20 @@ Each content type has specific frontmatter requirements as defined in the compos
 - Category pages: `/category/[category-name]` - shows all content with that category
 - Tag pages: `/tag/[tag-name]` - shows all content with that tag
 - `CategoryTagDisplay` component handles rendering with proper styling and navigation
+
+### Runtime
+- Project uses Bun as the package manager and runtime (not npm)
+- All package scripts use `bun run` instead of `npm run`
+- File system operations use Node.js `fs` module with server-side rendering
+
+### Authentication & Data
+- Supabase integration for authentication and database operations
+- Setup at `/setup-integrations` for API integrations (Instapaper, Snipd)
+- Environment variables required for external API integrations
+- Tech radar feature with user authentication at `/radar`
+
+### Configuration
+- Next.js 14 with App Router and MDX support via `@next/mdx`
+- Tailwind CSS with Shadcn/ui components and custom design system
+- SVG images allowed in Next.js config for logo/icon support
+- TypeScript throughout with strict configuration
