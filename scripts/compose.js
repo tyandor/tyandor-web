@@ -2,53 +2,66 @@ import fs from "fs/promises"
 import path from "path"
 import inquirer from "inquirer"
 
-const contentTypes = ["post", "quote", "article", "idea", "project", "tool", "design", "book"]
+const contentTypes = ["quote", "article", "idea", "project", "tool", "design", "book"]
 
 function generateFrontmatter(type, answers) {
   const date = new Date().toISOString().split("T")[0]
   let frontmatter = `---
     title: "${answers.title}"
-    author: "${answers.author}"
     date: "${date}"
-    categories: ${JSON.stringify(answers.categories)}
-    tags: ${JSON.stringify(answers.tags)}
+    updated: "${date}"
   `
 
   switch (type) {
-    case "post":
-      frontmatter += `description: "${answers.description}"\n`
-      break
     case "quote":
-      frontmatter += `quote: "${answers.quote}"\n`
+      frontmatter += `author: "${answers.author}"
+    quote: "${answers.quote}"
+    categories: ${JSON.stringify(answers.categories)}
+    tags: ${JSON.stringify(answers.tags)}
+`
       break
     case "article":
-      frontmatter += `description: "${answers.description}"\n`
+      frontmatter += `author: "${answers.author}"
+    description: "${answers.description}"
+    categories: ${JSON.stringify(answers.categories)}
+    tags: ${JSON.stringify(answers.tags)}
+`
       break
     case "idea":
-      frontmatter += `summary: "${answers.summary}"\n`
+      frontmatter += `author: "${answers.author}"
+    summary: "${answers.summary}"
+    categories: ${JSON.stringify(answers.categories)}
+    tags: ${JSON.stringify(answers.tags)}
+`
       break
     case "project":
       frontmatter += `description: "${answers.description}"
-        status: "${answers.status}"
-        technologies: ${JSON.stringify(answers.technologies)}
-        image: "${answers.image}"
-        link: "${answers.link}"\n`
+    status: "${answers.status}"
+    technologies: ${JSON.stringify(answers.technologies)}
+    image: "${answers.image}"
+    link: "${answers.link}"
+`
       break
     case "tool":
       frontmatter += `description: "${answers.description}"
-      image: "${answers.image}"
-      link: "${answers.link}"\n`
+    category: "${answers.category}"
+    image: "${answers.image}"
+    link: "${answers.link}"
+`
       break
     case "design":
       frontmatter += `description: "${answers.description}"
-      image: "${answers.image}"\n`
+    category: "${answers.category}"
+    image: "${answers.image}"
+`
       break
     case "book":
       frontmatter += `author: "${answers.author}"
-description: "${answers.description}"
-genre: "${answers.genre}"
-rating: ${answers.rating}
-image: "${answers.image}"\n`
+    description: "${answers.description}"
+    genre: "${answers.genre}"
+    rating: ${answers.rating}
+    image: "${answers.image}"
+`
       break
   }
 
@@ -97,34 +110,42 @@ async function promptForDetails(type) {
       message: `Enter the title for the new ${type}:`,
       validate: (input) => input.trim() !== "" || "Title cannot be empty",
     },
-    {
-      type: "input",
-      name: "categories",
-      message: "Enter categories (comma-separated):",
-      filter: (input) =>
-        input
-          .split(",")
-          .map((item) => item.trim())
-          .filter(Boolean),
-    },
-    {
-      type: "input",
-      name: "tags",
-      message: "Enter tags (comma-separated):",
-      filter: (input) =>
-        input
-          .split(",")
-          .map((item) => item.trim())
-          .filter(Boolean),
-    },
   ]
 
+  if (["quote", "article", "idea"].includes(type)) {
+    questions.push(
+      {
+        type: "input",
+        name: "author",
+        message: "Enter the author name:",
+        default: "Tyler Andor",
+      },
+      {
+        type: "input",
+        name: "categories",
+        message: "Enter categories (comma-separated):",
+        filter: (input) =>
+          input
+            .split(",")
+            .map((item) => item.trim())
+            .filter(Boolean),
+      },
+      {
+        type: "input",
+        name: "tags",
+        message: "Enter tags (comma-separated):",
+        filter: (input) =>
+          input
+            .split(",")
+            .map((item) => item.trim())
+            .filter(Boolean),
+      },
+    )
+  }
+
   switch (type) {
-    case "post":
     case "article":
     case "project":
-    case "tool":
-    case "design":
     case "book":
       questions.push({
         type: "input",
@@ -141,11 +162,11 @@ async function promptForDetails(type) {
       break
   }
 
-  if (["quote", "article", "book"].includes(type)) {
+  if (type === "quote") {
     questions.push({
       type: "input",
-      name: "author",
-      message: "Enter the author name:",
+      name: "quote",
+      message: "Enter the quote:",
     })
   }
 
@@ -187,8 +208,28 @@ async function promptForDetails(type) {
     })
   }
 
+  if (["tool", "design"].includes(type)) {
+    questions.push(
+      {
+        type: "input",
+        name: "description",
+        message: "Enter a brief description:",
+      },
+      {
+        type: "input",
+        name: "category",
+        message: "Enter a category:",
+      },
+    )
+  }
+
   if (type === "book") {
     questions.push(
+      {
+        type: "input",
+        name: "author",
+        message: "Enter the author name:",
+      },
       {
         type: "input",
         name: "genre",
