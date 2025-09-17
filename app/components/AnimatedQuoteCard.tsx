@@ -47,7 +47,7 @@ const AnimatedQuoteCard: React.FC<AnimatedQuoteCardProps> = ({ id, quote, author
         className="w-full my-12 p-6 text-rosePine-text dark:text-rosePineMoon-text hover:text-rosePine-subtle transition-text"
       >
         <blockquote className="text-3xl leading-[1.5] font-semibold italic font-serif py-10">
-          "{quote}"
+          &ldquo;{quote}&rdquo;
         </blockquote>
         <p className="text-right text-rosePine-subtle dark:text-rosePineMoon-subtle">- {author}</p>
       </div>

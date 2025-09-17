@@ -11,7 +11,7 @@ interface AnimatedHomeQuoteProps {
   slug: string
 }
 
-const AnimatedHomeQuote: React.FC<AnimatedHomeQuoteProps> = ({ quote, author, slug }) => {
+const AnimatedHomeQuote: React.FC<AnimatedHomeQuoteProps> = ({ quote, author }) => {
   const quoteRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -53,7 +53,7 @@ const AnimatedHomeQuote: React.FC<AnimatedHomeQuoteProps> = ({ quote, author, sl
   return (
     <div ref={quoteRef} className="my-8 p-4 opacity-0"> {/* Add opacity-0 to hide it initially */}
       <blockquote className="text-4xl italic font-bold font-serif text-rosePine-text dark:text-rosePineMoon-text">
-        "{quote}"
+        &ldquo;{quote}&rdquo;
         <footer>
           <p className="mt-4 non-italic text-sm font-sans text-right text-rosePine-subtle dark:text-rosePineMoon-subtle">
             — {author}

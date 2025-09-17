@@ -13,7 +13,7 @@ interface AnimatedArticleCardProps {
   author: string
 }
 
-const AnimatedArticleCard: React.FC<AnimatedArticleCardProps> = ({ slug, title, description, date, author }) => {
+const AnimatedArticleCard: React.FC<AnimatedArticleCardProps> = ({ slug, title, description }) => {
   const cardRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {

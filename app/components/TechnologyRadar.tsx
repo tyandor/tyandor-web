@@ -29,7 +29,7 @@ const TechnologyRadar: React.FC<TechnologyRadarProps> = ({ technologies }) => {
 
     const angleScale = d3.scaleLinear().domain([0, quadrants.length]).range([0, 2 * Math.PI]);
     const radiusScale = d3.scaleLinear().domain([0, rings.length]).range([0, radius]);
-    const colorScale = d3.scaleOrdinal().domain(quadrants).range(['#56949f', '#286983', '#3e8fb0', '#31748f']);
+    const colorScale = d3.scaleOrdinal<string, string>().domain(quadrants).range(['#56949f', '#286983', '#3e8fb0', '#31748f']);
     const ringColors = ['var(--chart-1)', 'var(--chart-2)', 'var(--chart-3)', 'var(--chart-4)'];
 
     const svg = d3.select(svgRef.current)
