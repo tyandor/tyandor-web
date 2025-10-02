@@ -221,12 +221,22 @@ Visit `/setup-integrations` for a web interface to:
 
 ### Environment Variables
 ```bash
-# Required for integrations
+# Supabase
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
+
+# Instapaper Integration
 INSTAPAPER_CONSUMER_KEY=your_consumer_key
 INSTAPAPER_CONSUMER_SECRET=your_consumer_secret
 INSTAPAPER_TOKEN=your_oauth_token
 INSTAPAPER_TOKEN_SECRET=your_token_secret
+
+# Snipd Integration
 SNIPD_API_KEY=your_snipd_api_key
+
+# Technology Radar Sync
+CRON_SECRET=your_secret_token_for_cron_jobs
 
 # Optional
 NODE_ENV=production
