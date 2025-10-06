@@ -1,97 +1,78 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { InstapaperAuth } from '@/lib/integrations/instapaper-auth'
 
-// GET /api/auth/instapaper - Start OAuth flow
+// GET /api/auth/instapaper - Check if credentials exist and verify them
 export async function GET() {
   try {
     const auth = new InstapaperAuth()
-    const { token, tokenSecret, authUrl } = await auth.getRequestToken()
-    
-    // In production, store these in a secure session/database
-    // For now, we'll return them to be stored client-side temporarily
-    const response = NextResponse.json({ 
-      success: true, 
-      authUrl,
-      requestToken: token,
-      requestTokenSecret: tokenSecret 
+    const isValid = await auth.verifyCredentials()
+
+    return NextResponse.json({
+      success: true,
+      isAuthenticated: isValid,
+      message: isValid ? 'Instapaper is connected' : 'Instapaper is not connected or tokens are invalid'
     })
-    
-    // Set secure cookies for the request tokens
-    response.cookies.set('instapaper_request_token', token, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      maxAge: 900 // 15 minutes
-    })
-    
-    response.cookies.set('instapaper_request_token_secret', tokenSecret, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === 'production',
-      sameSite: 'lax',
-      maxAge: 900 // 15 minutes
-    })
-    
-    return response
   } catch (error) {
-    console.error('Instapaper OAuth error:', error)
-    return NextResponse.json({ 
-      success: false, 
-      error: 'Failed to initiate OAuth flow' 
+    console.error('Error checking Instapaper credentials:', error)
+    return NextResponse.json({
+      success: false,
+      error: 'Failed to check authentication status'
     }, { status: 500 })
   }
 }
 
-// POST /api/auth/instapaper - Complete OAuth flow
+// POST /api/auth/instapaper - Authenticate with username/password using xAuth
 export async function POST(request: NextRequest) {
   try {
-    const { oauth_verifier } = await request.json()
-    
-    if (!oauth_verifier) {
-      return NextResponse.json({ 
-        success: false, 
-        error: 'Missing oauth_verifier' 
+    const { username, password } = await request.json()
+
+    if (!username || !password) {
+      return NextResponse.json({
+        success: false,
+        error: 'Username and password are required'
       }, { status: 400 })
     }
-    
-    // Get request tokens from cookies
-    const requestToken = request.cookies.get('instapaper_request_token')?.value
-    const requestTokenSecret = request.cookies.get('instapaper_request_token_secret')?.value
-    
-    if (!requestToken || !requestTokenSecret) {
-      return NextResponse.json({ 
-        success: false, 
-        error: 'Missing request tokens' 
-      }, { status: 400 })
+
+    // Debug: Check environment variables
+    const consumerKey = process.env.INSTAPAPER_CONSUMER_KEY
+    const consumerSecret = process.env.INSTAPAPER_CONSUMER_SECRET
+
+    console.log('Environment check:', {
+      hasConsumerKey: !!consumerKey,
+      hasConsumerSecret: !!consumerSecret,
+      keyLength: consumerKey?.length,
+      secretLength: consumerSecret?.length
+    })
+
+    if (!consumerKey || !consumerSecret) {
+      return NextResponse.json({
+        success: false,
+        error: 'Missing INSTAPAPER_CONSUMER_KEY or INSTAPAPER_CONSUMER_SECRET in environment variables'
+      }, { status: 500 })
     }
-    
+
     const auth = new InstapaperAuth()
-    const { token, tokenSecret } = await auth.getAccessToken(
-      requestToken, 
-      requestTokenSecret, 
-      oauth_verifier
-    )
-    
+    const { token, tokenSecret } = await auth.getAccessTokenWithCredentials(username, password)
+
     // In production, store these securely for the user
     console.log('Access tokens obtained:', { token, tokenSecret })
     console.log('Add these to your .env.local:')
     console.log(`INSTAPAPER_TOKEN=${token}`)
     console.log(`INSTAPAPER_TOKEN_SECRET=${tokenSecret}`)
-    
-    const response = NextResponse.json({ 
-      success: true, 
-      message: 'Authentication successful! Check server logs for tokens.' 
+
+    return NextResponse.json({
+      success: true,
+      message: 'Authentication successful! Check server logs for tokens.',
+      tokens: {
+        token: token.substring(0, 8) + '...', // Only show partial token for security
+        tokenSecret: tokenSecret.substring(0, 8) + '...'
+      }
     })
-    
-    // Clear request token cookies
-    response.cookies.delete('instapaper_request_token')
-    response.cookies.delete('instapaper_request_token_secret')
-    
-    return response
   } catch (error) {
-    console.error('Instapaper OAuth completion error:', error)
-    return NextResponse.json({ 
-      success: false, 
-      error: 'Failed to complete OAuth flow' 
+    console.error('Instapaper xAuth error:', error)
+    return NextResponse.json({
+      success: false,
+      error: error instanceof Error ? error.message : 'Failed to authenticate with Instapaper'
     }, { status: 500 })
   }
 }

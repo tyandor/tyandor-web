@@ -77,10 +77,25 @@ export class InstapaperAuth {
     return `OAuth ${authHeader}`
   }
 
-  // Step 1: Get request token
-  public async getRequestToken(): Promise<{ token: string; tokenSecret: string; authUrl: string }> {
-    const url = 'https://www.instapaper.com/api/1/oauth/request_token'
-    const authHeader = this.generateAuthHeader('POST', url)
+  // xAuth: Direct username/password exchange for access tokens
+  public async getAccessTokenWithCredentials(username: string, password: string): Promise<{ token: string; tokenSecret: string }> {
+    const url = 'https://www.instapaper.com/api/1/oauth/access_token'
+    const xAuthParams = {
+      x_auth_username: username,
+      x_auth_password: password,
+      x_auth_mode: 'client_auth'
+    }
+
+    const authHeader = this.generateAuthHeader('POST', url, xAuthParams)
+
+    // Debug logging
+    console.log('xAuth request details:', {
+      url,
+      consumerKey: this.consumerKey,
+      hasConsumerSecret: !!this.consumerSecret,
+      authHeaderLength: authHeader.length,
+      authHeaderPreview: authHeader.substring(0, 100) + '...'
+    })
 
     const response = await fetch(url, {
       method: 'POST',
@@ -88,44 +103,55 @@ export class InstapaperAuth {
         'Authorization': authHeader,
         'Content-Type': 'application/x-www-form-urlencoded',
       },
+      body: new URLSearchParams(xAuthParams),
     })
+
+    console.log('Response status:', response.status, response.statusText)
+
+    if (!response.ok) {
+      const errorText = await response.text()
+      console.log('Error response body:', errorText)
+      throw new Error(`Instapaper authentication failed: ${response.status} ${response.statusText} - ${errorText}`)
+    }
 
     const responseText = await response.text()
     const params = new URLSearchParams(responseText)
-    
-    const token = params.get('oauth_token')!
-    const tokenSecret = params.get('oauth_token_secret')!
-    
+
+    const token = params.get('oauth_token')
+    const tokenSecret = params.get('oauth_token_secret')
+
+    if (!token || !tokenSecret) {
+      throw new Error('Invalid response from Instapaper: missing tokens')
+    }
+
     return {
       token,
-      tokenSecret,
-      authUrl: `https://www.instapaper.com/api/1/oauth/authorize?oauth_token=${token}`
+      tokenSecret
     }
   }
 
-  // Step 2: Exchange request token for access token
-  public async getAccessToken(requestToken: string, requestTokenSecret: string, verifier: string): Promise<{ token: string; tokenSecret: string }> {
-    this.token = requestToken
-    this.tokenSecret = requestTokenSecret
+  // Verify credentials with existing access tokens
+  public async verifyCredentials(): Promise<boolean> {
+    if (!this.token || !this.tokenSecret) {
+      return false
+    }
 
-    const url = 'https://www.instapaper.com/api/1/oauth/access_token'
-    const authHeader = this.generateAuthHeader('POST', url, { oauth_verifier: verifier })
+    try {
+      const url = 'https://www.instapaper.com/api/1/account/verify_credentials'
+      const authHeader = this.generateAuthHeader('POST', url)
 
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Authorization': authHeader,
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-      body: new URLSearchParams({ oauth_verifier: verifier }),
-    })
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Authorization': authHeader,
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      })
 
-    const responseText = await response.text()
-    const params = new URLSearchParams(responseText)
-    
-    return {
-      token: params.get('oauth_token')!,
-      tokenSecret: params.get('oauth_token_secret')!
+      return response.ok
+    } catch (error) {
+      console.error('Error verifying Instapaper credentials:', error)
+      return false
     }
   }
 }
