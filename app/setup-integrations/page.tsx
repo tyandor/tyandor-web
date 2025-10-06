@@ -133,18 +133,7 @@ INSTAPAPER_CONSUMER_SECRET=your_secret`}
             </div>
 
             <div className="space-y-2">
-              <Label>Step 3: Check Connection</Label>
-              <Button
-                onClick={checkInstapaperStatus}
-                variant="outline"
-                className="w-full"
-              >
-                Check Connection Status
-              </Button>
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="instapaper-username">Step 4: Enter Credentials</Label>
+              <Label htmlFor="instapaper-username">Step 3: Enter Credentials</Label>
               <Input
                 id="instapaper-username"
                 type="text"
@@ -181,6 +170,17 @@ INSTAPAPER_CONSUMER_SECRET=your_secret`}
             >
               {instapaperStatus === 'loading' ? 'Authenticating...' : 'Get Access Tokens'}
             </Button>
+
+            <div className="space-y-2">
+              <Label>Step 4: Test Connection</Label>
+              <Button
+                onClick={checkInstapaperStatus}
+                variant="outline"
+                className="w-full"
+              >
+                Check Connection Status
+              </Button>
+            </div>
           </CardContent>
         </Card>
 
