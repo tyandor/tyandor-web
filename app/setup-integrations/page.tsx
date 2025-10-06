@@ -119,7 +119,7 @@ export default function SetupIntegrationsPage() {
               </p>
               <div className="bg-yellow-50 p-3 rounded border-l-4 border-yellow-400">
                 <p className="text-sm text-yellow-800">
-                  <strong>Important:</strong> When requesting your tokens, you must specifically ask for <strong>xAuth access</strong> in your application description. Standard OAuth apps won't work for this integration.
+                  <strong>Important:</strong> When requesting your tokens, you must specifically ask for <strong>xAuth access</strong> in your application description. Standard OAuth apps won&apos;t work for this integration.
                 </p>
               </div>
             </div>
@@ -156,8 +156,8 @@ INSTAPAPER_CONSUMER_SECRET=your_secret`}
                   <strong>Getting 403 Forbidden?</strong> This usually means:
                 </p>
                 <ul className="text-xs text-red-700 mt-1 list-disc list-inside">
-                  <li>Your consumer tokens haven't been approved yet</li>
-                  <li>xAuth wasn't requested/enabled for your app</li>
+                  <li>Your consumer tokens haven&apos;t been approved yet</li>
+                  <li>xAuth wasn&apos;t requested/enabled for your app</li>
                   <li>Check the server console for more debug information</li>
                 </ul>
               </div>
