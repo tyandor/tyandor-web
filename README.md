@@ -2,7 +2,7 @@
 
 A Next.js 14 personal website built with the App Router architecture, featuring content management for articles, quotes, ideas, projects, tools, designs, and books, plus integrations with Instapaper and Snipd.
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 - Node.js 18+ 
@@ -18,7 +18,7 @@ bun run dev
 
 Visit `http://localhost:3000` to see the site.
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 ├── app/                    # Next.js App Router pages
@@ -40,7 +40,7 @@ Visit `http://localhost:3000` to see the site.
 └── scripts/              # Content creation tools
 ```
 
-## 🛠 Available Scripts
+## Available Scripts
 
 ### Development
 - `bun run dev` - Start Next.js development server
@@ -52,7 +52,7 @@ Visit `http://localhost:3000` to see the site.
 - `node scripts/compose.js` - Interactive CLI tool to create new MDX content files
 - `python scripts/compose.py` - Alternative Python/Textual-based content creator
 
-## 📝 Content Management
+## Content Management
 
 Content is stored as MDX files with frontmatter in type-specific directories:
 
@@ -75,7 +75,7 @@ All content types support:
 
 Additional fields vary by content type (description, image, link, status, technologies, etc.).
 
-## 🔌 API Integrations
+## API Integrations
 
 ### Instapaper Integration
 Sync and display your Instapaper bookmarks.

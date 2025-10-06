@@ -74,18 +74,26 @@ const TechnologyRadar: React.FC<TechnologyRadarProps> = ({ technologies }) => {
       .attr('y2', (d, i) => Math.sin(angleScale(i) - Math.PI / 4) * radius)
       .style('stroke', 'hsl(var(--border))');
 
-    // Quadrant labels
+    // Quadrant labels - positioned at corners
+    const quadrantPositions = [
+      { x: radius - 10, y: -radius + 20, anchor: 'end' },      // Top-right
+      { x: radius - 10, y: radius - 10, anchor: 'end' },       // Bottom-right
+      { x: -radius + 10, y: radius - 10, anchor: 'start' },    // Bottom-left
+      { x: -radius + 10, y: -radius + 20, anchor: 'start' }    // Top-left
+    ];
+
     g.selectAll('.quadrant-label')
       .data(quadrants)
       .enter()
       .append('text')
       .attr('class', 'quadrant-label')
-      .attr('x', (d, i) => Math.cos(angleScale(i) - Math.PI / 4) * (radius + 25))
-      .attr('y', (d, i) => Math.sin(angleScale(i) - Math.PI / 4) * (radius + 25))
-      .attr('text-anchor', 'middle')
-      .style('fill', 'hsl(var(--foreground))')
-      .style('font-weight', 'bold')
-      .text(d => d);
+      .attr('x', (d, i) => quadrantPositions[i].x)
+      .attr('y', (d, i) => quadrantPositions[i].y)
+      .attr('text-anchor', (d, i) => quadrantPositions[i].anchor)
+      .style('fill', 'hsl(var(--muted-foreground))')
+      .style('font-weight', 'normal')
+      .style('font-size', '11px')
+      .text(d => d.toUpperCase());
 
     const tooltip = d3.select(tooltipRef.current);
     const container = containerRef.current;
