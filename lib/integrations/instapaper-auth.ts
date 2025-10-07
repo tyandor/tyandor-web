@@ -55,7 +55,8 @@ export class InstapaperAuth {
       x_auth_mode: 'client_auth'
     }
 
-    const authHeader = this.generateAuthHeader('POST', url, xAuthParams)
+    // Generate auth header without xAuth params - they should NOT be included in the signature
+    const authHeader = this.generateAuthHeader('POST', url)
 
     // Debug logging
     console.log('xAuth request details:', {
