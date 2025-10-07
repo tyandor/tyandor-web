@@ -1,7 +1,0 @@
-curl --request POST 'https://www.instapaper.com/api/1/oauth/access_token' \
---header 'Content-Type: application/x-www-form-urlencoded' \
---header 'Authorization: OAuth oauth_consumer_key="YOUR_CONSUMER_KEY",oauth_token="YOUR_REQUEST_TOKEN",oauth_signature_method="HMAC-SHA1",oauth_timestamp="1731696000",oauth_nonce="YOUR_NONCE",oauth_version="1.0",oauth_verifier="YOUR_VERIFIER",oauth_signature="YOUR_SIGNATURE"' \
---data-urlencode 'x_auth_username=tyandor@tyandor.com' \
---data-urlencode 'x_auth_password=5gqv2r3mCwpNlKEdT' \
---data-urlencode 'x_auth_mode=client_auth'
-
