@@ -1,49 +1,108 @@
-import OAuth from 'oauth-1.0a'
 import crypto from 'crypto'
+
+interface OAuthParams {
+  oauth_consumer_key: string
+  oauth_nonce: string
+  oauth_signature_method: string
+  oauth_timestamp: string
+  oauth_version: string
+  oauth_token?: string
+  [key: string]: string | undefined
+}
 
 export class InstapaperAuth {
   private consumerKey: string
   private consumerSecret: string
   private token?: string
   private tokenSecret?: string
-  private oauth: OAuth
 
   constructor() {
     this.consumerKey = process.env.INSTAPAPER_CONSUMER_KEY!
     this.consumerSecret = process.env.INSTAPAPER_CONSUMER_SECRET!
     this.token = process.env.INSTAPAPER_TOKEN
     this.tokenSecret = process.env.INSTAPAPER_TOKEN_SECRET
+  }
 
-    // Initialize OAuth 1.0a client
-    this.oauth = new OAuth({
-      consumer: {
-        key: this.consumerKey,
-        secret: this.consumerSecret,
-      },
-      signature_method: 'HMAC-SHA1',
-      hash_function(base_string, key) {
-        return crypto
-          .createHmac('sha1', key)
-          .update(base_string)
-          .digest('base64')
-      },
+  private percentEncode(str: string): string {
+    return encodeURIComponent(str)
+      .replace(/!/g, '%21')
+      .replace(/\*/g, '%2A')
+      .replace(/'/g, '%27')
+      .replace(/\(/g, '%28')
+      .replace(/\)/g, '%29')
+  }
+
+  private generateNonce(): string {
+    return crypto.randomBytes(16).toString('hex')
+  }
+
+  private generateTimestamp(): string {
+    return Math.floor(Date.now() / 1000).toString()
+  }
+
+  private createSignatureBaseString(method: string, url: string, params: OAuthParams): string {
+    // Sort parameters alphabetically by key
+    const sortedParams = Object.entries(params)
+      .filter(([_, value]) => value !== undefined)
+      .sort(([a], [b]) => a.localeCompare(b))
+      .map(([key, value]) => `${this.percentEncode(key)}=${this.percentEncode(value!)}`)
+      .join('&')
+
+    const signatureBaseString = [
+      method.toUpperCase(),
+      this.percentEncode(url),
+      this.percentEncode(sortedParams)
+    ].join('&')
+
+    return signatureBaseString
+  }
+
+  private generateSignature(method: string, url: string, params: OAuthParams): string {
+    const signatureBaseString = this.createSignatureBaseString(method, url, params)
+    const signingKey = `${this.percentEncode(this.consumerSecret)}&${this.percentEncode(this.tokenSecret || '')}`
+
+    console.log('Signature Debug:', {
+      signatureBaseString,
+      signingKeyPreview: signingKey.substring(0, 20) + '...'
     })
+
+    const signature = crypto
+      .createHmac('sha1', signingKey)
+      .update(signatureBaseString)
+      .digest('base64')
+
+    return signature
   }
 
   public generateAuthHeader(method: string, url: string, additionalParams: Record<string, string> = {}): string {
-    const requestData = {
-      url,
-      method,
-      data: additionalParams,
+    const oauthParams: OAuthParams = {
+      oauth_consumer_key: this.consumerKey,
+      oauth_nonce: this.generateNonce(),
+      oauth_signature_method: 'HMAC-SHA1',
+      oauth_timestamp: this.generateTimestamp(),
+      oauth_version: '1.0',
     }
 
-    const token = this.token ? {
-      key: this.token,
-      secret: this.tokenSecret || '',
-    } : undefined
+    if (this.token) {
+      oauthParams.oauth_token = this.token
+    }
 
-    const authHeader = this.oauth.toHeader(this.oauth.authorize(requestData, token))
-    return authHeader.Authorization
+    // Merge OAuth params with additional params for signature calculation
+    const allParams = { ...oauthParams, ...additionalParams }
+    const signature = this.generateSignature(method, url, allParams)
+
+    // Build Authorization header with OAuth params only
+    const authParams: Record<string, string> = {
+      ...oauthParams,
+      oauth_signature: signature
+    }
+
+    const authHeader = Object.entries(authParams)
+      .filter(([_, value]) => value !== undefined)
+      .map(([key, value]) => `${key}="${this.percentEncode(value)}"`)
+      .join(', ')
+
+    return `OAuth ${authHeader}`
   }
 
   // xAuth: Direct username/password exchange for access tokens
@@ -55,16 +114,15 @@ export class InstapaperAuth {
       x_auth_mode: 'client_auth'
     }
 
-    // Generate auth header without xAuth params - they should NOT be included in the signature
+    // Generate OAuth authorization header WITHOUT xAuth params in signature
+    // xAuth params are only sent in the body, not used for signature calculation
     const authHeader = this.generateAuthHeader('POST', url)
 
-    // Debug logging
-    console.log('xAuth request details:', {
+    console.log('xAuth Request:', {
       url,
-      consumerKey: this.consumerKey,
-      hasConsumerSecret: !!this.consumerSecret,
-      authHeaderLength: authHeader.length,
-      authHeaderPreview: authHeader.substring(0, 100) + '...'
+      method: 'POST',
+      authHeader,
+      consumerKey: this.consumerKey
     })
 
     const response = await fetch(url, {
