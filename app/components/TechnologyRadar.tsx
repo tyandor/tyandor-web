@@ -55,11 +55,11 @@ const TechnologyRadar: React.FC<TechnologyRadarProps> = ({ technologies }) => {
       .enter()
       .append('text')
       .attr('class', 'ring-label')
-      .attr('y', (d, i) => -radiusScale(i + 1) - 5)
+      .attr('y', (d, i) => -radiusScale(i + 1) + 25)
       .attr('text-anchor', 'middle')
       .style('fill', 'hsl(var(--muted-foreground))')
       .style('font-weight', 'normal')
-      .style('font-size', 'small')
+      .style('font-size', '10px')
       .text(d => d.toUpperCase());
 
     // Draw quadrant lines
@@ -91,8 +91,8 @@ const TechnologyRadar: React.FC<TechnologyRadarProps> = ({ technologies }) => {
       .attr('y', (d, i) => quadrantPositions[i].y)
       .attr('text-anchor', (d, i) => quadrantPositions[i].anchor)
       .style('fill', 'hsl(var(--muted-foreground))')
-      .style('font-weight', 'normal')
-      .style('font-size', '11px')
+      .style('font-weight', 'bold')
+      .style('font-size', '12px')
       .text(d => d.toUpperCase());
 
     const tooltip = d3.select(tooltipRef.current);
@@ -149,10 +149,10 @@ const TechnologyRadar: React.FC<TechnologyRadarProps> = ({ technologies }) => {
       });
 
     blips.append('circle')
-      .attr('r', 6)
+      .attr('r', 5)
       .style('fill', d => colorScale(d.quadrant))
       .style('stroke', 'hsl(var(--background))')
-      .style('stroke-width', 2)
+      .style('stroke-width', 1)
       .on('mouseover', (event, d) => showTooltip(event, d))
       .on('mousemove', (event) => moveTooltip(event))
       .on('mouseout', () => hideTooltip());
@@ -161,6 +161,7 @@ const TechnologyRadar: React.FC<TechnologyRadarProps> = ({ technologies }) => {
       .attr('dy', '0.35em')
       .attr('x', 10)
       .style('fill', 'hsl(var(--foreground))')
+      .style('font-size', '12px')
       .text(d => d.name);
 
   }, [technologies]);

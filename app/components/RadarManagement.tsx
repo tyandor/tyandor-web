@@ -120,7 +120,7 @@ export default function RadarManagement({ technologies, history, onDataChange }:
                     <AlertDialogTrigger asChild>
                       <Button variant="destructive" size="sm">Delete</Button>
                     </AlertDialogTrigger>
-                    <AlertDialogContent>
+                    <AlertDialogContent className="bg-rosePine-surface">
                       <AlertDialogHeader>
                         <AlertDialogTitle>Are you sure?</AlertDialogTitle>
                         <AlertDialogDescription>
@@ -187,7 +187,7 @@ export default function RadarManagement({ technologies, history, onDataChange }:
                 <SelectTrigger>
                   <SelectValue placeholder="Select a quadrant" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-rosePine-surface">
                   <SelectItem value="Techniques">Techniques</SelectItem>
                   <SelectItem value="Tools">Tools</SelectItem>
                   <SelectItem value="Platforms">Platforms</SelectItem>
@@ -201,7 +201,7 @@ export default function RadarManagement({ technologies, history, onDataChange }:
                 <SelectTrigger>
                   <SelectValue placeholder="Select a ring" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-rosePine-surface">
                   <SelectItem value="Adopt">Adopt</SelectItem>
                   <SelectItem value="Trial">Trial</SelectItem>
                   <SelectItem value="Assess">Assess</SelectItem>
