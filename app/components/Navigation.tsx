@@ -55,19 +55,14 @@ export function Navigation({ user }: { user: User | null }) {
             <li role="menuitem"><Link href="/" className="text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text dark:hover:text-rosePineDawn-pine transition-colors">Home</Link></li>
             <li role="menuitem"><Link href="/about" className="text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text dark:hover:text-rosePineDawn-pine transition-colors">About</Link></li>
             <li role="menuitem"><Link href="/articles" className="text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text dark:hover:text-rosePineDawn-pine transition-colors">Articles</Link></li>
-            {user && (
-              <li role="menuitem"><Link href="/radar" className="text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text dark:hover:text-rosePineDawn-pine transition-colors">Radar</Link></li>
-            )}
             <li role="menuitem"><Link href="/quotes" className="text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text dark:hover:text-rosePineDawn-pine transition-colors">Quotes</Link></li>
             <li role="menuitem"><Link href="/ideas" className="text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text dark:hover:text-rosePineDawn-pine transition-colors">Ideas</Link></li>
             <li role="menuitem"><Link href="/projects" className="text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text dark:hover:text-rosePineDawn-pine transition-colors">Projects</Link></li>
             <li role="menuitem"><Link href="/tools" className="text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text dark:hover:text-rosePineDawn-pine transition-colors">Tools</Link></li>
             <li role="menuitem"><Link href="/designs" className="text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text dark:hover:text-rosePineDawn-pine transition-colors">Design</Link></li>
             <li role="menuitem"><Link href="/books" className="text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text dark:hover:text-rosePineDawn-pine transition-colors">Books</Link></li>
-            {user ? (
-              <li><LogoutButton /></li>
-            ) : (
-              <li role="menuitem"><Link href="/login" className="text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text dark:hover:text-rosePineDawn-pine transition-colors">Login</Link></li>
+            {user && (
+              <li role="menuitem"><Link href="/radar" className="text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text dark:hover:text-rosePineDawn-pine transition-colors">Radar</Link></li>
             )}
             <li><ThemeToggle /></li>
           </ul>
@@ -105,15 +100,15 @@ export function Navigation({ user }: { user: User | null }) {
             <li role="menuitem"><Link href="/" className="block text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text dark:hover:text-rosePineDawn-pine transition-colors py-2" onClick={() => setIsMenuOpen(false)}>Home</Link></li>
             <li role="menuitem"><Link href="/about" className="block text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text dark:hover:text-rosePineDawn-pine transition-colors py-2" onClick={() => setIsMenuOpen(false)}>About</Link></li>
             <li role="menuitem"><Link href="/articles" className="block text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text dark:hover:text-rosePineDawn-pine transition-colors py-2" onClick={() => setIsMenuOpen(false)}>Articles</Link></li>
-            {user && (
-              <li role="menuitem"><Link href="/radar" className="block text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text dark:hover:text-rosePineDawn-pine transition-colors py-2" onClick={() => setIsMenuOpen(false)}>Radar</Link></li>
-            )}
             <li role="menuitem"><Link href="/quotes" className="block text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text dark:hover:text-rosePineDawn-pine transition-colors py-2" onClick={() => setIsMenuOpen(false)}>Quotes</Link></li>
             <li role="menuitem"><Link href="/ideas" className="block text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text dark:hover:text-rosePineDawn-pine transition-colors py-2" onClick={() => setIsMenuOpen(false)}>Ideas</Link></li>
             <li role="menuitem"><Link href="/projects" className="block text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text dark:hover:text-rosePineDawn-pine transition-colors py-2" onClick={() => setIsMenuOpen(false)}>Projects</Link></li>
             <li role="menuitem"><Link href="/tools" className="block text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text dark:hover:text-rosePineDawn-pine transition-colors py-2" onClick={() => setIsMenuOpen(false)}>Tools</Link></li>
             <li role="menuitem"><Link href="/designs" className="block text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text dark:hover:text-rosePineDawn-pine transition-colors py-2" onClick={() => setIsMenuOpen(false)}>Design</Link></li>
             <li role="menuitem"><Link href="/books" className="block text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text dark:hover:text-rosePineDawn-pine transition-colors py-2" onClick={() => setIsMenuOpen(false)}>Books</Link></li>
+            {user && (
+              <li role="menuitem"><Link href="/radar" className="block text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text dark:hover:text-rosePineDawn-pine transition-colors py-2" onClick={() => setIsMenuOpen(false)}>Radar</Link></li>
+            )}
           </ul>
         </div>
       </nav>
