@@ -1,6 +1,6 @@
 # Tyler Andor - Personal Website
 
-A Next.js 14 personal website built with the App Router architecture, featuring content management for articles, quotes, ideas, projects, tools, designs, and books, plus integrations with Instapaper and Snipd.
+A Next.js 14 personal website built with the App Router architecture, featuring content management for articles, quotes, ideas, projects, tools, designs, and books, plus API integrations for pulling in data from other systems.
 
 ## Getting Started
 
