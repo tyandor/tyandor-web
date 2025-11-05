@@ -146,6 +146,52 @@ const podcasts = await snipd.getPodcasts(25)
 const snippet = await snipd.createSnippet('episode_id', 120, 180, 'snippet text')
 ```
 
+### Technology Radar RSS Sync
+Automated data gathering for the Technology Radar from RSS feeds.
+
+#### Setup
+1. Add required environment variables to `.env.local`:
+```bash
+CRON_SECRET=your_secret_token_for_cron_jobs
+SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+#### Configuration
+RSS feeds are configured in `app/api/radar/sync/route.ts`:
+```typescript
+const RSS_FEEDS = [
+  'https://martinfowler.com/feed.atom',
+  'https://natesnewsletter.substack.com/feed',
+  'https://www.oreilly.com/radar/feed/index.xml',
+  'https://thetshaped.dev/feed',
+  'https://blog.bytebytego.com/feed',
+  'https://rss.feedspot.com/software_engineering_rss_feeds/'
+]
+```
+
+#### Usage
+Trigger the sync endpoint via POST request (e.g., from a cron job):
+```bash
+curl -X POST https://your-domain.com/api/radar/sync \
+  -H "Authorization: Bearer YOUR_CRON_SECRET"
+```
+
+The endpoint will:
+- Fetch the 3 most recent items from each RSS feed
+- Create Technology entries in the `technologies` table
+- Skip items that already exist (based on source URL)
+- Return processing results (processed count, added count, errors)
+
+Each RSS item is added as a Technology with:
+- **Name**: RSS item title
+- **Description**: RSS item content/snippet
+- **Quadrant**: "Techniques"
+- **Ring**: "Assess"
+- **Tags**: Feed title + "Automated"
+- **Source URL**: Link to original article
+
 ### API Testing
 Visit `/setup-integrations` for a web interface to:
 - Complete Instapaper OAuth flow
