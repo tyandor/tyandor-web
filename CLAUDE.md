@@ -5,10 +5,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Commands
 
 ### Development
-- `npm run dev` - Start Next.js development server
-- `npm run build` - Build the application for production
-- `npm run start` - Start production server
-- `npm run lint` - Run ESLint
+- `bun run dev` - Start Next.js development server
+- `bun run build` - Build the application for production
+- `bun run start` - Start production server
+- `bun run lint` - Run ESLint
 
 ### Content Creation
 - `node scripts/compose.js` - Interactive CLI tool to create new MDX content files
@@ -46,10 +46,12 @@ This is a Next.js 14 personal website built with the App Router architecture. Th
 
 ### File Structure
 - `/app` - Next.js App Router pages and components with app-level components in `/app/components`
+- `/app/api` - API routes including `/radar/sync` for RSS feed automation
 - `/components/ui` - Shadcn/ui reusable components
 - `/components` - Global reusable components (ContentNavigation, etc.)
 - `/lib/utils.ts` - Utility functions (cn for className merging)
 - `/lib/integrations` - API integration clients (Instapaper, Snipd)
+- `/lib/supabase` - Supabase client configurations (server and client)
 - `/scripts` - Content creation automation tools (Node.js and Python versions)
 - `/hooks` - Custom React hooks
 - Content directories at root level contain `.mdx` files with frontmatter
@@ -63,3 +65,33 @@ Each content type has specific frontmatter requirements as defined in the compos
 - Category pages: `/category/[category-name]` - shows all content with that category
 - Tag pages: `/tag/[tag-name]` - shows all content with that tag
 - `CategoryTagDisplay` component handles rendering with proper styling and navigation
+
+### Runtime
+- Project uses Bun as the package manager and runtime (not npm)
+- All package scripts use `bun run` instead of `npm run`
+- File system operations use Node.js `fs` module with server-side rendering
+
+### Authentication & Data
+- Supabase integration for authentication and database operations
+- Setup at `/setup-integrations` for API integrations (Instapaper, Snipd)
+- Environment variables required for external API integrations
+- Tech radar feature with user authentication at `/radar`
+- Automated RSS sync endpoint at `/api/radar/sync` for data gathering
+
+#### Technology Radar RSS Sync
+- API route: `app/api/radar/sync/route.ts`
+- Secured with `CRON_SECRET` bearer token authentication
+- Fetches 3 most recent items from configured RSS feeds
+- Default feeds: Nathan's Newsletter (Substack) and You Are Not So Smart
+- Creates Technology entries in Supabase `technologies` table
+- Deduplication based on `source_url` field
+- Each RSS item stored with quadrant="Techniques", ring="Assess"
+- Tags include feed title and "Automated" marker
+- Returns processing results: processed count, added count, errors
+- Designed for cron job automation (e.g., Vercel Cron Jobs)
+
+### Configuration
+- Next.js 14 with App Router and MDX support via `@next/mdx`
+- Tailwind CSS with Shadcn/ui components and custom design system
+- SVG images allowed in Next.js config for logo/icon support
+- TypeScript throughout with strict configuration

@@ -2,6 +2,7 @@
 
 // import { Metadata } from 'next'
 import { useRef, useEffect } from 'react'
+import Link from 'next/link'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
@@ -47,16 +48,16 @@ export default function AboutPage() {
       <h1 className="text-7xl font-bold mb-8 text-rosePine-rose">About</h1>
       <div ref={contentRef} className="prose prose-rosePine dark:prose-rosePineDawn opacity-0">
         <p>
-          I'm a Colorado Springs based Software Engineer. I'm also a philosopher. This is my personal website, so of course any opinions expressed here should be taken as mine alone.
+          I&apos;m a Colorado Springs based Software Engineer. I&apos;m also a philosopher. This is my personal website, so of course any opinions expressed here should be taken as mine alone.
         </p>
         <h2>
           About this website
         </h2>
         <p>
-          What I write and share here comes from a wide range of interests. I often have ideas, tools, and tips that will interest engineers and developers. Some will be useful to anyone. Primarily, though, I'm using this as a documentation system. The audience I most often have in mind is my future self. Also, much of the content here is in a draft state, so...
+          What I write and share here comes from a wide range of interests. I often have ideas, tools, and tips that will interest engineers and developers. Some will be useful to anyone. Primarily, though, I&apos;m using this as a documentation system. The audience I most often have in mind is my future self. Also, much of the content here is in a draft state, so...
         </p>
         <p>
-          That said, I do occasionally write <a href="/articles">articles</a> with a more general audience in mind. If you happen to share some of my interests you might find other content here useful as well. If that's the case, this system is designed with ways to drill down into specific topics and make connections among them. On most pages you'll find catgories and tags with links to related content.
+          That said, I do occasionally write <Link href="/articles">articles</Link> with a more general audience in mind. If you happen to share some of my interests you might find other content here useful as well. If that&apos;s the case, this system is designed with ways to drill down into specific topics and make connections among them. On most pages you&apos;ll find catgories and tags with links to related content.
         </p>
         <h2>
           Research interests

@@ -9,53 +9,57 @@ import { Alert, AlertDescription } from '@/components/ui/alert'
 
 export default function SetupIntegrationsPage() {
   const [instapaperStatus, setInstapaperStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [instapaperUsername, setInstapaperUsername] = useState('')
+  const [instapaperPassword, setInstapaperPassword] = useState('')
   const [snipdApiKey, setSnipdApiKey] = useState('')
   const [message, setMessage] = useState('')
 
-  const handleInstapaperAuth = async () => {
-    setInstapaperStatus('loading')
+  const checkInstapaperStatus = async () => {
     try {
       const response = await fetch('/api/auth/instapaper')
       const data = await response.json()
-      
-      if (data.success) {
-        // Open authorization URL in new window
-        window.open(data.authUrl, 'instapaper_auth', 'width=600,height=600')
-        setMessage('Please authorize the app in the popup window, then return here.')
+
+      if (data.success && data.isAuthenticated) {
         setInstapaperStatus('success')
+        setMessage('Instapaper is already connected!')
       } else {
-        throw new Error(data.error)
+        setMessage(data.message || 'Instapaper is not connected')
       }
     } catch (error) {
-      console.error('Error starting Instapaper auth:', error)
-      setInstapaperStatus('error')
-      setMessage('Failed to start Instapaper authentication')
+      console.error('Error checking Instapaper status:', error)
+      setMessage('Failed to check Instapaper connection status')
     }
   }
 
-  const handleInstapaperCallback = async () => {
-    const urlParams = new URLSearchParams(window.location.search)
-    const oauthVerifier = urlParams.get('oauth_verifier')
-    
-    if (!oauthVerifier) {
-      setMessage('Missing oauth_verifier parameter')
+  const handleInstapaperAuth = async () => {
+    if (!instapaperUsername || !instapaperPassword) {
+      setMessage('Please enter both username and password')
       return
     }
 
+    setInstapaperStatus('loading')
     try {
       const response = await fetch('/api/auth/instapaper', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ oauth_verifier: oauthVerifier })
+        body: JSON.stringify({
+          username: instapaperUsername,
+          password: instapaperPassword
+        })
       })
-      
+
       const data = await response.json()
       setMessage(data.message || data.error)
       setInstapaperStatus(data.success ? 'success' : 'error')
+
+      if (data.success) {
+        // Clear sensitive data from state
+        setInstapaperPassword('')
+      }
     } catch (error) {
-      console.error('Error completing Instapaper auth:', error)
-      setMessage('Failed to complete Instapaper authentication')
+      console.error('Error authenticating with Instapaper:', error)
       setInstapaperStatus('error')
+      setMessage('Failed to authenticate with Instapaper')
     }
   }
 
@@ -113,8 +117,13 @@ export default function SetupIntegrationsPage() {
               <p className="text-sm text-gray-600">
                 Go to <a href="https://www.instapaper.com/main/request_oauth_consumer_token" className="text-blue-600 hover:underline" target="_blank">Instapaper Developer</a> to create an app and get your consumer key/secret.
               </p>
+              <div className="bg-yellow-50 p-3 rounded border-l-4 border-yellow-400">
+                <p className="text-sm text-yellow-800">
+                  <strong>Important:</strong> When requesting your tokens, you must specifically ask for <strong>xAuth access</strong> in your application description. Standard OAuth apps won&apos;t work for this integration.
+                </p>
+              </div>
             </div>
-            
+
             <div className="space-y-2">
               <Label>Step 2: Add to .env.local</Label>
               <pre className="text-xs bg-gray-100 p-2 rounded">
@@ -124,23 +133,54 @@ INSTAPAPER_CONSUMER_SECRET=your_secret`}
             </div>
 
             <div className="space-y-2">
-              <Label>Step 3: Authorize</Label>
-              <Button 
-                onClick={handleInstapaperAuth}
-                disabled={instapaperStatus === 'loading'}
-                className="w-full"
-              >
-                {instapaperStatus === 'loading' ? 'Starting...' : 'Authorize Instapaper'}
-              </Button>
+              <Label htmlFor="instapaper-username">Step 3: Enter Credentials</Label>
+              <Input
+                id="instapaper-username"
+                type="text"
+                placeholder="Instapaper username"
+                value={instapaperUsername}
+                onChange={(e) => setInstapaperUsername(e.target.value)}
+              />
+              <Input
+                id="instapaper-password"
+                type="password"
+                placeholder="Instapaper password"
+                value={instapaperPassword}
+                onChange={(e) => setInstapaperPassword(e.target.value)}
+              />
+              <p className="text-xs text-gray-600">
+                Your credentials are sent directly to Instapaper and not stored on this server.
+              </p>
+              <div className="bg-red-50 p-3 rounded border-l-4 border-red-400">
+                <p className="text-sm text-red-800">
+                  <strong>Getting 403 Forbidden?</strong> This usually means:
+                </p>
+                <ul className="text-xs text-red-700 mt-1 list-disc list-inside">
+                  <li>Your consumer tokens haven&apos;t been approved yet</li>
+                  <li>xAuth wasn&apos;t requested/enabled for your app</li>
+                  <li>Check the server console for more debug information</li>
+                </ul>
+              </div>
             </div>
 
-            <Button 
-              onClick={handleInstapaperCallback}
-              variant="outline"
+            <Button
+              onClick={handleInstapaperAuth}
+              disabled={instapaperStatus === 'loading'}
               className="w-full"
             >
-              Complete Authorization (After Popup)
+              {instapaperStatus === 'loading' ? 'Authenticating...' : 'Get Access Tokens'}
             </Button>
+
+            <div className="space-y-2">
+              <Label>Step 4: Test Connection</Label>
+              <Button
+                onClick={checkInstapaperStatus}
+                variant="outline"
+                className="w-full"
+              >
+                Check Connection Status
+              </Button>
+            </div>
           </CardContent>
         </Card>
 

@@ -46,7 +46,7 @@ export function HomeContent({ recentArticles, randomQuote, recentTools, recentDe
     <>
       <div className="max-w-4xl mx-auto">
         <div className="grid grid-cols-1 gap-4 my-10 articles-section">
-          <h2 className="text-2xl mb-2 font-bold font-mono text-rosePine-rose dark:text-rosePineMoon-rose">// articles</h2>
+          <h2 className="text-2xl mb-2 font-bold font-mono text-rosePine-rose dark:text-rosePineMoon-rose">articles</h2>
           {recentArticles.map((article) => (
             <AnimatedHomeArticleCard
               key={article.slug}
@@ -68,7 +68,7 @@ export function HomeContent({ recentArticles, randomQuote, recentTools, recentDe
       </div>
       <div className="max-w-6xl mx-auto">
         <div className="mt-4 mb-12">
-          <h2 className="text-2xl mb-4 font-bold font-mono text-rosePine-rose dark:text-rosePineMoon-rose">// tools</h2>
+          <h2 className="text-2xl mb-4 font-bold font-mono text-rosePine-rose dark:text-rosePineMoon-rose">tools</h2>
           <div className="grid gap-6 md:grid-cols-2">
             {recentTools.map((tool) => (
               <AnimatedHomeToolCard
@@ -83,7 +83,7 @@ export function HomeContent({ recentArticles, randomQuote, recentTools, recentDe
           </div>
         </div>
         <div className="my-10">
-          <h2 className="text-2xl mb-4 font-bold font-mono text-rosePine-rose dark:text-rosePineMoon-rose">// design</h2>
+          <h2 className="text-2xl mb-4 font-bold font-mono text-rosePine-rose dark:text-rosePineMoon-rose">design</h2>
           <div className="grid gap-6 md:grid-cols-3">
             {recentDesigns.map((design) => (
               <AnimatedHomeDesignCard

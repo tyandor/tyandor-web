@@ -1,24 +1,24 @@
 # Tyler Andor - Personal Website
 
-A Next.js 14 personal website built with the App Router architecture, featuring content management for articles, quotes, ideas, projects, tools, designs, and books, plus integrations with Instapaper and Snipd.
+A Next.js 14 personal website built with the App Router architecture, featuring content management for articles, quotes, ideas, projects, tools, designs, and books, plus API integrations for pulling in data from other systems.
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 - Node.js 18+ 
-- npm or yarn
+- bun
 
 ### Installation
 ```bash
 git clone <repository-url>
 cd tyandor-web
-npm install
-npm run dev
+bun install
+bun run dev
 ```
 
 Visit `http://localhost:3000` to see the site.
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 ├── app/                    # Next.js App Router pages
@@ -40,19 +40,19 @@ Visit `http://localhost:3000` to see the site.
 └── scripts/              # Content creation tools
 ```
 
-## 🛠 Available Scripts
+## Available Scripts
 
 ### Development
-- `npm run dev` - Start Next.js development server
-- `npm run build` - Build the application for production
-- `npm run start` - Start production server
-- `npm run lint` - Run ESLint
+- `bun run dev` - Start Next.js development server
+- `bun run build` - Build the application for production
+- `bun run start` - Start production server
+- `bun run lint` - Run ESLint
 
 ### Content Creation
 - `node scripts/compose.js` - Interactive CLI tool to create new MDX content files
 - `python scripts/compose.py` - Alternative Python/Textual-based content creator
 
-## 📝 Content Management
+## Content Management
 
 Content is stored as MDX files with frontmatter in type-specific directories:
 
@@ -75,7 +75,7 @@ All content types support:
 
 Additional fields vary by content type (description, image, link, status, technologies, etc.).
 
-## 🔌 API Integrations
+## API Integrations
 
 ### Instapaper Integration
 Sync and display your Instapaper bookmarks.
@@ -167,7 +167,8 @@ const RSS_FEEDS = [
   'https://www.oreilly.com/radar/feed/index.xml',
   'https://thetshaped.dev/feed',
   'https://blog.bytebytego.com/feed',
-  'https://rss.feedspot.com/software_engineering_rss_feeds/'
+  'https://rss.feedspot.com/software_engineering_rss_feeds/',
+  'https://developers.redhat.com/blog/feed'
 ]
 ```
 
@@ -220,12 +221,22 @@ Visit `/setup-integrations` for a web interface to:
 
 ### Environment Variables
 ```bash
-# Required for integrations
+# Supabase
+NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
+SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
+
+# Instapaper Integration
 INSTAPAPER_CONSUMER_KEY=your_consumer_key
 INSTAPAPER_CONSUMER_SECRET=your_consumer_secret
 INSTAPAPER_TOKEN=your_oauth_token
 INSTAPAPER_TOKEN_SECRET=your_token_secret
+
+# Snipd Integration
 SNIPD_API_KEY=your_snipd_api_key
+
+# Technology Radar Sync
+CRON_SECRET=your_secret_token_for_cron_jobs
 
 # Optional
 NODE_ENV=production

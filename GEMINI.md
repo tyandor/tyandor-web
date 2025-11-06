@@ -19,7 +19,7 @@ This is a personal website for Tyler Andor, built with Next.js 14 and the App Ro
 ### Prerequisites
 
 *   Node.js 18+
-*   npm or yarn
+*   bun
 
 ### Installation and Development
 
@@ -33,20 +33,20 @@ This is a personal website for Tyler Andor, built with Next.js 14 and the App Ro
     ```
 3.  **Install dependencies:**
     ```bash
-    npm install
+    bun install
     ```
 4.  **Run the development server:**
     ```bash
-    npm run dev
+    bun run dev
     ```
     The application will be available at `http://localhost:3000`.
 
 ### Key Scripts
 
-*   `npm run dev`: Starts the Next.js development server.
-*   `npm run build`: Builds the application for production.
-*   `npm run start`: Starts the production server.
-*   `npm run lint`: Runs ESLint to check for code quality.
+*   `bun run dev`: Starts the Next.js development server.
+*   `bun run build`: Builds the application for production.
+*   `bun run start`: Starts the production server.
+*   `bun run lint`: Runs ESLint to check for code quality.
 
 ### Content Creation
 

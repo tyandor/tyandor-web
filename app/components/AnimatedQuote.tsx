@@ -1,13 +1,12 @@
 'use client'
 
 import React, { useRef, useEffect } from 'react'
-import { MDXRemote } from 'next-mdx-remote/rsc'
 import gsap from 'gsap'
 
 interface AnimatedQuoteProps {
   quote: string;
   author: string;
-  content: any; // set to 'any' to accept the MDX content
+  content: React.ReactNode; // MDX content
 }
 
 const AnimatedQuote: React.FC<AnimatedQuoteProps> = ({ quote, author, content }) => {

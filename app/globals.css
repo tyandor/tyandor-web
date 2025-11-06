@@ -23,6 +23,10 @@
     --color-highlight-low: 244 237 232;
     --color-highlight-med: 223 218 217;
     --color-highlight-high: 206 202 205;
+    --chart-1: #ebbcba;
+    --chart-2: #ea9a97;
+    --chart-3: #d7827e;
+    --chart-4: #b4637a;
   }
 
   .dark {
@@ -41,6 +45,10 @@
     --color-highlight-low: 42 40 62;
     --color-highlight-med: 68 65 90;
     --color-highlight-high: 86 82 110;
+    --chart-1: #ebbcba;
+    --chart-2: #ea9a97;
+    --chart-3: #d7827e;
+    --chart-4: #b4637a;
   }
 
   .light {
@@ -59,6 +67,10 @@
     --color-highlight-low: 244 237 232;
     --color-highlight-med: 223 218 217;
     --color-highlight-high: 206 202 205;
+    --chart-1: #ebbcba;
+    --chart-2: #ea9a97;
+    --chart-3: #d7827e;
+    --chart-4: #b4637a;
   }
 
   body {
