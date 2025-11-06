@@ -167,7 +167,8 @@ const RSS_FEEDS = [
   'https://www.oreilly.com/radar/feed/index.xml',
   'https://thetshaped.dev/feed',
   'https://blog.bytebytego.com/feed',
-  'https://rss.feedspot.com/software_engineering_rss_feeds/'
+  'https://rss.feedspot.com/software_engineering_rss_feeds/',
+  'https://developers.redhat.com/blog/feed'
 ]
 ```
 

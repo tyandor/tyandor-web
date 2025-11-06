@@ -9,7 +9,8 @@ const RSS_FEEDS = [
   'https://www.oreilly.com/radar/feed/index.xml',
   'https://thetshaped.dev/feed',
   'https://blog.bytebytego.com/feed',
-  'https://rss.feedspot.com/software_engineering_rss_feeds/'
+  'https://rss.feedspot.com/software_engineering_rss_feeds/',
+  'https://developers.redhat.com/blog/feed'
 ];
 
 // Number of recent items to fetch from each feed
@@ -53,7 +54,7 @@ export async function POST(request: Request) {
         const feed = await parser.parseURL(feedUrl);
 
         // Get the 3 most recent items
-        const recentItems = feed.items.slice(0, ITEMS_PER_FEED);
+        const recentItems: RSSItem[] = feed.items.slice(0, ITEMS_PER_FEED);
 
         for (const item of recentItems) {
           results.processed++;
