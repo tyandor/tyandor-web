@@ -2,10 +2,10 @@ import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 import { MDXRemote } from 'next-mdx-remote/rsc'
-import Link from 'next/link'
 import { Metadata } from 'next'
 import Image from 'next/image'
 import { CategoryTagDisplay } from '@/app/components/CategoryTagDisplay'
+import ContentNavigation from '@/components/ContentNavigation'
 
 export async function generateStaticParams() {
   const projectsDirectory = path.join(process.cwd(), 'projects')
@@ -71,10 +71,10 @@ export default async function Project({ params }: { params: { slug: string } }) 
         <span className="mx-2">|</span>
         <span className="font-semibold">Technologies:</span> {data.technologies.join(', ')}
       </div>
-      <CategoryTagDisplay 
-        categories={data.categories} 
-        tags={data.tags} 
-        className="mb-6" 
+      <CategoryTagDisplay
+        categories={data.categories}
+        tags={data.tags}
+        className="mb-6"
       />
       <div className="prose max-w-none">
         <MDXRemote source={content} />
@@ -86,11 +86,13 @@ export default async function Project({ params }: { params: { slug: string } }) 
           </a>
         </div>
       )}
-      <div className="mt-8">
-        <Link href="/projects" className="text-blue-500 hover:underline">
-          ← Back to all projects
-        </Link>
-      </div>
+      <ContentNavigation
+        currentSlug={params.slug}
+        contentType="projects"
+        contentDirectory="projects"
+        allContentHref="/projects"
+        allContentLabel="All Projects"
+      />
     </div>
   )
 }
