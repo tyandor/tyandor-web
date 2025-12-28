@@ -2,11 +2,11 @@ import { createClient } from '@/lib/supabase/server';
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const getResend = () => new Resend(process.env.RESEND_API_KEY || '');
 const alertEmailTo = process.env.ALERT_EMAIL_TO;
 
-export async function PUT(request: Request, { params }: { params: { id: string } }) {
-  const supabase = createClient();
+export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
   if (!user) {
@@ -14,7 +14,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
   }
 
   const body = await request.json();
-  const id = params.id;
+  const { id } = await params;
 
   // Get the original record
   const { data: original, error: fetchError } = await supabase
@@ -63,8 +63,9 @@ export async function PUT(request: Request, { params }: { params: { id: string }
     }
 
     // Send email alert
-    if (alertEmailTo) {
+    if (alertEmailTo && process.env.RESEND_API_KEY) {
       try {
+        const resend = getResend();
         await resend.emails.send({
           from: 'Technology Radar <no-reply@your-domain.com>', // Replace with your domain
           to: alertEmailTo,
@@ -80,15 +81,15 @@ export async function PUT(request: Request, { params }: { params: { id: string }
   return NextResponse.json(updatedTechnology);
 }
 
-export async function DELETE(request: Request, { params }: { params: { id: string } }) {
-  const supabase = createClient();
+export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
+  const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
   if (!user) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   }
 
-  const id = params.id;
+  const { id } = await params;
 
   const { error } = await supabase
     .from('technologies')

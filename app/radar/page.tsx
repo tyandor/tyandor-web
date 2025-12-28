@@ -22,7 +22,7 @@ export interface TechnologyHistory {
 }
 
 async function getTechnologies() {
-  const supabase = createClient();
+  const supabase = await createClient();
   const { data, error } = await supabase
     .from('technologies')
     .select('*')
@@ -36,7 +36,7 @@ async function getTechnologies() {
 }
 
 async function getHistory() {
-    const supabase = createClient();
+    const supabase = await createClient();
     const { data, error } = await supabase
       .from('technology_history')
       .select('*')
@@ -50,7 +50,7 @@ async function getHistory() {
   }
 
 export default async function RadarPage() {
-  const supabase = createClient();
+  const supabase = await createClient();
   const { data: { user } } = await supabase.auth.getUser();
 
   if (!user) {

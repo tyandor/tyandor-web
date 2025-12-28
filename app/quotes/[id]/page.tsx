@@ -8,7 +8,7 @@ import dynamic from 'next/dynamic'
 import { CategoryTagDisplay } from '@/app/components/CategoryTagDisplay'
 import ContentNavigation from '@/components/ContentNavigation'
 
-const AnimatedQuote = dynamic(() => import('../../components/AnimatedQuote'), { ssr: false })
+const AnimatedQuote = dynamic(() => import('../../components/AnimatedQuote'))
 
 interface Quote {
   id: string;

@@ -74,37 +74,8 @@
   }
 
   body {
-    @apply bg-rosePine-base text-rosePine-text;
-  }
-}
-
-@layer utilities {
-  .bg-rosePine-base {
-    background-color: rgb(var(--color-base) / 1);
-  }
-
-  .bg-rosePine-surface {
-    background-color: rgb(var(--color-surface) / 1);
-  }
-
-  .text-rosePine-text {
-    color: rgb(var(--color-text) / 1);
-  }
-
-  .text-rosePine-muted {
-    color: rgb(var(--color-muted) / 1);
-  }
-
-  .text-rosePine-love {
-    color: rgb(var(--color-love) / 1);
-  }
-
-  .text-rosePine-gold {
-    color: rgb(var(--color-gold) / 1);
-  }
-
-  .text-rosePine-pine {
-    color: rgb(var(--color-pine) / 1);
+    background-color: rgb(var(--color-base));
+    color: rgb(var(--color-text));
   }
 }
 

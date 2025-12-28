@@ -1,7 +1,7 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
-    darkMode: ["class"],
+    darkMode: "class",
     content: [
         "./pages/**/*.{js,ts,jsx,tsx,mdx}",
         "./components/**/*.{js,ts,jsx,tsx,mdx}",
@@ -11,6 +11,34 @@ const config: Config = {
     theme: {
         extend: {
             colors: {
+                rosePine: {
+                    base: 'rgb(var(--color-base) / <alpha-value>)',
+                    surface: 'rgb(var(--color-surface) / <alpha-value>)',
+                    overlay: 'rgb(var(--color-overlay) / <alpha-value>)',
+                    muted: 'rgb(var(--color-muted) / <alpha-value>)',
+                    subtle: 'rgb(var(--color-subtle) / <alpha-value>)',
+                    text: 'rgb(var(--color-text) / <alpha-value>)',
+                    love: 'rgb(var(--color-love) / <alpha-value>)',
+                    gold: 'rgb(var(--color-gold) / <alpha-value>)',
+                    rose: 'rgb(var(--color-rose) / <alpha-value>)',
+                    pine: 'rgb(var(--color-pine) / <alpha-value>)',
+                    foam: 'rgb(var(--color-foam) / <alpha-value>)',
+                    iris: 'rgb(var(--color-iris) / <alpha-value>)',
+                },
+                rosePineMoon: {
+                    base: 'rgb(35 33 54 / <alpha-value>)',
+                    surface: 'rgb(42 39 63 / <alpha-value>)',
+                    overlay: 'rgb(57 53 82 / <alpha-value>)',
+                    muted: 'rgb(110 106 134 / <alpha-value>)',
+                    subtle: 'rgb(144 140 170 / <alpha-value>)',
+                    text: 'rgb(224 222 244 / <alpha-value>)',
+                    love: 'rgb(235 111 146 / <alpha-value>)',
+                    gold: 'rgb(246 193 119 / <alpha-value>)',
+                    rose: 'rgb(234 154 151 / <alpha-value>)',
+                    pine: 'rgb(62 143 176 / <alpha-value>)',
+                    foam: 'rgb(156 207 216 / <alpha-value>)',
+                    iris: 'rgb(196 167 231 / <alpha-value>)',
+                },
                 background: 'hsl(var(--background))',
                 foreground: 'hsl(var(--foreground))',
                 card: {

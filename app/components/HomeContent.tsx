@@ -1,9 +1,9 @@
 import dynamic from 'next/dynamic'
 
-const AnimatedHomeArticleCard = dynamic(() => import('./AnimatedHomeArticleCard'), { ssr: false })
-const AnimatedHomeQuote = dynamic(() => import('./AnimatedHomeQuote'), { ssr: false })
-const AnimatedHomeToolCard = dynamic(() => import('./AnimatedHomeToolCard'), { ssr: false })
-const AnimatedHomeDesignCard = dynamic(() => import('./AnimatedHomeDesignCard'), { ssr: false })
+const AnimatedHomeArticleCard = dynamic(() => import('./AnimatedHomeArticleCard'))
+const AnimatedHomeQuote = dynamic(() => import('./AnimatedHomeQuote'))
+const AnimatedHomeToolCard = dynamic(() => import('./AnimatedHomeToolCard'))
+const AnimatedHomeDesignCard = dynamic(() => import('./AnimatedHomeDesignCard'))
 
 interface Article {
   slug: string
