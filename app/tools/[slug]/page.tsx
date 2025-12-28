@@ -2,45 +2,10 @@ import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 import { MDXRemote } from 'next-mdx-remote/rsc'
-import Link from 'next/link'
 import { Metadata } from 'next'
 import Image from 'next/image'
-import { compareDesc } from 'date-fns'
 import { CategoryTagDisplay } from '@/app/components/CategoryTagDisplay'
-
-interface Tool {
-  slug: string;
-  title: string;
-  date: string;
-}
-
-function getAdjacentTools(currentSlug: string): { prev: Tool | null; next: Tool | null } {
-  const toolsDirectory = path.join(process.cwd(), 'tools')
-  const fileNames = fs.readdirSync(toolsDirectory)
-
-  const tools: Tool[] = fileNames
-    .filter(fileName => fileName.endsWith('.mdx'))
-    .map((fileName) => {
-      const fullPath = path.join(toolsDirectory, fileName)
-      const fileContents = fs.readFileSync(fullPath, 'utf8')
-      const { data } = matter(fileContents)
-      
-      return {
-        slug: fileName.replace(/\.mdx$/, ''),
-        title: data.title,
-        date: data.date,
-      }
-    })
-
-  tools.sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)))
-
-  const currentIndex = tools.findIndex(tool => tool.slug === currentSlug)
-
-  return {
-    prev: currentIndex > 0 ? tools[currentIndex - 1] : null,
-    next: currentIndex < tools.length - 1 ? tools[currentIndex + 1] : null,
-  }
-}
+import ContentNavigation from '@/components/ContentNavigation'
 
 export async function generateStaticParams() {
   const toolsDirectory = path.join(process.cwd(), 'tools')
@@ -87,8 +52,6 @@ export default async function Tool({ params }: { params: { slug: string } }) {
   const fileContents = fs.readFileSync(fullPath, 'utf8')
   const { data, content } = matter(fileContents)
 
-  const { prev, next } = getAdjacentTools(params.slug)
-
   return (
     <div className="max-w-3xl mx-auto p-4">
       <h1 className="text-3xl font-bold mb-4">{data.title}</h1>
@@ -106,10 +69,10 @@ export default async function Tool({ params }: { params: { slug: string } }) {
       <div className="mb-6">
         <span className="font-semibold">Category:</span> {data.category}
       </div>
-      <CategoryTagDisplay 
-        categories={data.categories} 
-        tags={data.tags} 
-        className="mb-6" 
+      <CategoryTagDisplay
+        categories={data.categories}
+        tags={data.tags}
+        className="mb-6"
       />
       <div className="prose max-w-none">
         <MDXRemote source={content} />
@@ -121,23 +84,13 @@ export default async function Tool({ params }: { params: { slug: string } }) {
           </a>
         </div>
       )}
-      <div className="mt-8">
-        <Link href="/tools" className="text-blue-500 hover:underline">
-          ← Back to all tools
-        </Link>
-      </div>
-      <div className="mt-8 flex justify-between">
-      {prev && (
-        <Link href={`/tools/${prev.slug}`} className="text-rosePine-foam dark:text-rosePineDawn-foam hover:text-rosePine-pine dark:hover:text-rosePineDawn-pine transition-colors">
-          ← {prev.title}
-        </Link>
-      )}
-      {next && (
-        <Link href={`/tools/${next.slug}`} className="text-rosePine-foam dark:text-rosePineDawn-foam hover:text-rosePine-pine dark:hover:text-rosePineDawn-pine transition-colors">
-          {next.title} →
-        </Link>
-      )}
-    </div>
+      <ContentNavigation
+        currentSlug={params.slug}
+        contentType="tools"
+        contentDirectory="tools"
+        allContentHref="/tools"
+        allContentLabel="All Tools"
+      />
     </div>
   )
 }
