@@ -29,7 +29,7 @@ This is a Next.js 14 personal website built with the App Router architecture. Th
 - **Runtime**: Bun (NOT npm - always use `bun` commands)
 - **Language**: TypeScript with strict configuration
 - **Styling**: Tailwind CSS + Shadcn/ui components
-- **Database**: Supabase (PostgreSQL)
+- **Database**: Neon (PostgreSQL serverless)
 - **Authentication**: Supabase Auth with SSR
 - **Content**: MDX files with gray-matter frontmatter parsing
 - **Animations**: GSAP for scroll-triggered effects
@@ -76,7 +76,9 @@ tyandor-web/
 │   │   ├── instapaper.ts     # Instapaper API client
 │   │   ├── instapaper-auth.ts # Instapaper OAuth helpers
 │   │   └── snipd.ts          # Snipd podcast API client
-│   ├── supabase/             # Supabase client configuration
+│   ├── db/                   # Database client configuration
+│   │   └── neon.ts           # Neon PostgreSQL client
+│   ├── supabase/             # Supabase Auth client configuration (auth only)
 │   │   ├── client.ts         # Client-side Supabase client
 │   │   └── server.ts         # Server-side Supabase client
 │   └── utils.ts              # Utility functions (cn, etc.)
@@ -416,10 +418,12 @@ Configured in `vercel.json`:
 
 ### Required for Core Functionality
 ```bash
-# Supabase
+# Neon Database (PostgreSQL)
+DATABASE_URL=postgresql://user:password@ep-xxx-xxx.us-east-2.aws.neon.tech/dbname?sslmode=require
+
+# Supabase Authentication (Auth only - NOT database)
 NEXT_PUBLIC_SUPABASE_URL=https://xxx.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
-SUPABASE_SERVICE_ROLE_KEY=your_service_role_key  # For server-side admin operations
 ```
 
 ### Optional Integrations

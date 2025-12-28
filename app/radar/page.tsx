@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/server';
+import { createNeonClient } from '@/lib/db/neon';
 import { redirect } from 'next/navigation';
 import RadarWrapper from '@/app/components/RadarWrapper';
 
@@ -22,34 +23,35 @@ export interface TechnologyHistory {
 }
 
 async function getTechnologies() {
-  const supabase = createClient();
-  const { data, error } = await supabase
-    .from('technologies')
-    .select('*')
-    .order('name');
-
-  if (error) {
+  try {
+    const sql = createNeonClient();
+    const data = await sql`
+      SELECT * FROM technologies
+      ORDER BY name ASC
+    `;
+    return data as Technology[];
+  } catch (error) {
     console.error('Error fetching technologies:', error);
     return [];
   }
-  return data;
 }
 
 async function getHistory() {
-    const supabase = createClient();
-    const { data, error } = await supabase
-      .from('technology_history')
-      .select('*')
-      .order('changed_at', { ascending: false });
-  
-    if (error) {
-      console.error('Error fetching history:', error);
-      return [];
-    }
-    return data;
+  try {
+    const sql = createNeonClient();
+    const data = await sql`
+      SELECT * FROM technology_history
+      ORDER BY changed_at DESC
+    `;
+    return data as TechnologyHistory[];
+  } catch (error) {
+    console.error('Error fetching history:', error);
+    return [];
   }
+}
 
 export default async function RadarPage() {
+  // Still use Supabase for authentication
   const supabase = createClient();
   const { data: { user } } = await supabase.auth.getUser();
 

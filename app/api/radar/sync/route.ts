@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import Parser from 'rss-parser';
-import { createClient } from '@supabase/supabase-js';
+import { createNeonClient } from '@/lib/db/neon';
 
 // RSS feeds to monitor
 const RSS_FEEDS = [
@@ -37,10 +37,7 @@ export async function POST(request: Request) {
 
   try {
     const parser = new Parser();
-    const supabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_ROLE_KEY!
-    );
+    const sql = createNeonClient();
 
     const results = {
       processed: 0,
@@ -70,27 +67,35 @@ export async function POST(request: Request) {
 
           // Check if this technology already exists by source URL
           if (item.link) {
-            const { data: existing } = await supabase
-              .from('technologies')
-              .select('id')
-              .eq('source_url', item.link)
-              .single();
+            try {
+              const existing = await sql`
+                SELECT id FROM technologies
+                WHERE source_url = ${item.link}
+                LIMIT 1
+              `;
 
-            if (!existing) {
-              // Insert new technology
-              const { error } = await supabase
-                .from('technologies')
-                .insert([technology]);
+              if (!existing || existing.length === 0) {
+                // Insert new technology
+                await sql`
+                  INSERT INTO technologies (name, description, quadrant, ring, tags, source_url)
+                  VALUES (
+                    ${technology.name},
+                    ${technology.description},
+                    ${technology.quadrant},
+                    ${technology.ring},
+                    ${technology.tags},
+                    ${technology.source_url}
+                  )
+                `;
 
-              if (error) {
-                console.error(`Error inserting technology:`, error);
-                results.errors.push(`Failed to insert: ${technology.name}`);
-              } else {
                 results.added++;
                 console.log(`Added: ${technology.name}`);
+              } else {
+                console.log(`Skipped (already exists): ${technology.name}`);
               }
-            } else {
-              console.log(`Skipped (already exists): ${technology.name}`);
+            } catch (insertError) {
+              console.error(`Error inserting technology:`, insertError);
+              results.errors.push(`Failed to insert: ${technology.name}`);
             }
           }
         }
