@@ -3,7 +3,6 @@ import path from 'path'
 import matter from 'gray-matter'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { Metadata } from 'next'
-import { compareDesc } from 'date-fns'
 import { CategoryTagDisplay } from '@/app/components/CategoryTagDisplay'
 import ContentNavigation from '@/components/ContentNavigation'
 
@@ -13,33 +12,6 @@ interface Idea {
   date: string;
 }
 
-function getAdjacentIdeas(currentId: string): { prev: Idea | null; next: Idea | null } {
-  const ideasDirectory = path.join(process.cwd(), 'ideas')
-  const fileNames = fs.readdirSync(ideasDirectory)
-
-  const ideas: Idea[] = fileNames
-    .filter(fileName => fileName.endsWith('.mdx'))
-    .map((fileName) => {
-      const fullPath = path.join(ideasDirectory, fileName)
-      const fileContents = fs.readFileSync(fullPath, 'utf8')
-      const { data } = matter(fileContents)
-      
-      return {
-        id: fileName.replace(/\.mdx$/, ''),
-        title: data.title,
-        date: data.date,
-      }
-    })
-
-  ideas.sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)))
-
-  const currentIndex = ideas.findIndex(idea => idea.id === currentId)
-
-  return {
-    prev: currentIndex > 0 ? ideas[currentIndex - 1] : null,
-    next: currentIndex < ideas.length - 1 ? ideas[currentIndex + 1] : null,
-  }
-}
 
 export async function generateStaticParams() {
   const ideasDirectory = path.join(process.cwd(), 'ideas')
@@ -77,7 +49,6 @@ export default async function Idea({ params }: { params: { id: string } }) {
   const fullPath = path.join(process.cwd(), 'ideas', `${params.id}.mdx`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
   const { data, content } = matter(fileContents)
-  const { prev, next } = getAdjacentIdeas(params.id)
 
   return (
     <div className="max-w-2xl mx-auto p-4">

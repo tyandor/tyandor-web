@@ -72,7 +72,7 @@ function getAllTagsAndContent(): ContentByType {
           })
         }
       })
-    } catch (error) {
+    } catch {
       // Directory might not exist, skip
     }
 
@@ -125,7 +125,7 @@ function getAllUniqueTags(): TagData[] {
           })
         }
       })
-    } catch (error) {
+    } catch {
       // Directory might not exist, skip
     }
   })
