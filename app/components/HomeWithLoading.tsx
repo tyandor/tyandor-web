@@ -41,7 +41,7 @@ interface HomeWithLoadingProps {
 }
 
 export function HomeWithLoading({ recentArticles, randomQuote, recentTools, recentDesigns }: HomeWithLoadingProps) {
-  const [showLoading, setShowLoading] = useState(true)
+  const [showLoading] = useState(true)
   const [showContent, setShowContent] = useState(false)
 
   useEffect(() => {

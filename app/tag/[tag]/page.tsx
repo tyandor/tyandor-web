@@ -23,7 +23,7 @@ export async function generateStaticParams() {
           }
         }
       })
-    } catch (error) {
+    } catch {
       // Directory might not exist, skip
     }
   })
@@ -83,7 +83,7 @@ export default function TagPage({ params }: { params: { tag: string } }) {
           })
         }
       })
-    } catch (error) {
+    } catch {
       // Directory might not exist, skip
     }
   })

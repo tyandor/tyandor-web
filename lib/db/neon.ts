@@ -23,9 +23,9 @@ export function createNeonClient() {
  * @param params Query parameters
  * @returns Query results
  */
-export async function executeQuery<T = any>(
+export async function executeQuery<T = unknown>(
   query: string,
-  params: any[] = []
+  params: unknown[] = []
 ): Promise<T[]> {
   const sql = createNeonClient();
   return await sql(query, params);

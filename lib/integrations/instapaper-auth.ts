@@ -43,7 +43,7 @@ export class InstapaperAuth {
   private createSignatureBaseString(method: string, url: string, params: OAuthParams): string {
     // Sort parameters alphabetically by key
     const sortedParams = Object.entries(params)
-      .filter(([_, value]) => value !== undefined)
+      .filter(([, value]) => value !== undefined)
       .sort(([a], [b]) => a.localeCompare(b))
       .map(([key, value]) => `${this.percentEncode(key)}=${this.percentEncode(value!)}`)
       .join('&')
@@ -98,7 +98,7 @@ export class InstapaperAuth {
     }
 
     const authHeader = Object.entries(authParams)
-      .filter(([_, value]) => value !== undefined)
+      .filter(([, value]) => value !== undefined)
       .map(([key, value]) => `${key}="${this.percentEncode(value)}"`)
       .join(', ')
 

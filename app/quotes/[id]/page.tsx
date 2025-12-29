@@ -3,7 +3,6 @@ import path from 'path'
 import matter from 'gray-matter'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { Metadata } from 'next'
-import { compareDesc } from 'date-fns'
 import dynamic from 'next/dynamic'
 import { CategoryTagDisplay } from '@/app/components/CategoryTagDisplay'
 import ContentNavigation from '@/components/ContentNavigation'
@@ -17,34 +16,6 @@ interface Quote {
   date: string;
 }
 
-function getAdjacentQuotes(currentId: string): { prev: Quote | null; next: Quote | null } {
-  const quotesDirectory = path.join(process.cwd(), 'quotes')
-  const fileNames = fs.readdirSync(quotesDirectory)
-
-  const quotes: Quote[] = fileNames
-    .filter(fileName => fileName.endsWith('.mdx'))
-    .map((fileName) => {
-      const fullPath = path.join(quotesDirectory, fileName)
-      const fileContents = fs.readFileSync(fullPath, 'utf8')
-      const { data } = matter(fileContents)
-
-      return {
-        id: fileName.replace(/\.mdx$/, ''),
-        slug: fileName.replace(/\.mdx$/, ''),
-        author: data.author,
-        date: data.date,
-      }
-    })
-
-  quotes.sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)))
-
-  const currentIndex = quotes.findIndex(quote => quote.id === currentId)
-
-  return {
-    prev: currentIndex > 0 ? quotes[currentIndex - 1] : null,
-    next: currentIndex < quotes.length - 1 ? quotes[currentIndex + 1] : null,
-  }
-}
 
 export async function generateStaticParams() {
   const quotesDirectory = path.join(process.cwd(), 'quotes')
@@ -83,8 +54,6 @@ export default async function Quote({ params }: { params: { id: string, slug: st
   const fullPath = path.join(process.cwd(), 'quotes', `${params.id}.mdx`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
   const { data, content } = matter(fileContents)
-
-  const { prev, next } = getAdjacentQuotes(params.id)
 
   return (
     <div className="max-w-5xl mx-auto p-4">

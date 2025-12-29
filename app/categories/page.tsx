@@ -98,7 +98,7 @@ function getAllCategoriesAndContent(): ContentByType {
           categoryMap.get(data.genre)!.push(contentItem)
         }
       })
-    } catch (error) {
+    } catch {
       // Directory might not exist, skip
     }
 

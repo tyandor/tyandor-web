@@ -28,7 +28,7 @@ export async function generateStaticParams() {
           }
         }
       })
-    } catch (error) {
+    } catch {
       // Directory might not exist, skip
     }
   })
@@ -92,7 +92,7 @@ export default function CategoryPage({ params }: { params: { category: string } 
           })
         }
       })
-    } catch (error) {
+    } catch {
       // Directory might not exist, skip
     }
   })
