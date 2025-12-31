@@ -154,8 +154,6 @@ Automated data gathering for the Technology Radar from RSS feeds.
 ```bash
 CRON_SECRET=your_secret_token_for_cron_jobs
 DATABASE_URL=postgresql://user:password@ep-xxx-xxx.us-east-2.aws.neon.tech/dbname?sslmode=require
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
 
 #### Configuration
@@ -223,10 +221,6 @@ Visit `/setup-integrations` for a web interface to:
 ```bash
 # Neon Database (PostgreSQL)
 DATABASE_URL=postgresql://user:password@ep-xxx-xxx.us-east-2.aws.neon.tech/dbname?sslmode=require
-
-# Supabase Authentication (Auth only - NOT database)
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_url
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_supabase_anon_key
 
 # Instapaper Integration
 INSTAPAPER_CONSUMER_KEY=your_consumer_key

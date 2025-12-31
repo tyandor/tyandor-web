@@ -1,4 +1,3 @@
-import { createClient } from '@/lib/supabase/server';
 import { createNeonClient } from '@/lib/db/neon';
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
@@ -8,14 +7,6 @@ const alertEmailTo = process.env.ALERT_EMAIL_TO;
 
 export async function PUT(request: Request, { params }: { params: { id: string } }) {
   try {
-    // Still use Supabase for authentication
-    const supabase = createClient();
-    const { data: { user } } = await supabase.auth.getUser();
-
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
     const body = await request.json();
     const id = params.id;
     const sql = createNeonClient();
@@ -61,7 +52,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
       try {
         await sql`
           INSERT INTO technology_history (technology_id, change_description, changed_by)
-          VALUES (${id}, ${change_description}, ${user.email})
+          VALUES (${id}, ${change_description}, 'system')
         `;
       } catch (historyError) {
         console.error('Failed to insert into history:', historyError);
@@ -74,7 +65,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
             from: 'Technology Radar <no-reply@your-domain.com>', // Replace with your domain
             to: alertEmailTo,
             subject: `Radar Update: ${updatedTechnology.name} moved rings`,
-            html: `<p>${updatedTechnology.name} was moved from the <strong>${original.ring}</strong> ring to the <strong>${updatedTechnology.ring}</strong> ring by ${user.email}.</p>`,
+            html: `<p>${updatedTechnology.name} was moved from the <strong>${original.ring}</strong> ring to the <strong>${updatedTechnology.ring}</strong> ring.</p>`,
           });
         } catch (emailError) {
           console.error('Failed to send email alert:', emailError);
@@ -94,14 +85,6 @@ export async function PUT(request: Request, { params }: { params: { id: string }
 
 export async function DELETE(request: Request, { params }: { params: { id: string } }) {
   try {
-    // Still use Supabase for authentication
-    const supabase = createClient();
-    const { data: { user } } = await supabase.auth.getUser();
-
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
     const id = params.id;
     const sql = createNeonClient();
 

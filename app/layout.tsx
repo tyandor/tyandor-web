@@ -5,7 +5,6 @@ import Script from 'next/script'
 import { ThemeProvider } from './components/ThemeProvider'
 import { Navigation } from './components/Navigation'
 import { Footer } from './components/Footer'
-import { createClient } from '@/lib/supabase/server'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -43,19 +42,16 @@ export const metadata: Metadata = {
   },
 }
 
-export default async function RootLayout({
+export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
-  const supabase = createClient()
-  const { data: { user } } = await supabase.auth.getUser()
-
   return (
     <html lang="en" className="h-full" suppressHydrationWarning>
       <body className={`${inter.className} flex flex-col min-h-screen bg-rosePine-overlay text-rosePine-text`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Navigation user={user} />
+          <Navigation />
           <main id="main-content" className="flex-grow container mx-auto mt-2 mb-10 px-2 sm:px-4 md:px-8 py-12 shadow-2xl rounded-2xl bg-rosePine-base" style={{borderRadius:"5rem"}}>
             {children}
           </main>

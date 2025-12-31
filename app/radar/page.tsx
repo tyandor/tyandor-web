@@ -1,6 +1,4 @@
-import { createClient } from '@/lib/supabase/server';
 import { createNeonClient } from '@/lib/db/neon';
-import { redirect } from 'next/navigation';
 import RadarWrapper from '@/app/components/RadarWrapper';
 
 // Define types for our data
@@ -51,14 +49,6 @@ async function getHistory() {
 }
 
 export default async function RadarPage() {
-  // Still use Supabase for authentication
-  const supabase = createClient();
-  const { data: { user } } = await supabase.auth.getUser();
-
-  if (!user) {
-    redirect('/login?next=/radar');
-  }
-
   const technologies = await getTechnologies();
   const history = await getHistory();
 

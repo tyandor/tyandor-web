@@ -1,12 +1,7 @@
-import { neon, neonConfig } from '@neondatabase/serverless';
-
-// Configure Neon for optimal performance
-neonConfig.fetchConnectionCache = true;
+import { neon } from '@neondatabase/serverless';
 
 /**
  * Create a Neon database client
- * This replaces the Supabase Postgres database connection
- * Note: Supabase Auth is still used for authentication
  */
 export function createNeonClient() {
   if (!process.env.DATABASE_URL) {

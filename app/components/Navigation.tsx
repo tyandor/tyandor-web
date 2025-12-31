@@ -4,12 +4,10 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { ThemeToggle } from './ThemeToggle'
 import Logo from '../../public/tyandor-logo.svg'
-import LogoutButton from './LogoutButton'
 import { useState, useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
-import type { User } from '@supabase/supabase-js'
 
-export function Navigation({ user }: { user: User | null }) {
+export function Navigation() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const hamburgerRef = useRef<HTMLButtonElement>(null)
   const mobileMenuRef = useRef<HTMLDivElement>(null)
@@ -61,19 +59,12 @@ export function Navigation({ user }: { user: User | null }) {
             <li role="menuitem"><Link href="/tools" className="text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text dark:hover:text-rosePineDawn-pine transition-colors">Tools</Link></li>
             <li role="menuitem"><Link href="/designs" className="text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text dark:hover:text-rosePineDawn-pine transition-colors">Design</Link></li>
             <li role="menuitem"><Link href="/books" className="text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text dark:hover:text-rosePineDawn-pine transition-colors">Books</Link></li>
-            {user && (
-              <li role="menuitem"><Link href="/radar" className="text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text dark:hover:text-rosePineDawn-pine transition-colors">Radar</Link></li>
-            )}
+            <li role="menuitem"><Link href="/radar" className="text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text dark:hover:text-rosePineDawn-pine transition-colors">Radar</Link></li>
             <li><ThemeToggle /></li>
           </ul>
 
           {/* Mobile Controls */}
           <div className="lg:hidden flex items-center space-x-4">
-            {user ? (
-              <LogoutButton />
-            ) : (
-              <Link href="/login" className="text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text dark:hover:text-rosePineDawn-pine transition-colors">Login</Link>
-            )}
             <ThemeToggle />
 
             {/* Hamburger Button */}
@@ -106,9 +97,7 @@ export function Navigation({ user }: { user: User | null }) {
             <li role="menuitem"><Link href="/tools" className="block text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text dark:hover:text-rosePineDawn-pine transition-colors py-2" onClick={() => setIsMenuOpen(false)}>Tools</Link></li>
             <li role="menuitem"><Link href="/designs" className="block text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text dark:hover:text-rosePineDawn-pine transition-colors py-2" onClick={() => setIsMenuOpen(false)}>Design</Link></li>
             <li role="menuitem"><Link href="/books" className="block text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text dark:hover:text-rosePineDawn-pine transition-colors py-2" onClick={() => setIsMenuOpen(false)}>Books</Link></li>
-            {user && (
-              <li role="menuitem"><Link href="/radar" className="block text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text dark:hover:text-rosePineDawn-pine transition-colors py-2" onClick={() => setIsMenuOpen(false)}>Radar</Link></li>
-            )}
+            <li role="menuitem"><Link href="/radar" className="block text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text dark:hover:text-rosePineDawn-pine transition-colors py-2" onClick={() => setIsMenuOpen(false)}>Radar</Link></li>
           </ul>
         </div>
       </nav>

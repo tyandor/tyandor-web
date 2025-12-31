@@ -30,7 +30,6 @@ This is a Next.js 14 personal website built with the App Router architecture. Th
 - **Language**: TypeScript with strict configuration
 - **Styling**: Tailwind CSS + Shadcn/ui components
 - **Database**: Neon (PostgreSQL serverless)
-- **Authentication**: Supabase Auth with SSR
 - **Content**: MDX files with gray-matter frontmatter parsing
 - **Animations**: GSAP for scroll-triggered effects
 - **Data Visualization**: D3.js for Technology Radar visualization
@@ -43,7 +42,6 @@ tyandor-web/
 ├── app/                       # Next.js App Router pages
 │   ├── api/                   # API routes
 │   │   ├── auth/             # Authentication endpoints
-│   │   │   ├── callback/     # Supabase auth callback
 │   │   │   └── instapaper/   # Instapaper OAuth flow
 │   │   └── radar/            # Technology Radar APIs
 │   │       ├── sync/         # RSS sync cron endpoint (secured)
@@ -78,9 +76,6 @@ tyandor-web/
 │   │   └── snipd.ts          # Snipd podcast API client
 │   ├── db/                   # Database client configuration
 │   │   └── neon.ts           # Neon PostgreSQL client
-│   ├── supabase/             # Supabase Auth client configuration (auth only)
-│   │   ├── client.ts         # Client-side Supabase client
-│   │   └── server.ts         # Server-side Supabase client
 │   └── utils.ts              # Utility functions (cn, etc.)
 ├── hooks/                    # Custom React hooks
 │   ├── use-mobile.tsx        # Mobile detection hook
@@ -182,12 +177,9 @@ Additional fields vary by content type:
 - `app/about/page.tsx` - About page
 - `app/categories/page.tsx` - All categories index
 - `app/tags/page.tsx` - All tags index
-- `app/login/page.tsx` - Login page
-- `app/auth/page.tsx` - Authentication handler
 - `app/setup-integrations/page.tsx` - API integration setup wizard
 
 ### API Routes
-- `app/api/auth/callback/route.ts` - Supabase auth callback handler
 - `app/api/auth/instapaper/route.ts` - Instapaper OAuth flow
 - `app/api/radar/sync/route.ts` - RSS feed sync cron job (POST only, Bearer token auth)
 - `app/api/radar/technologies/route.ts` - Technology CRUD operations
@@ -222,9 +214,7 @@ These are page-specific and feature-specific components:
 **Feature Components**:
 - `TechnologyRadar.tsx` - D3.js visualization of technology quadrants
 - `RadarManagement.tsx` - CRUD interface for radar entries
-- `RadarWrapper.tsx` - Wrapper for radar with auth checks
-- `AuthForm.tsx` - Authentication form (login/signup)
-- `LogoutButton.tsx` - Logout button component
+- `RadarWrapper.tsx` - Wrapper for radar component
 - `CategoryTagDisplay.tsx` - Category and tag display with links
 - `Counter.tsx` - Example counter component
 - `ThemeProvider.tsx` - next-themes wrapper component
@@ -288,26 +278,6 @@ Over 50 pre-built, customizable UI primitives including:
 - **GSAP**: Loaded via CDN in root layout for scroll animations
 - **Tailwind Animate**: CSS animations for UI elements (accordion, etc.)
 - **Custom Keyframes**: `accordion-down`, `accordion-up` defined in Tailwind config
-
-## Authentication & Middleware
-
-### Supabase Authentication
-- SSR-compatible auth using `@supabase/ssr`
-- Client-side client: `lib/supabase/client.ts`
-- Server-side client: `lib/supabase/server.ts`
-- Auth UI: `app/components/AuthForm.tsx`
-
-### Middleware (`middleware.ts`)
-- **Purpose**: Maintains Supabase auth session across requests
-- **Pattern**: Creates Supabase server client with cookie handlers
-- **Runs on**: All routes except static files (`_next/static`, `_next/image`, `favicon.ico`)
-- **Key Operations**:
-  - Reads auth cookies from request
-  - Calls `supabase.auth.getUser()` to refresh session
-  - Writes updated cookies to response
-  - Ensures session tokens stay fresh
-
-**Important**: Middleware does NOT enforce authentication - it only maintains session state. Protected routes should check auth in page/route handlers.
 
 ## External API Integrations
 
@@ -420,10 +390,6 @@ Configured in `vercel.json`:
 ```bash
 # Neon Database (PostgreSQL)
 DATABASE_URL=postgresql://user:password@ep-xxx-xxx.us-east-2.aws.neon.tech/dbname?sslmode=require
-
-# Supabase Authentication (Auth only - NOT database)
-NEXT_PUBLIC_SUPABASE_URL=https://xxx.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=your_anon_key
 ```
 
 ### Optional Integrations
@@ -461,10 +427,9 @@ NODE_ENV=development                           # or production
 4. **Maintain accessibility** - Shadcn components are accessible by default; preserve this
 
 ### When Working with APIs
-1. **Check auth requirements** - Radar routes require authentication; sync endpoint requires bearer token
-2. **Use correct Supabase client** - Server components use `lib/supabase/server.ts`, client components use `lib/supabase/client.ts`
-3. **Handle errors gracefully** - All API routes should return proper HTTP status codes
-4. **Test integration flows** - Use `/setup-integrations` for OAuth testing
+1. **Check sync endpoint auth** - The sync endpoint requires bearer token authentication via CRON_SECRET
+2. **Handle errors gracefully** - All API routes should return proper HTTP status codes
+3. **Test integration flows** - Use `/setup-integrations` for OAuth testing
 
 ### When Working with Styling
 1. **Use Tailwind utilities** - Avoid custom CSS unless absolutely necessary
@@ -476,7 +441,6 @@ NODE_ENV=development                           # or production
 - **Strict mode enabled** - No implicit any, proper type definitions required
 - **Type definitions** - Custom types in `types/global.d.ts`
 - **Component props** - Always define explicit prop interfaces
-- **Supabase types** - Generate types from Supabase schema when possible
 
 ### Bun Runtime Requirements
 - **NEVER use npm** - All commands must use `bun` (e.g., `bun install`, `bun run dev`)
@@ -495,7 +459,6 @@ NODE_ENV=development                           # or production
 ### Common Issues
 - **GSAP not loading**: Check CDN script in root layout
 - **MDX parse errors**: Validate frontmatter YAML syntax
-- **Auth not persisting**: Check Supabase env vars and middleware
 - **Dark mode flicker**: Ensure ThemeProvider wraps entire app
 - **Type errors**: Run `bun run lint` and check TypeScript compiler
 

@@ -1,4 +1,3 @@
-import { createClient } from '@/lib/supabase/server';
 import { createNeonClient } from '@/lib/db/neon';
 import { NextResponse } from 'next/server';
 
@@ -22,14 +21,6 @@ export async function GET() {
 
 export async function POST(request: Request) {
   try {
-    // Still use Supabase for authentication
-    const supabase = createClient();
-    const { data: { user } } = await supabase.auth.getUser();
-
-    if (!user) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
-    }
-
     const body = await request.json();
 
     // Validate body
@@ -63,7 +54,7 @@ export async function POST(request: Request) {
     try {
       await sql`
         INSERT INTO technology_history (technology_id, change_description, changed_by)
-        VALUES (${created.id}, 'Created.', ${user.email})
+        VALUES (${created.id}, 'Created.', 'system')
       `;
     } catch (historyError) {
       // Log this error but don't fail the whole request
