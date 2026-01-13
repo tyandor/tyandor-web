@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This is a personal website for Tyler Andor, built with Next.js 14 and the App Router architecture. It serves as a content hub for various types of content, including articles, quotes, ideas, projects, tools, designs, and books. The content is managed through MDX files with frontmatter. The project also integrates with Instapaper and Snipd to display bookmarks and podcast snippets.
+This is a personal website for Tyler Andor, built with Next.js 14 and the App Router architecture. It serves as a content hub for various types of content, including articles, quotes, ideas, projects, tools, designs, books, and a Technology Radar. The content is primarily managed through MDX files with frontmatter, while the Technology Radar is powered by a Neon Postgres database. The project also integrates with Instapaper and Snipd to display bookmarks and podcast snippets.
 
 **Key Technologies:**
 
@@ -11,6 +11,8 @@ This is a personal website for Tyler Andor, built with Next.js 14 and the App Ro
 *   **Styling:** Tailwind CSS with a custom Rosé Pine color scheme
 *   **UI Components:** shadcn/ui
 *   **Content:** MDX with `gray-matter` for frontmatter and `next-mdx-remote` for rendering
+*   **Database:** Neon (Postgres) for Technology Radar
+*   **Visualization:** D3.js for Technology Radar
 *   **Animations:** GSAP
 *   **Integrations:** Instapaper, Snipd
 
@@ -50,16 +52,17 @@ This is a personal website for Tyler Andor, built with Next.js 14 and the App Ro
 
 ### Content Creation
 
-New content can be created using the interactive CLI tools:
+New content can be created using the interactive CLI tools. The Python script provides a rich Terminal User Interface (TUI) built with Textual.
 
-*   `node scripts/compose.js`
-*   `python scripts/compose.py`
+*   `node scripts/compose.js`: Basic command-line interface.
+*   `python scripts/compose.py`: Interactive TUI for creating all content types. Requires `textual`.
 
 ## Development Conventions
 
 ### Project Structure
 
 *   `app/`: Contains the Next.js App Router pages, including dynamic routes for each content type.
+*   `app/radar/`: Contains the Technology Radar page and logic.
 *   `components/`: Reusable React components, with UI components from shadcn/ui in `components/ui/`.
 *   `lib/`: Utility functions and API integrations.
 *   `articles/`, `quotes/`, `ideas/`, etc.: Directories containing the MDX content files.
@@ -67,11 +70,22 @@ New content can be created using the interactive CLI tools:
 
 ### Content Management
 
-All content is stored in MDX files with YAML frontmatter. Each content type has its own directory in the project root. The frontmatter schema is defined in the `README.md` and includes fields like `title`, `author`, `date`, `categories`, and `tags`.
+All content (except the Radar) is stored in MDX files with YAML frontmatter. Each content type has its own directory in the project root. The frontmatter schema is defined in the `README.md`.
+
+### Database & Technology Radar
+
+The Technology Radar data is stored in a Neon Postgres database.
+*   **Schema:** Defined in `radar_schema_complete.sql`.
+*   **Tables:** `technologies` and `technology_history`.
+*   **Access:** Managed via `@neondatabase/serverless` in `app/radar/page.tsx` and related components.
 
 ### API Integrations
 
-The project integrates with the Instapaper and Snipd APIs. The client-side code for these integrations is located in `lib/integrations/`. API keys and other credentials should be stored in a `.env.local` file.
+The project integrates with:
+*   **Instapaper & Snipd:** Client-side code in `lib/integrations/`.
+*   **Neon Database:** Server-side connection for Radar data.
+
+API keys and connection strings (e.g., `DATABASE_URL`) should be stored in a `.env.local` file.
 
 ### Styling
 
