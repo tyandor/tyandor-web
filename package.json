@@ -1,6 +1,7 @@
 {
-  "name": "my-v0-project",
-  "version": "0.1.0",
+  "name": "tyandor-web",
+  "version": "0.2.1",
+  "author": "Tyler Andor",
   "private": true,
   "scripts": {
     "dev": "bun next dev",
