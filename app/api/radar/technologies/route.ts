@@ -9,7 +9,11 @@ export async function GET() {
       ORDER BY name ASC
     `;
 
-    return NextResponse.json(technologies);
+    return NextResponse.json(technologies, {
+      headers: {
+        'Cache-Control': 's-maxage=60, stale-while-revalidate=300',
+      },
+    });
   } catch (error) {
     console.error('Error fetching technologies:', error);
     return NextResponse.json(

@@ -1,6 +1,8 @@
 import { createNeonClient } from '@/lib/db/neon';
 import RadarWrapper from '@/app/components/RadarWrapper';
 
+export const revalidate = 60;
+
 // Define types for our data
 export interface Technology {
   id: string;

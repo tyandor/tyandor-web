@@ -3,6 +3,8 @@ import path from 'path'
 import matter from 'gray-matter'
 import { HomeWithLoading } from './components/HomeWithLoading'
 
+export const revalidate = 3600
+
 interface Article {
   slug: string
   title: string
