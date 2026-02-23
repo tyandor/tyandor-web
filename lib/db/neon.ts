@@ -4,11 +4,11 @@ import { neon } from '@neondatabase/serverless';
  * Create a Neon database client
  */
 export function createNeonClient() {
-  if (!process.env.DATABASE_URL) {
-    throw new Error('DATABASE_URL environment variable is not set');
+  if (!process.env.RADAR_POSTGRES_URL) {
+    throw new Error('RADAR_POSTGRES_URL environment variable is not set');
   }
 
-  const sql = neon(process.env.DATABASE_URL);
+  const sql = neon(process.env.RADAR_POSTGRES_URL);
   return sql;
 }
 

@@ -85,7 +85,7 @@ The project integrates with:
 *   **Instapaper & Snipd:** Client-side code in `lib/integrations/`.
 *   **Neon Database:** Server-side connection for Radar data.
 
-API keys and connection strings (e.g., `DATABASE_URL`) should be stored in a `.env.local` file.
+API keys and connection strings (e.g., `RADAR_POSTGRES_URL`) should be stored in a `.env.local` file.
 
 ### Styling
 

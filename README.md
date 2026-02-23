@@ -153,7 +153,7 @@ Automated data gathering for the Technology Radar from RSS feeds.
 1. Add required environment variables to `.env.local`:
 ```bash
 CRON_SECRET=your_secret_token_for_cron_jobs
-DATABASE_URL=postgresql://user:password@ep-xxx-xxx.us-east-2.aws.neon.tech/dbname?sslmode=require
+RADAR_POSTGRES_URL=postgresql://user:password@ep-xxx-xxx.us-east-2.aws.neon.tech/dbname?sslmode=require
 ```
 
 #### Configuration
@@ -220,7 +220,7 @@ Visit `/setup-integrations` for a web interface to:
 ### Environment Variables
 ```bash
 # Neon Database (PostgreSQL)
-DATABASE_URL=postgresql://user:password@ep-xxx-xxx.us-east-2.aws.neon.tech/dbname?sslmode=require
+RADAR_POSTGRES_URL=postgresql://user:password@ep-xxx-xxx.us-east-2.aws.neon.tech/dbname?sslmode=require
 
 # Instapaper Integration
 INSTAPAPER_CONSUMER_KEY=your_consumer_key

@@ -389,7 +389,7 @@ Configured in `vercel.json`:
 ### Required for Core Functionality
 ```bash
 # Neon Database (PostgreSQL)
-DATABASE_URL=postgresql://user:password@ep-xxx-xxx.us-east-2.aws.neon.tech/dbname?sslmode=require
+RADAR_POSTGRES_URL=postgresql://user:password@ep-xxx-xxx.us-east-2.aws.neon.tech/dbname?sslmode=require
 ```
 
 ### Optional Integrations
