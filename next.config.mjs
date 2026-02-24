@@ -14,6 +14,12 @@ const nextConfig = {
   },
   images: {
     dangerouslyAllowSVG: true,
+    localPatterns: [
+      {
+        pathname: '/**',
+        search: '',
+      },
+    ],
   },
 }
 

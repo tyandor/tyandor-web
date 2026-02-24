@@ -2,9 +2,7 @@ import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 import { Metadata } from 'next'
-import dynamic from 'next/dynamic'
-
-const AnimatedArticleCard = dynamic(() => import('../components/AnimatedArticleCard'), { ssr: false })
+import AnimatedArticleCard from '../components/AnimatedArticleCard'
 
 export const metadata: Metadata = {
   title: 'Articles',

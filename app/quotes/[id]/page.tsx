@@ -3,11 +3,9 @@ import path from 'path'
 import matter from 'gray-matter'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { Metadata } from 'next'
-import dynamic from 'next/dynamic'
 import { CategoryTagDisplay } from '@/app/components/CategoryTagDisplay'
 import ContentNavigation from '@/components/ContentNavigation'
-
-const AnimatedQuote = dynamic(() => import('../../components/AnimatedQuote'), { ssr: false })
+import AnimatedQuote from '../../components/AnimatedQuote'
 
 interface Quote {
   id: string;
