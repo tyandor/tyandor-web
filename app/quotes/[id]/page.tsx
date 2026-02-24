@@ -26,10 +26,11 @@ export async function generateStaticParams() {
     .map((fileName) => ({
       id: fileName.replace(/\.mdx$/, ''),
       slug: fileName.replace(/\.mdx$/, ''),
-    }))
+    }));
 }
 
-export async function generateMetadata({ params }: { params: { id: string, slug: string } }): Promise<Metadata> {
+export async function generateMetadata(props: { params: Promise<{ id: string, slug: string }> }): Promise<Metadata> {
+  const params = await props.params;
   const fullPath = path.join(process.cwd(), 'quotes', `${params.id}.mdx`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
   const { data } = matter(fileContents)
@@ -50,7 +51,8 @@ export async function generateMetadata({ params }: { params: { id: string, slug:
   }
 }
 
-export default async function Quote({ params }: { params: { id: string, slug: string } }) {
+export default async function Quote(props: { params: Promise<{ id: string, slug: string }> }) {
+  const params = await props.params;
   const fullPath = path.join(process.cwd(), 'quotes', `${params.id}.mdx`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
   const { data, content } = matter(fileContents)

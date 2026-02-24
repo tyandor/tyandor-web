@@ -16,10 +16,11 @@ export async function generateStaticParams() {
     .filter(fileName => fileName.endsWith('.mdx'))
     .map((fileName) => ({
       slug: fileName.replace(/\.mdx$/, ''),
-    }))
+    }));
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+export async function generateMetadata(props: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const params = await props.params;
   const fullPath = path.join(process.cwd(), 'articles', `${params.slug}.mdx`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
   const { data } = matter(fileContents)
@@ -47,7 +48,8 @@ const components = {
   Counter: Counter, //Updated as per update 2
 }
 
-export default async function Article({ params }: { params: { slug: string } }) {
+export default async function Article(props: { params: Promise<{ slug: string }> }) {
+  const params = await props.params;
   const fullPath = path.join(process.cwd(), 'articles', `${params.slug}.mdx`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
   const { data, content } = matter(fileContents)

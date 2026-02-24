@@ -33,7 +33,8 @@ export async function generateStaticParams() {
   }))
 }
 
-export async function generateMetadata({ params }: { params: { tag: string } }): Promise<Metadata> {
+export async function generateMetadata(props: { params: Promise<{ tag: string }> }): Promise<Metadata> {
+  const params = await props.params;
   return {
     title: `Items tagged with #${params.tag}`,
     description: `Browse all blog posts tagged with #${params.tag}`,
@@ -49,7 +50,8 @@ export async function generateMetadata({ params }: { params: { tag: string } }):
   }
 }
 
-export default function TagPage({ params }: { params: { tag: string } }) {
+export default async function TagPage(props: { params: Promise<{ tag: string }> }) {
+  const params = await props.params;
   const contentTypes = ['articles', 'quotes', 'ideas', 'projects', 'tools', 'designs', 'books']
   const allContent: Array<{
     slug: string

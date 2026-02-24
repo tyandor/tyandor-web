@@ -38,7 +38,8 @@ export async function generateStaticParams() {
   }))
 }
 
-export async function generateMetadata({ params }: { params: { category: string } }): Promise<Metadata> {
+export async function generateMetadata(props: { params: Promise<{ category: string }> }): Promise<Metadata> {
+  const params = await props.params;
   const categoryName = params.category.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
   return {
     title: `Items in category: ${categoryName}`,
@@ -55,7 +56,8 @@ export async function generateMetadata({ params }: { params: { category: string 
   }
 }
 
-export default function CategoryPage({ params }: { params: { category: string } }) {
+export default async function CategoryPage(props: { params: Promise<{ category: string }> }) {
+  const params = await props.params;
   const contentTypes = ['articles', 'quotes', 'ideas', 'projects', 'tools', 'designs', 'books']
   const allContent: Array<{
     slug: string
