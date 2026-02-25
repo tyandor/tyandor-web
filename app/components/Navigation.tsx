@@ -59,7 +59,6 @@ export function Navigation() {
             <li role="menuitem"><Link href="/tools" className="text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text dark:hover:text-rosePineDawn-pine transition-colors">Tools</Link></li>
             <li role="menuitem"><Link href="/designs" className="text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text dark:hover:text-rosePineDawn-pine transition-colors">Design</Link></li>
             <li role="menuitem"><Link href="/books" className="text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text dark:hover:text-rosePineDawn-pine transition-colors">Books</Link></li>
-            <li role="menuitem"><Link href="/radar" className="text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text dark:hover:text-rosePineDawn-pine transition-colors">Radar</Link></li>
             <li><ThemeToggle /></li>
           </ul>
 
@@ -97,7 +96,6 @@ export function Navigation() {
             <li role="menuitem"><Link href="/tools" className="block text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text dark:hover:text-rosePineDawn-pine transition-colors py-2" onClick={() => setIsMenuOpen(false)}>Tools</Link></li>
             <li role="menuitem"><Link href="/designs" className="block text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text dark:hover:text-rosePineDawn-pine transition-colors py-2" onClick={() => setIsMenuOpen(false)}>Design</Link></li>
             <li role="menuitem"><Link href="/books" className="block text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text dark:hover:text-rosePineDawn-pine transition-colors py-2" onClick={() => setIsMenuOpen(false)}>Books</Link></li>
-            <li role="menuitem"><Link href="/radar" className="block text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text dark:hover:text-rosePineDawn-pine transition-colors py-2" onClick={() => setIsMenuOpen(false)}>Radar</Link></li>
           </ul>
         </div>
       </nav>
