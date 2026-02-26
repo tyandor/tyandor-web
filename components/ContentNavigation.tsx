@@ -59,29 +59,29 @@ export default function ContentNavigation({
     <div className="max-w-6xl mx-auto text-center p-4">
       <div className="mt-12 inline-flex rounded-md" role="group">
         {prev ? (
-          <div className="px-8 py-4 text-lg text-gray-900 rounded-s-lg focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:text-white dark:focus:ring-blue-500 dark:focus:text-white">
+          <div className="px-3 py-2 text-sm md:px-8 md:py-4 md:text-lg text-gray-900 rounded-s-lg focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:text-white dark:focus:ring-blue-500 dark:focus:text-white">
             <Link href={`/${contentType}/${prev.slug}`} className="text-rosePine-foam dark:text-rosePineMoon-foam dark:hover:text-rosePineMoon-pine transition-colors">
               <span className="text-xl">&#8606;</span> {prev.title}
             </Link>
           </div>
         ) : (
-          <div className="px-8 py-4 text-lg text-gray-900 rounded-s-lg focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:text-white dark:focus:ring-blue-500 dark:focus:text-white">
+          <div className="px-3 py-2 text-sm md:px-8 md:py-4 md:text-lg text-gray-900 rounded-s-lg focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:text-white dark:focus:ring-blue-500 dark:focus:text-white">
             <span className="text-rosePine-foam">&#10033;</span>
           </div>
         )}
-        <div className="px-8 py-4 text-lg text-gray-900 border-r border-l border-dotted border-rosePine-foam focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:text-white dark:focus:ring-blue-500 dark:focus:text-white">
+        <div className="px-3 py-2 text-sm md:px-8 md:py-4 md:text-lg text-gray-900 border-r border-l border-dotted border-rosePine-foam focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:text-white dark:focus:ring-blue-500 dark:focus:text-white">
           <Link href={allContentHref} className="text-rosePine-foam dark:text-rosePineMoon-foam dark:hover:text-rosePineMoon-pine transition-colors">
             {allContentLabel}
           </Link>
         </div>
         {next ? (
-          <div className="px-8 py-4 text-lg text-gray-900 rounded-e-lg focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:text-white dark:focus:ring-blue-500 dark:focus:text-white">
+          <div className="px-3 py-2 text-sm md:px-8 md:py-4 md:text-lg text-gray-900 rounded-e-lg focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:text-white dark:focus:ring-blue-500 dark:focus:text-white">
             <Link href={`/${contentType}/${next.slug}`} className="text-rosePine-foam dark:text-rosePineMoon-foam dark:hover:text-rosePineMoon-pine transition-colors">
               {next.title} <span className="text-xl">&#8608;</span>
             </Link>
           </div>
         ) : (
-          <div className="px-8 py-4 text-lg text-gray-900 rounded-e-lg focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:text-white dark:focus:ring-blue-500 dark:focus:text-white">
+          <div className="px-3 py-2 text-sm md:px-8 md:py-4 md:text-lg text-gray-900 rounded-e-lg focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:text-white dark:focus:ring-blue-500 dark:focus:text-white">
             <span className="text-rosePine-foam">&#10033;</span>
           </div>
         )}

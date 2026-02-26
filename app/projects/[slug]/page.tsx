@@ -54,7 +54,7 @@ export default async function Project({ params }: { params: { slug: string } }) 
 
   return (
     <div className="max-w-3xl mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-4">{data.title}</h1>
+      <h1 className="text-xl md:text-3xl font-bold mb-4">{data.title}</h1>
       {data.image && (
         <div className="mb-6">
           <Image
