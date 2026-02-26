@@ -69,11 +69,6 @@ export default async function Tool({ params }: { params: { slug: string } }) {
       <div className="mb-6">
         <span className="font-semibold">Category:</span> {data.category}
       </div>
-      <CategoryTagDisplay
-        categories={data.categories}
-        tags={data.tags}
-        className="mb-6"
-      />
       <div className="prose max-w-none">
         <MDXRemote source={content} />
       </div>
@@ -84,6 +79,11 @@ export default async function Tool({ params }: { params: { slug: string } }) {
           </a>
         </div>
       )}
+      <CategoryTagDisplay
+        categories={data.categories}
+        tags={data.tags}
+        className="mt-8"
+      />
       <ContentNavigation
         currentSlug={params.slug}
         contentType="tools"

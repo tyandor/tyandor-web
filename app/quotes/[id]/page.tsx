@@ -63,10 +63,10 @@ export default async function Quote({ params }: { params: { id: string, slug: st
         author={data.author}
         content={<MDXRemote source={content} />}
       />
-      <CategoryTagDisplay 
-        categories={data.categories} 
-        tags={data.tags} 
-        className="justify-center mb-6" 
+      <CategoryTagDisplay
+        categories={data.categories}
+        tags={data.tags}
+        className="mt-8"
       />
       <ContentNavigation
         currentSlug={params.id}

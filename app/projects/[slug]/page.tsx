@@ -71,11 +71,6 @@ export default async function Project({ params }: { params: { slug: string } }) 
         <span className="mx-2">|</span>
         <span className="font-semibold">Technologies:</span> {data.technologies.join(', ')}
       </div>
-      <CategoryTagDisplay
-        categories={data.categories}
-        tags={data.tags}
-        className="mb-6"
-      />
       <div className="prose max-w-none">
         <MDXRemote source={content} />
       </div>
@@ -86,6 +81,11 @@ export default async function Project({ params }: { params: { slug: string } }) 
           </a>
         </div>
       )}
+      <CategoryTagDisplay
+        categories={data.categories}
+        tags={data.tags}
+        className="mt-8"
+      />
       <ContentNavigation
         currentSlug={params.slug}
         contentType="projects"

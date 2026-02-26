@@ -77,10 +77,10 @@ export default async function Article({ params }: { params: { slug: string } }) 
           />
         </div>
       </div>
-      <CategoryTagDisplay 
-        categories={data.categories} 
-        tags={data.tags} 
-        className="justify-center mt-8" 
+      <CategoryTagDisplay
+        categories={data.categories}
+        tags={data.tags}
+        className="mt-8"
       />
       <ContentNavigation
         currentSlug={params.slug}

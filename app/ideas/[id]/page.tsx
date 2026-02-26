@@ -57,10 +57,10 @@ export default async function Idea({ params }: { params: { id: string } }) {
       <div className="prose max-w-none">
         <MDXRemote source={content} />
       </div>
-      <CategoryTagDisplay 
-        categories={data.categories} 
-        tags={data.tags} 
-        className="mb-6" 
+      <CategoryTagDisplay
+        categories={data.categories}
+        tags={data.tags}
+        className="mt-8"
       />
       <ContentNavigation
         currentSlug={params.id}

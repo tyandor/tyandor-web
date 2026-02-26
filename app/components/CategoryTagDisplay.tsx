@@ -12,38 +12,40 @@ export function CategoryTagDisplay({ categories = [], tags = [], className = "" 
   }
 
   return (
-    <div className={`flex flex-wrap gap-2 items-center px-6 py-10 bg-rosePine-overlay border border-rosePine-surface rounded-lg ${className}`}>
+    <div className={`grid grid-cols-1 md:grid-cols-2 gap-8 px-6 py-8 bg-rosePine-overlay dark:bg-rosePineMoon-overlay border border-rosePine-surface dark:border-rosePineMoon-surface rounded-lg ${className}`}>
       {categories.length > 0 && (
-        <div className="flex flex-wrap gap-1 items-center">
-          <span className="text-sm uppercase text-rosePine-subtle dark:text-rosePineMoon-subtle font-medium">Categories:</span>
-          {categories.map((category, index) => (
-            <span key={category} className="flex items-center">
-              <Link 
+        <div>
+          <h3 className="text-lg font-bold text-rosePine-text dark:text-rosePineMoon-text">Categories</h3>
+          <div className="border-b border-dotted border-rosePine-subtle/40 dark:border-rosePineMoon-subtle/40 mt-2 mb-4" />
+          <div className="flex flex-wrap gap-2">
+            {categories.map((category) => (
+              <Link
+                key={category}
                 href={`/category/${encodeURIComponent(category.toLowerCase().replace(/\s+/g, "-"))}`}
-                className="text-sm bg-rosePine-surface dark:bg-rosePineMoon-surface border border-rosePine-foam text-rosePine-foam dark:text-rosePineMoon-foam px-2 py-1 rounded-md hover:bg-rosePine-foam hover:text-rosePine-base dark:hover:bg-rosePineMoon-foam dark:hover:text-rosePineMoon-base transition-colors"
+                className="text-sm bg-rosePine-surface dark:bg-rosePineMoon-surface border border-rosePine-foam dark:border-rosePineMoon-foam text-rosePine-foam dark:text-rosePineMoon-foam px-2 py-1 rounded-md hover:bg-rosePine-foam hover:text-rosePine-base dark:hover:bg-rosePineMoon-foam dark:hover:text-rosePineMoon-base transition-colors"
               >
                 {category}
               </Link>
-              {index < categories.length - 1 && <span className="text-rosePine-subtle dark:text-rosePineMoon-subtle mx-1"></span>}
-            </span>
-          ))}
+            ))}
+          </div>
         </div>
       )}
-      
+
       {tags.length > 0 && (
-        <div className="flex flex-wrap gap-1 items-center">
-          <span className="text-sm uppercase text-rosePine-subtle dark:text-rosePineMoon-subtle font-medium">Tags:</span>
-          {tags.map((tag, index) => (
-            <span key={tag} className="flex items-center">
-              <Link 
+        <div>
+          <h3 className="text-lg font-bold text-rosePine-text dark:text-rosePineMoon-text">Tags</h3>
+          <div className="border-b border-dotted border-rosePine-subtle/40 dark:border-rosePineMoon-subtle/40 mt-2 mb-4" />
+          <div className="flex flex-wrap gap-2">
+            {tags.map((tag) => (
+              <Link
+                key={tag}
                 href={`/tag/${encodeURIComponent(tag.toLowerCase().replace(/\s+/g, "-"))}`}
                 className="text-xs bg-rosePine-rose/10 dark:bg-rosePineMoon-rose/10 text-rosePine-rose dark:text-rosePineMoon-rose px-2 py-1 rounded-full border border-rosePine-rose/20 dark:border-rosePineMoon-rose/20 hover:bg-rosePine-rose hover:text-rosePine-base dark:hover:bg-rosePineMoon-rose dark:hover:text-rosePineMoon-base transition-colors"
               >
                 #{tag}
               </Link>
-              {index < tags.length - 1 && <span className="text-rosePine-subtle dark:text-rosePineMoon-subtle mx-1"></span>}
-            </span>
-          ))}
+            ))}
+          </div>
         </div>
       )}
     </div>
