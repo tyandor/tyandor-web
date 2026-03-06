@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  font-family: 'iA Writer Mono', monospace;
+  font-family: 'iA Writer Duo', monospace;
 }
 
 @layer utilities {
