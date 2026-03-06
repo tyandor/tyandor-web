@@ -43,7 +43,7 @@ export default function DesignsPage() {
 
   return (
     <div className="max-w-6xl mx-auto p-4">
-      <h1 className="text-7xl font-bold mb-8 text-rosePine-rose">Design</h1>
+      <h1 className="text-7xl font-bold italic mb-8 text-rosePine-rose">Design</h1>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {designs.map((design) => (
           <AnimatedDesignCard

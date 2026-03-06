@@ -45,7 +45,7 @@ export default function AboutPage() {
 
   return (
     <div className="max-w-2xl mx-auto p-4">
-      <h1 className="text-7xl font-bold mb-8 text-rosePine-rose">About</h1>
+      <h1 className="text-7xl font-bold italic mb-8 text-rosePine-rose">About</h1>
       <div ref={contentRef} className="prose prose-rosePine dark:prose-rosePineDawn opacity-0">
         <p>
           I&apos;m a Colorado Springs based Software Engineer. I&apos;m also a philosopher. This is my personal website, so of course any opinions expressed here should be taken as mine alone.

@@ -55,7 +55,7 @@ export default async function Article({ params }: { params: { slug: string } }) 
   return (
     <article className="mt-14">
       <div className="text-center">
-        <h1 className="text-5xl md:text-8xl font-bold font-mono leading-[1.4] mb-4">{data.title}</h1>
+        <h1 className="text-5xl md:text-8xl font-bold italic font-mono leading-[1.4] mb-4">{data.title}</h1>
         <p className="text-gray-500 mt-8 font-serif">
           Published {new Date(data.date).toLocaleDateString()} | Updated &nbsp;
           {data.updated ?? (

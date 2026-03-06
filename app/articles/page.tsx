@@ -45,7 +45,7 @@ export default function ArticlesPage() {
 
   return (
     <div className="max-w-4xl mx-auto p-4">
-      <h1 className="text-7xl font-bold font-mono mb-8 text-rosePine-rose">Articles</h1>
+      <h1 className="text-7xl font-bold italic font-mono mb-8 text-rosePine-rose">Articles</h1>
       <div className="space-y-8">
         {articles.map((article) => (
           <AnimatedArticleCard

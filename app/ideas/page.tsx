@@ -51,7 +51,7 @@ export default function IdeasPage() {
 
   return (
     <div className="max-w-4xl mx-auto p-4">
-      <h1 className="text-7xl font-bold mb-8 text-rosePine-rose">Ideas</h1>
+      <h1 className="text-7xl font-bold italic mb-8 text-rosePine-rose">Ideas</h1>
       {Object.entries(groupedIdeas).map(([category, categoryIdeas]) => (
         <div key={category} className="mb-8">
           <h2 className="text-2xl font-semibold mb-4">{category}</h2>

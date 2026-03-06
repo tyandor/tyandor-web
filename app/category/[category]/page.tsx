@@ -110,7 +110,7 @@ export default function CategoryPage({ params }: { params: { category: string } 
 
   return (
     <div className="max-w-4xl mx-auto p-4">
-      <h1 className="text-3xl font-bold mb-8 text-rosePine-text dark:text-rosePineMoon-text">
+      <h1 className="text-3xl font-bold italic mb-8 text-rosePine-text dark:text-rosePineMoon-text">
         Content in category: {categoryName}
       </h1>
       {allContent.length === 0 ? (

@@ -56,7 +56,7 @@ export default async function RadarPage() {
 
   return (
     <main className="container mx-auto px-4 py-8">
-      <h1 className="text-4xl font-bold mb-8">Technology Radar</h1>
+      <h1 className="text-4xl font-bold italic mb-8">Technology Radar</h1>
       <RadarWrapper technologies={technologies} history={history} />
     </main>
   );
