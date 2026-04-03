@@ -5,7 +5,7 @@
 	"private": true,
 	"scripts": {
 		"dev": "bun next dev",
-		"build": "bun next build",
+		"build": "bun next build --experimental-next-config-strip-types",
 		"start": "bun next start",
 		"lint": "bun eslint ."
 	},
@@ -41,7 +41,6 @@
 		"@radix-ui/react-toggle-group": "^1.1.11",
 		"@radix-ui/react-tooltip": "^1.2.8",
 		"@tailwindcss/typography": "^0.5.19",
-		"autoprefixer": "^10.4.27",
 		"class-variance-authority": "^0.7.1",
 		"clsx": "^2.1.1",
 		"cmdk": "1.1.1",
@@ -75,6 +74,7 @@
 		"zod": "^4.3.6"
 	},
 	"devDependencies": {
+		"@tailwindcss/postcss": "^4.2.2",
 		"@types/d3": "^7.4.3",
 		"@types/node": "^25.5.2",
 		"@types/react": "19.2.14",

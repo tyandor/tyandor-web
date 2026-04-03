@@ -17,7 +17,6 @@ const nextConfig = {
     localPatterns: [
       {
         pathname: '/**',
-        search: '',
       },
     ],
   },
