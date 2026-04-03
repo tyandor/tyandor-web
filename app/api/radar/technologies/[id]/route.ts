@@ -2,7 +2,6 @@ import { createNeonClient } from '@/lib/db/neon';
 import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
 const alertEmailTo = process.env.ALERT_EMAIL_TO;
 
 export async function PUT(request: Request, { params }: { params: { id: string } }) {
@@ -59,8 +58,9 @@ export async function PUT(request: Request, { params }: { params: { id: string }
       }
 
       // Send email alert
-      if (alertEmailTo) {
+      if (alertEmailTo && process.env.RESEND_API_KEY) {
         try {
+          const resend = new Resend(process.env.RESEND_API_KEY);
           await resend.emails.send({
             from: 'Technology Radar <no-reply@your-domain.com>', // Replace with your domain
             to: alertEmailTo,

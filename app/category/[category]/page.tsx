@@ -131,7 +131,7 @@ export default function CategoryPage({ params }: { params: { category: string } 
               </div>
               <div className="text-sm text-rosePine-subtle dark:text-rosePineMoon-subtle">
                 {item.author && <span>by {item.author} • </span>}
-                {new Date(item.date).toISOString().split('T')[0]}
+                {item.date && new Date(item.date).toISOString().split('T')[0]}
               </div>
             </div>
           ))}
