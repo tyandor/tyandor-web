@@ -243,7 +243,7 @@ export default function TagsPage() {
                           </Link>
                           <div className="text-xs text-rosePine-subtle dark:text-rosePineMoon-subtle">
                             {item.author && <span>by {item.author} • </span>}
-                            {new Date(item.date).toLocaleDateString()}
+                            {new Date(item.date).toISOString().split('T')[0]}
                           </div>
                         </div>
                       ))}
