@@ -74,7 +74,7 @@ async function createMdxFile(type, answers) {
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "")
-  const directory = path.join(process.cwd(), "..", type + "s")
+  const directory = path.join(process.cwd(), type + "s")
   const filePath = path.join(directory, `${slug}.mdx`)
 
   try {
