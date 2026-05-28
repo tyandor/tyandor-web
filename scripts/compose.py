@@ -20,6 +20,7 @@ author: "{AUTHOR_NAME}"
 date: "{date}"
 categories: {json.dumps([cat.strip() for cat in answers.get('categories', '').split(',') if cat.strip()])}
 tags: {json.dumps([tag.strip() for tag in answers.get('tags', '').split(',') if tag.strip()])}
+draft: false
 """
     match content_type:
         case "post":

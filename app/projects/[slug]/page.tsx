@@ -13,6 +13,10 @@ export async function generateStaticParams() {
 
   return fileNames
     .filter(fileName => fileName.endsWith('.mdx'))
+    .filter(fileName => {
+      const { data } = matter(fs.readFileSync(path.join(projectsDirectory, fileName), 'utf8'))
+      return data.draft !== true
+    })
     .map((fileName) => ({
       slug: fileName.replace(/\.mdx$/, ''),
     }))

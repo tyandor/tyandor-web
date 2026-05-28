@@ -53,6 +53,8 @@ function getAllTagsAndContent(): ContentByType {
         const fileContents = fs.readFileSync(fullPath, 'utf8')
         const { data } = matter(fileContents)
 
+        if (data.draft === true) return
+
         const slug = fileName.replace(/\.(md|mdx)$/, '')
         const contentItem: ContentItem = {
           slug,
@@ -107,7 +109,7 @@ function getAllUniqueTags(): TagData[] {
         const fileContents = fs.readFileSync(fullPath, 'utf8')
         const { data } = matter(fileContents)
 
-        if (data.tags && Array.isArray(data.tags)) {
+        if (data.draft !== true && data.tags && Array.isArray(data.tags)) {
           const slug = fileName.replace(/\.(md|mdx)$/, '')
           const contentItem: ContentItem = {
             slug,

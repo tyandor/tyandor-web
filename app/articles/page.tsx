@@ -38,8 +38,10 @@ export default function ArticlesPage() {
         description: data.description,
         date: data.date,
         author: data.author,
+        draft: data.draft,
       }
     })
+    .filter(article => article.draft !== true)
 
   articles.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 

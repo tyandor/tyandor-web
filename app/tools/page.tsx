@@ -38,8 +38,10 @@ export default function ToolsPage() {
         description: data.description,
         category: data.category,
         image: data.image || '/placeholder.svg?height=400&width=600',
+        draft: data.draft,
       }
     })
+    .filter(tool => tool.draft !== true)
 
   return (
     <div className="max-w-6xl mx-auto p-4">

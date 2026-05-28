@@ -18,6 +18,7 @@ export async function generateStaticParams() {
           const fullPath = path.join(directory, fileName)
           const fileContents = fs.readFileSync(fullPath, 'utf8')
           const { data } = matter(fileContents)
+          if (data.draft === true) return
           if (data.tags && Array.isArray(data.tags)) {
             data.tags.forEach((tag: string) => tags.add(tag.toLowerCase()))
           }
@@ -71,7 +72,9 @@ export default function TagPage({ params }: { params: { tag: string } }) {
         const fileContents = fs.readFileSync(fullPath, 'utf8')
         const { data } = matter(fileContents)
 
-        if (data.tags && Array.isArray(data.tags) && 
+        if (data.draft === true) return
+
+        if (data.tags && Array.isArray(data.tags) &&
             data.tags.some((tag: string) => tag.toLowerCase() === params.tag)) {
           const slug = fileName.replace(/\.(md|mdx)$/, '')
           allContent.push({

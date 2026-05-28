@@ -33,8 +33,10 @@ function getAdjacentContent(currentSlug: string, contentDirectory: string): { pr
         slug: fileName.replace(/\.mdx$/, ''),
         title: data.title,
         date: data.date,
+        draft: data.draft,
       }
     })
+    .filter(item => item.draft !== true)
 
   content.sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)))
 

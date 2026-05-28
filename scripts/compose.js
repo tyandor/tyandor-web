@@ -10,6 +10,7 @@ function generateFrontmatter(type, answers) {
     title: "${answers.title}"
     date: "${date}"
     updated: "${date}"
+    draft: false
   `
 
   switch (type) {

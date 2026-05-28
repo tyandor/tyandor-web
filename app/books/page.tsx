@@ -39,8 +39,10 @@ export default function BooksPage() {
         description: data.description,
         genre: data.genre,
         image: data.image || '/placeholder.svg?height=400&width=600',
+        draft: data.draft,
       }
     })
+    .filter(book => book.draft !== true)
 
   return (
     <div className="max-w-6xl mx-auto p-4">

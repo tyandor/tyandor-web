@@ -18,6 +18,7 @@ export async function generateStaticParams() {
           const fullPath = path.join(directory, fileName)
           const fileContents = fs.readFileSync(fullPath, 'utf8')
           const { data } = matter(fileContents)
+          if (data.draft === true) return
           if (data.categories && Array.isArray(data.categories)) {
             data.categories.forEach((category: string) => {
               categories.add(category.toLowerCase())
@@ -77,7 +78,9 @@ export default function CategoryPage({ params }: { params: { category: string } 
         const fileContents = fs.readFileSync(fullPath, 'utf8')
         const { data } = matter(fileContents)
 
-        const hasCategory = (data.categories && Array.isArray(data.categories) && 
+        if (data.draft === true) return
+
+        const hasCategory = (data.categories && Array.isArray(data.categories) &&
                            data.categories.some((cat: string) => cat.toLowerCase() === params.category)) ||
                           (data.category && data.category.toLowerCase() === params.category)
 

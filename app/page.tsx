@@ -36,13 +36,19 @@ interface Design {
 
 function getRandomQuote(): Quote | null {
   const quotesDirectory = path.join(process.cwd(), 'quotes')
-  const quoteFiles = fs.readdirSync(quotesDirectory)
+  const allFiles = fs.readdirSync(quotesDirectory)
 
-  if (quoteFiles.length === 0) {
+  const publishedFiles = allFiles.filter(fileName => {
+    if (!fileName.endsWith('.mdx')) return false
+    const { data } = matter(fs.readFileSync(path.join(quotesDirectory, fileName), 'utf8'))
+    return data.draft !== true
+  })
+
+  if (publishedFiles.length === 0) {
     return null
   }
 
-  const randomFile = quoteFiles[Math.floor(Math.random() * quoteFiles.length)]
+  const randomFile = publishedFiles[Math.floor(Math.random() * publishedFiles.length)]
   const fullPath = path.join(quotesDirectory, randomFile)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
   const { data } = matter(fileContents)
@@ -71,8 +77,10 @@ function getRecentTools(): Tool[] {
         description: data.description,
         category: data.category,
         image: data.image || '/placeholder.svg?height=400&width=600',
+        draft: data.draft,
       }
     })
+    .filter(tool => tool.draft !== true)
 
   tools.sort((a, b) => b.slug.localeCompare(a.slug))
   return tools.slice(0, 2)
@@ -94,8 +102,10 @@ function getRecentDesigns(): Design[] {
         title: data.title,
         description: data.description,
         image: data.image || '/placeholder.svg?height=400&width=600',
+        draft: data.draft,
       }
     })
+    .filter(design => design.draft !== true)
 
   designs.sort((a, b) => b.slug.localeCompare(a.slug))
   return designs.slice(0, 3)
@@ -118,8 +128,10 @@ export default function Home() {
         date: data.date,
         description: data.description,
         author: data.author,
+        draft: data.draft,
       }
     })
+    .filter(article => article.draft !== true)
 
   articles.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 

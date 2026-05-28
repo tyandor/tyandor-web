@@ -39,8 +39,10 @@ export default function ProjectsPage() {
         status: data.status,
         technologies: data.technologies,
         image: data.image || '/placeholder.svg?height=400&width=600',
+        draft: data.draft,
       }
     })
+    .filter(project => project.draft !== true)
 
   return (
     <div className="max-w-6xl mx-auto p-4">

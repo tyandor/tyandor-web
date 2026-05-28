@@ -37,8 +37,10 @@ export default function IdeasPage() {
         title: data.title,
         summary: data.summary,
         category: data.category,
+        draft: data.draft,
       }
     })
+    .filter(idea => idea.draft !== true)
 
   // Group ideas by category
   const groupedIdeas: Record<string, typeof ideas> = ideas.reduce((acc: Record<string, typeof ideas>, idea) => {

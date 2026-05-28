@@ -62,6 +62,8 @@ function getAllCategoriesAndContent(): ContentByType {
         const fileContents = fs.readFileSync(fullPath, 'utf8')
         const { data } = matter(fileContents)
 
+        if (data.draft === true) return
+
         const slug = fileName.replace(/\.(md|mdx)$/, '')
         const contentItem: ContentItem = {
           slug,
