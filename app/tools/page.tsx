@@ -45,7 +45,7 @@ export default function ToolsPage() {
 
   return (
     <div className="max-w-6xl mx-auto p-4">
-      <h1 className="text-7xl font-bold mb-8 text-rosePine-rose">Tools</h1>
+      <h1 className="text-7xl font-bold font-mono mb-8 text-rosePine-rose">Tools</h1>
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {tools.map((tool) => (
           <AnimatedToolCard

@@ -48,7 +48,7 @@ const AnimatedIdeaCard: React.FC<AnimatedIdeaCardProps> = ({ id, title, summary,
         className="border rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow bg-rosePine-surface dark:bg-rosePineMoon-surface"
       >
         <div className="p-4">
-          <h3 className="text-lg font-semibold mb-2 text-rosePine-text dark:text-rosePineMoon-text">{title}</h3>
+          <h3 className="text-lg font-semibold font-mono mb-2 text-rosePine-text dark:text-rosePineMoon-text">{title}</h3>
           <p className="text-sm text-rosePine-subtle dark:text-rosePineMoon-subtle mb-2">{summary}</p>
           <span className="text-xs text-rosePine-foam dark:text-rosePineMoon-foam">{category}</span>
         </div>

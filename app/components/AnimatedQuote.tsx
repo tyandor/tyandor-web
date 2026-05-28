@@ -36,7 +36,7 @@ const AnimatedQuote: React.FC<AnimatedQuoteProps> = ({ quote, author, content })
       </blockquote>
       <p ref={authorRef} className="text-right text-rosePine-muted mb-12 mt-8">{author}</p>
       <div ref={contextRef} className="max-w-2xl mx-auto mt-8">
-        <h2 className="text-xl text-rosePine-rose font-bold mb-4">Context</h2>
+        <h2 className="text-xl text-rosePine-rose font-bold font-mono mb-4">Context</h2>
         <div className="prose text-rosePine-text dark:prose-rosePine-text max-w-none">
           {content}
         </div>

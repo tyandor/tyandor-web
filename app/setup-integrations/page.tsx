@@ -92,7 +92,7 @@ export default function SetupIntegrationsPage() {
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-8">
       <div className="text-center">
-        <h1 className="text-3xl font-bold">Setup Integrations</h1>
+        <h1 className="text-3xl font-bold font-mono">Setup Integrations</h1>
         <p className="text-gray-600 mt-2">Configure your Instapaper and Snipd connections</p>
       </div>
 

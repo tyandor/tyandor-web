@@ -155,7 +155,7 @@ export default function CategoriesPage() {
     <div className="max-w-6xl mx-auto p-4">
       <div className="text-center mb-12">
         <div className="text-6xl mb-4">🏷️</div>
-        <h1 className="text-4xl font-bold mb-4 text-rosePine-text dark:text-rosePineMoon-text">
+        <h1 className="text-4xl font-bold font-mono mb-4 text-rosePine-text dark:text-rosePineMoon-text">
           Categories
         </h1>
         <p className="text-lg text-rosePine-subtle dark:text-rosePineMoon-subtle max-w-2xl mx-auto">
@@ -171,7 +171,7 @@ export default function CategoriesPage() {
         <div className="space-y-12">
           {Object.entries(contentByType).map(([type, categories]) => (
             <section key={type} className="border border-rosePine-surface dark:border-rosePineMoon-surface rounded-lg p-6">
-              <h2 className="text-2xl font-bold mb-6 text-rosePine-text dark:text-rosePineMoon-text flex items-center gap-2">
+              <h2 className="text-2xl font-bold font-mono mb-6 text-rosePine-text dark:text-rosePineMoon-text flex items-center gap-2">
                 <span className="text-2xl">{getTypeIcon(type)}</span>
                 {getTypeDisplayName(type)}
               </h2>
@@ -179,7 +179,7 @@ export default function CategoriesPage() {
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {categories.map((category) => (
                   <div key={`${type}-${category.name}`} className="border border-rosePine-highlight dark:border-rosePineMoon-highlight rounded-lg p-4 hover:border-rosePine-foam dark:hover:border-rosePineMoon-foam transition-colors">
-                    <h3 className="text-lg font-semibold mb-3 text-rosePine-text dark:text-rosePineMoon-text">
+                    <h3 className="text-lg font-semibold font-mono mb-3 text-rosePine-text dark:text-rosePineMoon-text">
                       {category.name}
                     </h3>
                     <div className="space-y-2">

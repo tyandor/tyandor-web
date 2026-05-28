@@ -139,7 +139,7 @@ export default function RadarManagement({ technologies, history, onDataChange }:
         </Table>
       </div>
 
-      <h2 className="text-2xl font-bold mt-8 mb-4">History</h2>
+      <h2 className="text-2xl font-bold font-mono mt-8 mb-4">History</h2>
       <div className="rounded-md border">
         <Table>
             <TableHeader>

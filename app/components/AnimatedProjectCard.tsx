@@ -58,7 +58,7 @@ const AnimatedProjectCard: React.FC<AnimatedProjectCardProps> = ({ slug, title, 
           className="object-cover w-full h-48"
         />
         <div className="p-4">
-          <h2 className="text-xl font-semibold mb-2 text-rosePine-text dark:text-rosePineMoon-text">{title}</h2>
+          <h2 className="text-xl font-semibold font-mono mb-2 text-rosePine-text dark:text-rosePineMoon-text">{title}</h2>
           <p className="text-sm text-rosePine-subtle dark:text-rosePineMoon-subtle mb-2">{description}</p>
           <div className="flex justify-between items-center">
             <span className="text-sm text-rosePine-muted dark:text-rosePineMoon-muted">{status}</span>

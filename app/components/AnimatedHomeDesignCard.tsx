@@ -51,7 +51,7 @@ const AnimatedHomeDesignCard: React.FC<AnimatedHomeDesignCardProps> = ({ slug, t
           className="object-cover w-full h-48"
         />
         <div className="p-4">
-          <h3 className="text-lg font-semibold mb-2 text-rosePine-text dark:text-rosePineMoon-text">{title}</h3>
+          <h3 className="text-lg font-semibold font-mono mb-2 text-rosePine-text dark:text-rosePineMoon-text">{title}</h3>
           <p className="text-sm text-rosePine-subtle dark:text-rosePineMoon-subtle">{description}</p>
         </div>
       </div>

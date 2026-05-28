@@ -57,7 +57,7 @@ const AnimatedDesignCard: React.FC<AnimatedDesignCardProps> = ({ slug, title, de
           className="object-cover w-full h-48"
         />
         <div className="p-4">
-          <h2 className="text-xl font-semibold mb-2 text-rosePine-text dark:text-rosePineMoon-text">{title}</h2>
+          <h2 className="text-xl font-semibold font-mono mb-2 text-rosePine-text dark:text-rosePineMoon-text">{title}</h2>
           <p className="text-sm text-rosePine-subtle dark:text-rosePineMoon-subtle mb-2">{description}</p>
           <span className="text-sm text-rosePine-foam dark:text-rosePineMoon-foam">{category}</span>
         </div>
