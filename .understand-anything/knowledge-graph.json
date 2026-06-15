@@ -1,0 +1,231 @@
+{
+  "name": "tyandor-web",
+  "version": "0.2.1",
+  "description": "Personal website of Tyler Andor with content management for articles, books, designs, ideas, projects, quotes, and tools, plus a Technology Radar feature.",
+  "architecture": {
+    "framework": "Next.js 14 App Router",
+    "runtime": "Bun",
+    "language": "TypeScript",
+    "styling": "Tailwind CSS with Shadcn/ui components",
+    "database": "Neon PostgreSQL",
+    "content_management": "MDX files with gray-matter frontmatter"
+  },
+  "key_components": [
+    {
+      "name": "app/layout.tsx",
+      "type": "Root Layout",
+      "description": "Main application layout with theme provider, navigation, and footer",
+      "dependencies": [
+        "./components/ThemeProvider",
+        "./components/Navigation",
+        "./components/Footer",
+        "next/font/google",
+        "next/script"
+      ]
+    },
+    {
+      "name": "app/page.tsx",
+      "type": "Homepage",
+      "description": "Homepage that aggregates recent content from all types",
+      "dependencies": [
+        "fs",
+        "path",
+        "gray-matter",
+        "./components/HomeWithLoading"
+      ]
+    },
+    {
+      "name": "app/radar/page.tsx",
+      "type": "Technology Radar Page",
+      "description": "Main page for displaying the Technology Radar with D3.js visualization",
+      "dependencies": [
+        "@/lib/db/neon",
+        "@/app/components/RadarWrapper"
+      ]
+    },
+    {
+      "name": "app/api/radar/sync/route.ts",
+      "type": "RSS Sync API",
+      "description": "Cron endpoint that automatically syncs technology entries from RSS feeds",
+      "dependencies": [
+        "rss-parser",
+        "@/lib/db/neon"
+      ]
+    },
+    {
+      "name": "components/ui",
+      "type": "UI Component Library",
+      "description": "Shadcn/ui component library with 50+ pre-built UI primitives",
+      "dependencies": []
+    },
+    {
+      "name": "app/components/RadarWrapper.tsx",
+      "type": "Radar Visualization Wrapper",
+      "description": "Auth-protected wrapper for Technology Radar visualization component",
+      "dependencies": [
+        "d3",
+        "@/app/components/TechnologyRadar",
+        "@/app/components/RadarManagement"
+      ]
+    },
+    {
+      "name": "app/components/TechnologyRadar.tsx",
+      "type": "D3.js Visualization",
+      "description": "D3.js quadrant visualization for technology radar",
+      "dependencies": [
+        "d3"
+      ]
+    },
+    {
+      "name": "lib/db/neon.ts",
+      "type": "Database Client",
+      "description": "Neon PostgreSQL client configuration",
+      "dependencies": [
+        "@neondatabase/serverless"
+      ]
+    }
+  ],
+  "content_types": [
+    {
+      "name": "Articles",
+      "directory": "articles/",
+      "description": "Blog posts and long-form content with frontmatter"
+    },
+    {
+      "name": "Books",
+      "directory": "books/",
+      "description": "Book reviews, notes, and summaries with frontmatter"
+    },
+    {
+      "name": "Designs",
+      "directory": "designs/",
+      "description": "Design work, mockups, and visual concepts with frontmatter"
+    },
+    {
+      "name": "Ideas",
+      "directory": "ideas/",
+      "description": "Thoughts, concepts, and brief notes with frontmatter"
+    },
+    {
+      "name": "Projects",
+      "directory": "projects/",
+      "description": "Portfolio projects and case studies with frontmatter"
+    },
+    {
+      "name": "Quotes",
+      "directory": "quotes/",
+      "description": "Curated quotes with optional commentary"
+    },
+    {
+      "name": "Tools",
+      "directory": "tools/",
+      "description": "Tool reviews, guides, and recommendations with frontmatter"
+    }
+  ],
+  "features": [
+    {
+      "name": "Technology Radar",
+      "description": "Quadrant-based visualization for tracking emerging technologies",
+      "components": [
+        "app/radar/page.tsx",
+        "app/components/RadarWrapper.tsx",
+        "app/components/TechnologyRadar.tsx",
+        "app/api/radar/sync/route.ts",
+        "radar_schema_complete.sql"
+      ],
+      "data_flow": "RSS feeds -> API sync -> Database -> Web visualization"
+    },
+    {
+      "name": "Content Management System",
+      "description": "MDX-based content management with frontmatter parsing",
+      "components": [
+        "app/page.tsx",
+        "app/articles/[slug]/page.tsx",
+        "app/books/[slug]/page.tsx",
+        "app/designs/[slug]/page.tsx",
+        "app/ideas/[id]/page.tsx",
+        "app/projects/[slug]/page.tsx",
+        "app/quotes/[id]/page.tsx",
+        "app/tools/[slug]/page.tsx"
+      ],
+      "data_flow": "MDX files -> gray-matter parsing -> React components"
+    },
+    {
+      "name": "Dynamic Routing",
+      "description": "Dynamic routes for all content types with slugs and IDs",
+      "components": [
+        "app/articles/[slug]/page.tsx",
+        "app/books/[slug]/page.tsx",
+        "app/designs/[slug]/page.tsx",
+        "app/ideas/[id]/page.tsx",
+        "app/projects/[slug]/page.tsx",
+        "app/quotes/[id]/page.tsx",
+        "app/tools/[slug]/page.tsx"
+      ]
+    }
+  ],
+  "dependencies": {
+    "frontend": {
+      "framework": "Next.js 14",
+      "ui_library": "Shadcn/ui",
+      "styling": "Tailwind CSS",
+      "animation": "GSAP",
+      "data_visualization": "D3.js",
+      "markdown": "MDX with next-mdx-remote",
+      "form_handling": "React Hook Form with Zod validation"
+    },
+    "backend": {
+      "database": "Neon PostgreSQL",
+      "api": "Next.js API routes",
+      "rss_processing": "rss-parser"
+    }
+  },
+  "data_models": [
+    {
+      "name": "Technology",
+      "table": "technologies",
+      "fields": [
+        "id (UUID)",
+        "name (TEXT)",
+        "description (TEXT)",
+        "quadrant (TEXT)",
+        "ring (TEXT)",
+        "tags (TEXT[])",
+        "source_url (TEXT)",
+        "created_at (TIMESTAMPTZ)",
+        "last_updated (TIMESTAMPTZ)"
+      ],
+      "relationships": [
+        "technology_history (one-to-many)"
+      ]
+    },
+    {
+      "name": "TechnologyHistory",
+      "table": "technology_history",
+      "fields": [
+        "id (BIGINT)",
+        "technology_id (UUID)",
+        "change_description (TEXT)",
+        "changed_at (TIMESTAMPTZ)",
+        "changed_by (TEXT)"
+      ],
+      "relationships": [
+        "technologies (many-to-one)"
+      ]
+    }
+  ],
+  "content_aggregation": {
+    "homepage": {
+      "content_types": ["articles", "quotes", "tools", "designs"],
+      "method": "File system reading with gray-matter parsing"
+    },
+    "category_pages": {
+      "content_types": ["all"],
+      "method": "Dynamic route filtering by category"
+    },
+    "tag_pages": {
+      "content_types": ["all"],
+      "method": "Dynamic route filtering by tag"
+    }
+  }
+}
