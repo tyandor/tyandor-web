@@ -2,8 +2,48 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: 'iA Writer Duo';
+  src: url('./webfonts/iAWriterDuoS-Regular.woff2') format('woff2'),
+       url('./webfonts/iAWriterDuoS-Regular.woff') format('woff'),
+       url('./webfonts/iAWriterDuoS-Regular.eot') format('eot');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'iA Writer Duo';
+  src: url('./webfonts/iAWriterDuoS-Italic.woff2') format('woff2'),
+       url('./webfonts/iAWriterDuoS-Italic.woff') format('woff'),
+       url('./webfonts/iAWriterDuoS-Italic.eot') format('eot');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'iA Writer Duo';
+  src: url('./webfonts/iAWriterDuoS-Bold.woff2') format('woff2'),
+       url('./webfonts/iAWriterDuoS-Bold.woff') format('woff'),
+       url('./webfonts/iAWriterDuoS-Bold.eot') format('eot');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'iA Writer Duo';
+  src: url('./webfonts/iAWriterDuoS-BoldItalic.woff2') format('woff2'),
+       url('./webfonts/iAWriterDuoS-BoldItalic.woff') format('woff'),
+       url('./webfonts/iAWriterDuoS-BoldItalic.eot') format('eot');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}
+
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
 }
 
 @layer utilities {
@@ -47,6 +87,9 @@ body {
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+    
+    /* Monospace font family */
+    --font-mono: 'iA Writer Duo', 'Courier New', Courier, monospace;
   }
   .dark {
     --background: 0 0% 3.9%;

@@ -51,7 +51,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="h-full" suppressHydrationWarning>
-      <body className={`${inter.className} flex flex-col min-h-screen bg-rosePine-overlay text-rosePine-text`}>
+      <body className={`flex flex-col min-h-screen bg-rosePine-overlay text-rosePine-text font-sans`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Navigation />
           <main id="main-content" className="flex-grow container mx-auto mt-2 mb-10 px-2 sm:px-4 md:px-8 py-12 shadow-2xl rounded-2xl bg-rosePine-base" style={{ borderRadius: "5rem" }}>
