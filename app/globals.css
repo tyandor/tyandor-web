@@ -1,124 +1,217 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@config "../tailwind.config.ts";
+@plugin "tailwindcss-animate";
+@plugin "@tailwindcss/typography";
 
+/* ─── Custom shadow token ─── */
 @theme {
   --shadow-3xl: 0px -25px 20px -20px rgba(0,0,0,0.45), 0px 25px 20px -20px rgba(0,0,0,0.45);
 }
 
-@layer base {
-  :root {
-    --color-base: 250 240 235;
-    --color-surface: 255 250 243;
-    --color-overlay: 242 233 225;
-    --color-muted: 152 147 165;
-    --color-subtle: 121 117 147;
-    --color-text: 87 82 121;
-    --color-love: 180 99 122;
-    --color-gold: 234 157 52;
-    --color-rose: 215 130 126;
-    --color-pine: 40 105 131;
-    --color-foam: 86 148 159;
-    --color-iris: 144 122 169;
-    --color-highlight-low: 244 237 232;
-    --color-highlight-med: 223 218 217;
-    --color-highlight-high: 206 202 205;
-    --chart-1: #ebbcba;
-    --chart-2: #ea9a97;
-    --chart-3: #d7827e;
-    --chart-4: #b4637a;
-  }
-
-  .dark {
-    --color-base: 35 33 54;
-    --color-surface: 42 39 63;
-    --color-overlay: 57 53 82;
-    --color-muted: 110 106 134;
-    --color-subtle: 144 140 170;
-    --color-text: 224 222 244;
-    --color-love: 235 111 146;
-    --color-gold: 246 193 119;
-    --color-rose: 234 154 151;
-    --color-pine: 62 143 176;
-    --color-foam: 156 207 216;
-    --color-iris: 196 167 231;
-    --color-highlight-low: 42 40 62;
-    --color-highlight-med: 68 65 90;
-    --color-highlight-high: 86 82 110;
-    --chart-1: #ebbcba;
-    --chart-2: #ea9a97;
-    --chart-3: #d7827e;
-    --chart-4: #b4637a;
-  }
-
-  .light {
-    --color-base: 250 244 237;
-    --color-surface: 255 250 243;
-    --color-overlay: 242 233 225;
-    --color-muted: 152 147 165;
-    --color-subtle: 121 117 147;
-    --color-text: 87 82 121;
-    --color-love: 180 99 122;
-    --color-gold: 234 157 52;
-    --color-rose: 215 130 126;
-    --color-pine: 40 105 131;
-    --color-foam: 86 148 159;
-    --color-iris: 144 122 169;
-    --color-highlight-low: 244 237 232;
-    --color-highlight-med: 223 218 217;
-    --color-highlight-high: 206 202 205;
-    --chart-1: #ebbcba;
-    --chart-2: #ea9a97;
-    --chart-3: #d7827e;
-    --chart-4: #b4637a;
-  }
-
-  body {
-    @apply bg-rosePine-base text-rosePine-text;
-  }
+/* ─── Rosé Pine adaptive colors (switch via CSS variables) ─── */
+@theme inline {
+  --color-rosePine-base: rgb(var(--color-base) / 1);
+  --color-rosePine-surface: rgb(var(--color-surface) / 1);
+  --color-rosePine-overlay: rgb(var(--color-overlay) / 1);
+  --color-rosePine-muted: rgb(var(--color-muted) / 1);
+  --color-rosePine-subtle: rgb(var(--color-subtle) / 1);
+  --color-rosePine-text: rgb(var(--color-text) / 1);
+  --color-rosePine-love: rgb(var(--color-love) / 1);
+  --color-rosePine-gold: rgb(var(--color-gold) / 1);
+  --color-rosePine-rose: rgb(var(--color-rose) / 1);
+  --color-rosePine-pine: rgb(var(--color-pine) / 1);
+  --color-rosePine-foam: rgb(var(--color-foam) / 1);
+  --color-rosePine-iris: rgb(var(--color-iris) / 1);
+  --color-rosePine-highlightLow: rgb(var(--color-highlight-low) / 1);
+  --color-rosePine-highlight: rgb(var(--color-highlight-med) / 1);
+  --color-rosePine-highlight-med: rgb(var(--color-highlight-med) / 1);
 }
 
-@layer utilities {
-  .bg-rosePine-base {
-    background-color: rgb(var(--color-base) / 1);
-  }
-
-  .bg-rosePine-surface {
-    background-color: rgb(var(--color-surface) / 1);
-  }
-
-  .text-rosePine-text {
-    color: rgb(var(--color-text) / 1);
-  }
-
-  .text-rosePine-muted {
-    color: rgb(var(--color-muted) / 1);
-  }
-
-  .text-rosePine-love {
-    color: rgb(var(--color-love) / 1);
-  }
-
-  .text-rosePine-gold {
-    color: rgb(var(--color-gold) / 1);
-  }
-
-  .text-rosePine-pine {
-    color: rgb(var(--color-pine) / 1);
-  }
+/* ─── Rosé Pine Moon (fixed dark variant) ─── */
+@theme {
+  --color-rosePineMoon-base: rgb(35 33 54);
+  --color-rosePineMoon-surface: rgb(42 39 63);
+  --color-rosePineMoon-overlay: rgb(57 53 82);
+  --color-rosePineMoon-muted: rgb(110 106 134);
+  --color-rosePineMoon-subtle: rgb(144 140 170);
+  --color-rosePineMoon-text: rgb(224 222 244);
+  --color-rosePineMoon-love: rgb(235 111 146);
+  --color-rosePineMoon-gold: rgb(246 193 119);
+  --color-rosePineMoon-rose: rgb(234 154 151);
+  --color-rosePineMoon-pine: rgb(62 143 176);
+  --color-rosePineMoon-foam: rgb(156 207 216);
+  --color-rosePineMoon-iris: rgb(196 167 231);
+  --color-rosePineMoon-highlightLow: rgb(42 40 62);
+  --color-rosePineMoon-highlight: rgb(68 65 90);
 }
 
-.prose {
+/* ─── Rosé Pine Dawn (fixed light variant) ─── */
+@theme {
+  --color-rosePineDawn-base: rgb(250 244 237);
+  --color-rosePineDawn-surface: rgb(255 250 243);
+  --color-rosePineDawn-overlay: rgb(242 233 225);
+  --color-rosePineDawn-muted: rgb(152 147 165);
+  --color-rosePineDawn-subtle: rgb(121 117 147);
+  --color-rosePineDawn-text: rgb(87 82 121);
+  --color-rosePineDawn-love: rgb(180 99 122);
+  --color-rosePineDawn-gold: rgb(234 157 52);
+  --color-rosePineDawn-rose: rgb(215 130 126);
+  --color-rosePineDawn-pine: rgb(40 105 131);
+  --color-rosePineDawn-foam: rgb(86 148 159);
+  --color-rosePineDawn-iris: rgb(144 122 169);
+  --color-rosePineDawn-highlightLow: rgb(244 237 232);
+  --color-rosePineDawn-highlight: rgb(223 218 217);
+}
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  a,
-  blockquote,
-  strong,
-  em {
-    color: rgb(var(--color-text) / 1);
-  }
+/* ─── Rosé Pine CSS custom properties (switch with .dark/.light) ─── */
+:root {
+  --color-base: 250 240 235;
+  --color-surface: 255 250 243;
+  --color-overlay: 242 233 225;
+  --color-muted: 152 147 165;
+  --color-subtle: 121 117 147;
+  --color-text: 87 82 121;
+  --color-love: 180 99 122;
+  --color-gold: 234 157 52;
+  --color-rose: 215 130 126;
+  --color-pine: 40 105 131;
+  --color-foam: 86 148 159;
+  --color-iris: 144 122 169;
+  --color-highlight-low: 244 237 232;
+  --color-highlight-med: 223 218 217;
+  --color-highlight-high: 206 202 205;
+  --chart-1: #ebbcba;
+  --chart-2: #ea9a97;
+  --chart-3: #d7827e;
+  --chart-4: #b4637a;
+}
+
+.dark {
+  --color-base: 35 33 54;
+  --color-surface: 42 39 63;
+  --color-overlay: 57 53 82;
+  --color-muted: 110 106 134;
+  --color-subtle: 144 140 170;
+  --color-text: 224 222 244;
+  --color-love: 235 111 146;
+  --color-gold: 246 193 119;
+  --color-rose: 234 154 151;
+  --color-pine: 62 143 176;
+  --color-foam: 156 207 216;
+  --color-iris: 196 167 231;
+  --color-highlight-low: 42 40 62;
+  --color-highlight-med: 68 65 90;
+  --color-highlight-high: 86 82 110;
+  --chart-1: #ebbcba;
+  --chart-2: #ea9a97;
+  --chart-3: #d7827e;
+  --chart-4: #b4637a;
+}
+
+.light {
+  --color-base: 250 244 237;
+  --color-surface: 255 250 243;
+  --color-overlay: 242 233 225;
+  --color-muted: 152 147 165;
+  --color-subtle: 121 117 147;
+  --color-text: 87 82 121;
+  --color-love: 180 99 122;
+  --color-gold: 234 157 52;
+  --color-rose: 215 130 126;
+  --color-pine: 40 105 131;
+  --color-foam: 86 148 159;
+  --color-iris: 144 122 169;
+  --color-highlight-low: 244 237 232;
+  --color-highlight-med: 223 218 217;
+  --color-highlight-high: 206 202 205;
+  --chart-1: #ebbcba;
+  --chart-2: #ea9a97;
+  --chart-3: #d7827e;
+  --chart-4: #b4637a;
+}
+
+/* ─── Shadcn/ui CSS variables ─── */
+:root {
+  --background: 0 0% 100%;
+  --foreground: 0 0% 3.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 0 0% 3.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 0 0% 3.9%;
+  --primary: 0 0% 9%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 0 0% 96.1%;
+  --secondary-foreground: 0 0% 9%;
+  --muted: 0 0% 96.1%;
+  --muted-foreground: 0 0% 45.1%;
+  --accent: 0 0% 96.1%;
+  --accent-foreground: 0 0% 9%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 0 0% 89.8%;
+  --input: 0 0% 89.8%;
+  --ring: 0 0% 3.9%;
+  --radius: 0.5rem;
+  --sidebar-background: 0 0% 98%;
+  --sidebar-foreground: 240 5.3% 26.1%;
+  --sidebar-primary: 240 5.9% 10%;
+  --sidebar-primary-foreground: 0 0% 98%;
+  --sidebar-accent: 240 4.8% 95.9%;
+  --sidebar-accent-foreground: 240 5.9% 10%;
+  --sidebar-border: 220 13% 91%;
+  --sidebar-ring: 217.2 91.2% 59.8%;
+}
+
+.dark {
+  --background: 0 0% 3.9%;
+  --foreground: 0 0% 98%;
+  --card: 0 0% 3.9%;
+  --card-foreground: 0 0% 98%;
+  --popover: 0 0% 3.9%;
+  --popover-foreground: 0 0% 98%;
+  --primary: 0 0% 98%;
+  --primary-foreground: 0 0% 9%;
+  --secondary: 0 0% 14.9%;
+  --secondary-foreground: 0 0% 98%;
+  --muted: 0 0% 14.9%;
+  --muted-foreground: 0 0% 63.9%;
+  --accent: 0 0% 14.9%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 0 0% 14.9%;
+  --input: 0 0% 14.9%;
+  --ring: 0 0% 83.1%;
+  --sidebar-background: 240 5.9% 10%;
+  --sidebar-foreground: 240 4.8% 95.9%;
+  --sidebar-primary: 224.3 76.3% 48%;
+  --sidebar-primary-foreground: 0 0% 100%;
+  --sidebar-accent: 240 3.7% 15.9%;
+  --sidebar-accent-foreground: 240 4.8% 95.9%;
+  --sidebar-border: 240 3.7% 15.9%;
+  --sidebar-ring: 217.2 91.2% 59.8%;
+}
+
+/* ─── Base styles ─── */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: rgb(var(--color-base) / 1);
+  color: rgb(var(--color-text) / 1);
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+/* ─── Prose styles for MDX content ─── */
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose a,
+.prose blockquote,
+.prose strong,
+.prose em {
+  color: rgb(var(--color-text) / 1);
 }
