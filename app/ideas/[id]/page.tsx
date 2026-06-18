@@ -4,7 +4,7 @@ import matter from 'gray-matter'
 import { MDXRemote } from 'next-mdx-remote/rsc'
 import { Metadata } from 'next'
 import { CategoryTagDisplay } from '@/app/components/CategoryTagDisplay'
-import ContentNavigation from '@/components/ContentNavigation'
+import ContentNavigation from '@/app/components/ContentNavigation'
 
 interface Idea {
   id: string;
@@ -28,8 +28,9 @@ export async function generateStaticParams() {
     }))
 }
 
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
-  const fullPath = path.join(process.cwd(), 'ideas', `${params.id}.mdx`)
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
+  const { id } = await params
+  const fullPath = path.join(process.cwd(), 'ideas', `${id}.mdx`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
   const { data } = matter(fileContents)
 
@@ -49,8 +50,9 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
   }
 }
 
-export default async function Idea({ params }: { params: { id: string } }) {
-  const fullPath = path.join(process.cwd(), 'ideas', `${params.id}.mdx`)
+export default async function Idea({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
+  const fullPath = path.join(process.cwd(), 'ideas', `${id}.mdx`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
   const { data, content } = matter(fileContents)
 
@@ -67,7 +69,7 @@ export default async function Idea({ params }: { params: { id: string } }) {
         className="mt-8"
       />
       <ContentNavigation
-        currentSlug={params.id}
+        currentSlug={id}
         contentType="ideas"
         contentDirectory="ideas"
         allContentHref="/ideas"

@@ -4,7 +4,7 @@ import matter from 'gray-matter'
 import { Metadata } from 'next'
 import dynamic from 'next/dynamic'
 
-const AnimatedDesignCard = dynamic(() => import('../components/AnimatedDesignCard'), { ssr: false })
+const AnimatedDesignCard = dynamic(() => import('../components/AnimatedDesignCard'))
 
 export const metadata: Metadata = {
   title: 'Designs',
@@ -37,7 +37,7 @@ export default function DesignsPage() {
         title: data.title,
         description: data.description,
         category: data.category,
-        image: data.image || '/placeholder.svg?height=400&width=600',
+        image: data.image || '/placeholder.svg',
         draft: data.draft,
       }
     })

@@ -8,6 +8,7 @@ interface ContentItem {
   slug: string
   title: string
   date: string
+  draft: any
 }
 
 interface ContentNavigationProps {
@@ -20,22 +21,36 @@ interface ContentNavigationProps {
 
 function getAdjacentContent(currentSlug: string, contentDirectory: string): { prev: ContentItem | null; next: ContentItem | null } {
   const fullDirectory = path.join(process.cwd(), contentDirectory)
-  const fileNames = fs.readdirSync(fullDirectory)
+  
+  let fileNames: string[] = []
+  try {
+    fileNames = fs.readdirSync(fullDirectory)
+  } catch (error) {
+    console.error('Error reading directory:', fullDirectory, error)
+    return { prev: null, next: null }
+  }
 
   const content: ContentItem[] = fileNames
     .filter(fileName => fileName.endsWith('.mdx'))
     .map((fileName) => {
       const fullPath = path.join(fullDirectory, fileName)
-      const fileContents = fs.readFileSync(fullPath, 'utf8')
+      let fileContents = ''
+      try {
+        fileContents = fs.readFileSync(fullPath, 'utf8')
+      } catch (error) {
+        console.error('Error reading file:', fullPath, error)
+        return null
+      }
       const { data } = matter(fileContents)
 
       return {
         slug: fileName.replace(/\.mdx$/, ''),
-        title: data.title,
-        date: data.date,
+        title: data.title || fileName.replace(/\.mdx$/, ''),
+        date: data.date || '1970-01-01',
         draft: data.draft,
       }
     })
+    .filter((item): item is ContentItem => item !== null)
     .filter(item => item.draft !== true)
 
   content.sort((a, b) => compareDesc(new Date(a.date), new Date(b.date)))

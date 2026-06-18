@@ -39,8 +39,9 @@ export async function generateStaticParams() {
   }))
 }
 
-export async function generateMetadata({ params }: { params: { category: string } }): Promise<Metadata> {
-  const categoryName = params.category.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
+export async function generateMetadata({ params }: { params: Promise<{ category: string }> }): Promise<Metadata> {
+  const { category } = await params
+  const categoryName = (category || '').replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
   return {
     title: `Items in category: ${categoryName}`,
     description: `Browse all items in the ${categoryName} category`,
@@ -56,7 +57,9 @@ export async function generateMetadata({ params }: { params: { category: string 
   }
 }
 
-export default function CategoryPage({ params }: { params: { category: string } }) {
+export default async function CategoryPage({ params }: { params: Promise<{ category: string }> }) {
+  const { category } = await params
+  const cat = category || ''
   const contentTypes = ['articles', 'quotes', 'ideas', 'projects', 'tools', 'designs', 'books']
   const allContent: Array<{
     slug: string
@@ -81,8 +84,8 @@ export default function CategoryPage({ params }: { params: { category: string } 
         if (data.draft === true) return
 
         const hasCategory = (data.categories && Array.isArray(data.categories) &&
-                           data.categories.some((cat: string) => cat.toLowerCase() === params.category)) ||
-                          (data.category && data.category.toLowerCase() === params.category)
+                           data.categories.some((c: string) => c.toLowerCase() === cat)) ||
+                          (data.category && data.category.toLowerCase() === cat)
 
         if (hasCategory) {
           const slug = fileName.replace(/\.(md|mdx)$/, '')
@@ -102,7 +105,7 @@ export default function CategoryPage({ params }: { params: { category: string } 
 
   allContent.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
 
-  const categoryName = params.category.charAt(0).toUpperCase() + params.category.slice(1)
+  const categoryName = cat.charAt(0).toUpperCase() + cat.slice(1)
 
   const getContentUrl = (item: typeof allContent[0]) => {
     if (item.type === 'quotes' || item.type === 'ideas') {

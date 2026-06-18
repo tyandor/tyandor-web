@@ -5,7 +5,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc'
 import { Metadata } from 'next'
 import Image from 'next/image'
 import { CategoryTagDisplay } from '@/app/components/CategoryTagDisplay'
-import ContentNavigation from '@/components/ContentNavigation'
+import ContentNavigation from '@/app/components/ContentNavigation'
 
 export async function generateStaticParams() {
   const toolsDirectory = path.join(process.cwd(), 'tools')
@@ -22,8 +22,9 @@ export async function generateStaticParams() {
     }))
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const fullPath = path.join(process.cwd(), 'tools', `${params.slug}.mdx`)
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params
+  const fullPath = path.join(process.cwd(), 'tools', `${slug}.mdx`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
   const { data } = matter(fileContents)
 
@@ -36,7 +37,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       type: 'article',
       images: [
         {
-          url: data.image || '/placeholder.svg?height=600&width=1200',
+          url: data.image || '/placeholder.svg',
           width: 1200,
           height: 600,
           alt: data.title,
@@ -51,8 +52,9 @@ export async function generateMetadata({ params }: { params: { slug: string } })
   }
 }
 
-export default async function Tool({ params }: { params: { slug: string } }) {
-  const fullPath = path.join(process.cwd(), 'tools', `${params.slug}.mdx`)
+export default async function Tool({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const fullPath = path.join(process.cwd(), 'tools', `${slug}.mdx`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
   const { data, content } = matter(fileContents)
 
@@ -89,7 +91,7 @@ export default async function Tool({ params }: { params: { slug: string } }) {
         className="mt-8"
       />
       <ContentNavigation
-        currentSlug={params.slug}
+        currentSlug={slug}
         contentType="tools"
         contentDirectory="tools"
         allContentHref="/tools"

@@ -4,10 +4,10 @@ import { Resend } from 'resend';
 
 const alertEmailTo = process.env.ALERT_EMAIL_TO;
 
-export async function PUT(request: Request, { params }: { params: { id: string } }) {
+export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const body = await request.json();
-    const id = params.id;
+    const { id } = await params;
     const sql = createNeonClient();
 
     // Get the original record
@@ -83,9 +83,9 @@ export async function PUT(request: Request, { params }: { params: { id: string }
   }
 }
 
-export async function DELETE(request: Request, { params }: { params: { id: string } }) {
+export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const id = params.id;
+    const { id } = await params;
     const sql = createNeonClient();
 
     await sql`

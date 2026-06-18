@@ -5,7 +5,7 @@ import { MDXRemote } from 'next-mdx-remote/rsc'
 import { Metadata } from 'next'
 import { Counter } from '@/app/components/Counter'
 import { CategoryTagDisplay } from '@/app/components/CategoryTagDisplay'
-import ContentNavigation from '@/components/ContentNavigation'
+import ContentNavigation from '@/app/components/ContentNavigation'
 import remarkGfm from 'remark-gfm'
 
 export async function generateStaticParams() {
@@ -23,8 +23,9 @@ export async function generateStaticParams() {
     }))
 }
 
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
-  const fullPath = path.join(process.cwd(), 'articles', `${params.slug}.mdx`)
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params
+  const fullPath = path.join(process.cwd(), 'articles', `${slug}.mdx`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
   const { data } = matter(fileContents)
 
@@ -51,8 +52,9 @@ const components = {
   Counter: Counter, //Updated as per update 2
 }
 
-export default async function Article({ params }: { params: { slug: string } }) {
-  const fullPath = path.join(process.cwd(), 'articles', `${params.slug}.mdx`)
+export default async function Article({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params
+  const fullPath = path.join(process.cwd(), 'articles', `${slug}.mdx`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
   const { data, content } = matter(fileContents)
 
@@ -87,7 +89,7 @@ export default async function Article({ params }: { params: { slug: string } }) 
         className="mt-8"
       />
       <ContentNavigation
-        currentSlug={params.slug}
+        currentSlug={slug}
         contentType="articles"
         contentDirectory="articles"
         allContentHref="/articles"

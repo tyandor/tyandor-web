@@ -76,7 +76,7 @@ function getRecentTools(): Tool[] {
         title: data.title,
         description: data.description,
         category: data.category,
-        image: data.image || '/placeholder.svg?height=400&width=600',
+        image: data.image || '/placeholder.svg',
         draft: data.draft,
       }
     })
@@ -101,7 +101,7 @@ function getRecentDesigns(): Design[] {
         slug: fileName.replace(/\.mdx$/, ''),
         title: data.title,
         description: data.description,
-        image: data.image || '/placeholder.svg?height=400&width=600',
+        image: data.image || '/placeholder.svg',
         draft: data.draft,
       }
     })
