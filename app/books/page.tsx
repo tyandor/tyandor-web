@@ -4,7 +4,7 @@ import matter from 'gray-matter'
 import { Metadata } from 'next'
 import dynamic from 'next/dynamic'
 
-const AnimatedBookCard = dynamic(() => import('../components/AnimatedBookCard'), { ssr: false })
+const AnimatedBookCard = dynamic(() => import('../components/AnimatedBookCard'))
 
 export const metadata: Metadata = {
   title: 'Books',
@@ -38,7 +38,7 @@ export default function BooksPage() {
         author: data.author,
         description: data.description,
         genre: data.genre,
-        image: data.image || '/placeholder.svg?height=400&width=600',
+        image: data.image || '/placeholder.svg',
         draft: data.draft,
       }
     })

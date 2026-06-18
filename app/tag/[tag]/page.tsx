@@ -34,23 +34,26 @@ export async function generateStaticParams() {
   }))
 }
 
-export async function generateMetadata({ params }: { params: { tag: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ tag: string }> }): Promise<Metadata> {
+  const { tag } = await params
   return {
-    title: `Items tagged with #${params.tag}`,
-    description: `Browse all blog posts tagged with #${params.tag}`,
+    title: `Items tagged with #${tag}`,
+    description: `Browse all blog posts tagged with #${tag}`,
     openGraph: {
-      title: `Items tagged with #${params.tag}`,
-      description: `Browse all blog posts tagged with #${params.tag}`,
+      title: `Items tagged with #${tag}`,
+      description: `Browse all blog posts tagged with #${tag}`,
     },
     twitter: {
       card: 'summary_large_image',
-      title: `Items tagged with #${params.tag}`,
-      description: `Browse all blog posts tagged with #${params.tag}`,
+      title: `Items tagged with #${tag}`,
+      description: `Browse all blog posts tagged with #${tag}`,
     },
   }
 }
 
-export default function TagPage({ params }: { params: { tag: string } }) {
+export default async function TagPage({ params }: { params: Promise<{ tag: string }> }) {
+  const { tag } = await params
+  const t = tag || ''
   const contentTypes = ['articles', 'quotes', 'ideas', 'projects', 'tools', 'designs', 'books']
   const allContent: Array<{
     slug: string
@@ -75,7 +78,7 @@ export default function TagPage({ params }: { params: { tag: string } }) {
         if (data.draft === true) return
 
         if (data.tags && Array.isArray(data.tags) &&
-            data.tags.some((tag: string) => tag.toLowerCase() === params.tag)) {
+            data.tags.some((tagVal: string) => tagVal.toLowerCase() === t)) {
           const slug = fileName.replace(/\.(md|mdx)$/, '')
           allContent.push({
             slug,
@@ -103,7 +106,7 @@ export default function TagPage({ params }: { params: { tag: string } }) {
   return (
     <div className="max-w-4xl mx-auto p-4">
       <h1 className="text-3xl font-bold font-mono mb-8 text-rosePine-text dark:text-rosePineMoon-text">
-        Content tagged with #{params.tag}
+        Content tagged with #{t}
       </h1>
       {allContent.length === 0 ? (
         <p className="text-rosePine-subtle dark:text-rosePineMoon-subtle">

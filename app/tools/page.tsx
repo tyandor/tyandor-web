@@ -4,7 +4,7 @@ import matter from 'gray-matter'
 import { Metadata } from 'next'
 import dynamic from 'next/dynamic'
 
-const AnimatedToolCard = dynamic(() => import('../components/AnimatedToolCard'), { ssr: false })
+const AnimatedToolCard = dynamic(() => import('../components/AnimatedToolCard'));
 
 export const metadata: Metadata = {
   title: 'Tools',
@@ -37,7 +37,7 @@ export default function ToolsPage() {
         title: data.title,
         description: data.description,
         category: data.category,
-        image: data.image || '/placeholder.svg?height=400&width=600',
+        image: data.image || '/placeholder.svg',
         draft: data.draft,
       }
     })

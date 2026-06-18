@@ -4,7 +4,7 @@ import matter from 'gray-matter'
 import { Metadata } from 'next'
 import dynamic from 'next/dynamic'
 
-const AnimatedIdeaCard = dynamic(() => import('../components/AnimatedIdeaCard'), { ssr: false })
+const AnimatedIdeaCard = dynamic(() => import('../components/AnimatedIdeaCard'))
 
 export const metadata: Metadata = {
   title: 'Ideas',

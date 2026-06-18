@@ -5,9 +5,9 @@ import { MDXRemote } from 'next-mdx-remote/rsc'
 import { Metadata } from 'next'
 import dynamic from 'next/dynamic'
 import { CategoryTagDisplay } from '@/app/components/CategoryTagDisplay'
-import ContentNavigation from '@/components/ContentNavigation'
+import ContentNavigation from '@/app/components/ContentNavigation'
 
-const AnimatedQuote = dynamic(() => import('../../components/AnimatedQuote'), { ssr: false })
+const AnimatedQuote = dynamic(() => import('../../components/AnimatedQuote'))
 
 interface Quote {
   id: string;
@@ -33,8 +33,9 @@ export async function generateStaticParams() {
     }))
 }
 
-export async function generateMetadata({ params }: { params: { id: string, slug: string } }): Promise<Metadata> {
-  const fullPath = path.join(process.cwd(), 'quotes', `${params.id}.mdx`)
+export async function generateMetadata({ params }: { params: Promise<{ id: string, slug: string }> }): Promise<Metadata> {
+  const { id } = await params
+  const fullPath = path.join(process.cwd(), 'quotes', `${id}.mdx`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
   const { data } = matter(fileContents)
 
@@ -54,15 +55,16 @@ export async function generateMetadata({ params }: { params: { id: string, slug:
   }
 }
 
-export default async function Quote({ params }: { params: { id: string, slug: string } }) {
-  const fullPath = path.join(process.cwd(), 'quotes', `${params.id}.mdx`)
+export default async function Quote({ params }: { params: Promise<{ id: string, slug: string }> }) {
+  const { id } = await params
+  const fullPath = path.join(process.cwd(), 'quotes', `${id}.mdx`)
   const fileContents = fs.readFileSync(fullPath, 'utf8')
   const { data, content } = matter(fileContents)
 
   return (
     <div className="max-w-5xl mx-auto p-4">
       <AnimatedQuote
-        key={params.id}
+        key={id}
         quote={data.quote}
         author={data.author}
         content={<MDXRemote source={content} />}
@@ -73,7 +75,7 @@ export default async function Quote({ params }: { params: { id: string, slug: st
         className="mt-8"
       />
       <ContentNavigation
-        currentSlug={params.id}
+        currentSlug={id}
         contentType="quotes"
         contentDirectory="quotes"
         allContentHref="/quotes"
