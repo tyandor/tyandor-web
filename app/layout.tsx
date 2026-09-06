@@ -1,12 +1,13 @@
+// tokens.css first: globals.css and every shell class below resolve through
+// the --ty-* properties it defines.
+import '@tyandor/tokens/tokens.css'
 import './globals.css'
-import { Inter } from 'next/font/google'
+import { fontVariables } from '@tyandor/fonts/next'
 import { Metadata } from 'next'
 import Script from 'next/script'
 import { ThemeProvider } from './components/ThemeProvider'
 import { Navigation } from './components/Navigation'
 import { Footer } from './components/Footer'
-
-const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: {
@@ -50,11 +51,25 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="h-full" suppressHydrationWarning>
-      <body className={`flex flex-col min-h-screen bg-rosePine-overlay text-rosePine-text font-sans`}>
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+    <html lang="en" className={`h-full ${fontVariables}`} suppressHydrationWarning>
+      <body className="flex flex-col min-h-screen bg-background text-text-primary font-body">
+        {/*
+          next-themes writes one class, and both token systems read it: the
+          --ty-* contract matches .ty-theme-* directly, and globals.css hangs
+          the Rosé Pine --color-* values off the same two selectors.
+
+          `value` maps the theme *names* to those classes. The names stay
+          light/dark because that is what enableSystem resolves a system
+          preference to — rename them and system mode silently stops matching.
+        */}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          value={{ light: 'ty-theme-earth', dark: 'ty-theme-mcrn' }}
+        >
           <Navigation />
-          <main id="main-content" className="flex-grow container mx-auto mt-2 mb-10 px-2 sm:px-4 md:px-8 py-12 shadow-2xl rounded-2xl bg-rosePine-base" style={{ borderRadius: "5rem" }}>
+          <main id="main-content" className="flex-grow container mx-auto mt-2 mb-10 px-2 sm:px-4 md:px-8 py-12 shadow-2xl rounded-2xl bg-layer-01" style={{ borderRadius: "5rem" }}>
             {children}
           </main>
           <Footer />
