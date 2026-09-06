@@ -2,10 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
-@theme {
-  --shadow-3xl: 0px -25px 20px -20px rgba(0,0,0,0.45), 0px 25px 20px -20px rgba(0,0,0,0.45);
-}
-
+/*
+ * Rosé Pine, still installed.
+ *
+ * Everything outside the shell still paints through --color-*; Milestone 6
+ * retires them. The selectors below are the token contract's own theme classes
+ * rather than .dark/.light, because next-themes writes exactly one class and
+ * both systems have to read it. See app/layout.tsx.
+ *
+ * :root keeps the Dawn values as the pre-hydration default. next-themes' inline
+ * script sets the class in <head> before first paint, so this is only ever the
+ * ground for the split second before that runs, and for the no-JS case.
+ */
 @layer base {
   :root {
     --color-base: 250 240 235;
@@ -29,7 +37,7 @@
     --chart-4: #b4637a;
   }
 
-  .dark {
+  .ty-theme-mcrn {
     --color-base: 35 33 54;
     --color-surface: 42 39 63;
     --color-overlay: 57 53 82;
@@ -45,13 +53,9 @@
     --color-highlight-low: 42 40 62;
     --color-highlight-med: 68 65 90;
     --color-highlight-high: 86 82 110;
-    --chart-1: #ebbcba;
-    --chart-2: #ea9a97;
-    --chart-3: #d7827e;
-    --chart-4: #b4637a;
   }
 
-  .light {
+  .ty-theme-earth {
     --color-base: 250 244 237;
     --color-surface: 255 250 243;
     --color-overlay: 242 233 225;
@@ -67,48 +71,49 @@
     --color-highlight-low: 244 237 232;
     --color-highlight-med: 223 218 217;
     --color-highlight-high: 206 202 205;
-    --chart-1: #ebbcba;
-    --chart-2: #ea9a97;
-    --chart-3: #d7827e;
-    --chart-4: #b4637a;
   }
+}
 
+/*
+ * The shell is on the token contract, so the page ground comes from --ty-*.
+ * Unmigrated surfaces still set their own bg-rosePine-* and paint over it.
+ */
+@layer base {
   body {
-    @apply bg-rosePine-base text-rosePine-text;
+    background-color: var(--ty-background);
+    color: var(--ty-text-primary);
+    font-family: var(--ty-font-body);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  *:focus-visible {
+    outline: 2px solid var(--ty-focus);
+    outline-offset: 2px;
   }
 }
 
-@layer utilities {
-  .bg-rosePine-base {
-    background-color: rgb(var(--color-base) / 1);
-  }
-
-  .bg-rosePine-surface {
-    background-color: rgb(var(--color-surface) / 1);
-  }
-
-  .text-rosePine-text {
-    color: rgb(var(--color-text) / 1);
-  }
-
-  .text-rosePine-muted {
-    color: rgb(var(--color-muted) / 1);
-  }
-
-  .text-rosePine-love {
-    color: rgb(var(--color-love) / 1);
-  }
-
-  .text-rosePine-gold {
-    color: rgb(var(--color-gold) / 1);
-  }
-
-  .text-rosePine-pine {
-    color: rgb(var(--color-pine) / 1);
-  }
-}
-
+/*
+ * @tailwindcss/typography defaults body copy to gray-700, which was only ever
+ * legible against the light theme. Measured on the dark theme it was 1.52:1
+ * before this branch and 1.90:1 after — both far under AA, so dark-mode
+ * readers have been reading prose they could not see.
+ *
+ * Setting the plugin's own variables rather than a `.prose p` rule: the plugin
+ * resolves every element through --tw-prose-*, so this reaches list markers,
+ * quotes and captions too, and it does not depend on out-specifying the
+ * `:where()` selectors it ships.
+ *
+ * Deliberately still on Rosé Pine's --color-text, not a --ty-* role. This is a
+ * contrast fix, not the prose migration; Milestone 6 moves prose onto tokens
+ * and this block goes with it.
+ */
 .prose {
+  --tw-prose-body: rgb(var(--color-text) / 1);
+  --tw-prose-bullets: rgb(var(--color-muted) / 1);
+  --tw-prose-counters: rgb(var(--color-muted) / 1);
+  --tw-prose-captions: rgb(var(--color-subtle) / 1);
+  --tw-prose-hr: rgb(var(--color-highlight-med) / 1);
+  --tw-prose-quote-borders: rgb(var(--color-highlight-high) / 1);
 
   h1,
   h2,
