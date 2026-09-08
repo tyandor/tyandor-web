@@ -8,12 +8,11 @@ import { useState, useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 
 /*
- * One definition, eighteen call sites. The previous form repeated
- * `text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text
- * dark:hover:text-rosePineDawn-pine` on every link — and the `dark:` half of
- * that was doing nothing a reader would expect, since rosePine and
- * rosePineDawn resolve to the same variables. The token roles carry the theme
- * themselves, so there is no light/dark pair to state here at all.
+ * One definition, eighteen call sites. The previous form spelled out a
+ * four-class light/dark pair on every link, and the `dark:` half of it was
+ * inert: it named a palette key that no Tailwind config ever defined, so it
+ * emitted no CSS. The role tokens carry the theme themselves, so there is no
+ * light/dark pair to state here at all.
  */
 const navLink =
   'text-text-secondary hover:text-text-primary transition-colors duration-fast-02'

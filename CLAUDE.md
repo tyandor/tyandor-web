@@ -80,8 +80,6 @@ tyandor-web/
 ├── hooks/                    # Custom React hooks
 │   ├── use-mobile.tsx        # Mobile detection hook
 │   └── use-toast.ts          # Toast notification hook
-├── styles/                   # Stylesheets
-│   └── globals.css           # Global CSS with Rosé Pine theme variables
 ├── types/                    # TypeScript type definitions
 │   └── global.d.ts           # Global type declarations
 ├── scripts/                  # Development and content tools
@@ -262,12 +260,18 @@ Over 50 pre-built, customizable UI primitives including:
 - `chart-1` through `chart-5` - Chart colors
 - `sidebar-*` - Sidebar-specific colors
 
-**Rosé Pine Theme** (mentioned in original CLAUDE.md):
-- Custom CSS properties: `--color-base`, `--color-surface`, `--color-text`, `--color-love`
-- Utility classes: `bg-rosePine-base`, `text-rosePine-text`
-- Three variants: base, dawn (light), moon (dark)
+**Expanse tokens** (`@tyandor/tokens`, the source of truth):
+- CSS custom properties: `--ty-background`, `--ty-layer-01`, `--ty-text-primary`,
+  `--ty-text-emphasis`, `--ty-link`, `--ty-interactive`, `--ty-border-subtle`
+- Utility classes: `bg-background`, `text-text-primary`, `text-link`
+- Two themes: `.ty-theme-mcrn` (dark) and `.ty-theme-earth` (light), declared in
+  `tokens.css`. The role carries both, so `dark:` variants are rarely needed.
 
-**Note**: Color system uses both Rosé Pine custom properties AND Shadcn/ui semantic variables - check `styles/globals.css` for complete definitions.
+**Note**: the shadcn names above are a translation layer defined in
+`tailwind.config.js` — each resolves to a `--ty-*` role, not to a second palette.
+Rosé Pine and `styles/globals.css` were removed in Milestone 6; the only
+stylesheet is `app/globals.css`. Conventions live in `DESIGN.md`, values at
+https://design.tyandor.com.
 
 ### Typography
 - `@tailwindcss/typography` plugin for prose content

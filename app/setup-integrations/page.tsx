@@ -93,7 +93,7 @@ export default function SetupIntegrationsPage() {
     <div className="max-w-4xl mx-auto p-6 space-y-8">
       <div className="text-center">
         <h1 className="text-3xl font-bold font-mono">Setup Integrations</h1>
-        <p className="text-gray-600 mt-2">Configure your Instapaper and Snipd connections</p>
+        <p className="text-text-secondary mt-2">Configure your Instapaper and Snipd connections</p>
       </div>
 
       {message && (
@@ -114,11 +114,11 @@ export default function SetupIntegrationsPage() {
           <CardContent className="space-y-4">
             <div className="space-y-2">
               <Label>Step 1: Create Instapaper App</Label>
-              <p className="text-sm text-gray-600">
-                Go to <a href="https://www.instapaper.com/main/request_oauth_consumer_token" className="text-blue-600 hover:underline" target="_blank">Instapaper Developer</a> to create an app and get your consumer key/secret.
+              <p className="text-sm text-text-secondary">
+                Go to <a href="https://www.instapaper.com/main/request_oauth_consumer_token" className="text-link hover:underline" target="_blank">Instapaper Developer</a> to create an app and get your consumer key/secret.
               </p>
-              <div className="bg-yellow-50 p-3 rounded border-l-4 border-yellow-400">
-                <p className="text-sm text-yellow-800">
+              <div className="bg-layer-02 p-3 rounded border-l-4 border-support-warning">
+                <p className="text-sm text-text-primary">
                   <strong>Important:</strong> When requesting your tokens, you must specifically ask for <strong>xAuth access</strong> in your application description. Standard OAuth apps won&apos;t work for this integration.
                 </p>
               </div>
@@ -126,7 +126,7 @@ export default function SetupIntegrationsPage() {
 
             <div className="space-y-2">
               <Label>Step 2: Add to .env.local</Label>
-              <pre className="text-xs bg-gray-100 p-2 rounded">
+              <pre className="text-xs bg-layer-02 text-text-primary p-2 rounded">
 {`INSTAPAPER_CONSUMER_KEY=your_key
 INSTAPAPER_CONSUMER_SECRET=your_secret`}
               </pre>
@@ -148,14 +148,14 @@ INSTAPAPER_CONSUMER_SECRET=your_secret`}
                 value={instapaperPassword}
                 onChange={(e) => setInstapaperPassword(e.target.value)}
               />
-              <p className="text-xs text-gray-600">
+              <p className="text-xs text-text-secondary">
                 Your credentials are sent directly to Instapaper and not stored on this server.
               </p>
-              <div className="bg-red-50 p-3 rounded border-l-4 border-red-400">
-                <p className="text-sm text-red-800">
+              <div className="bg-layer-02 p-3 rounded border-l-4 border-support-error">
+                <p className="text-sm text-support-error">
                   <strong>Getting 403 Forbidden?</strong> This usually means:
                 </p>
-                <ul className="text-xs text-red-700 mt-1 list-disc list-inside">
+                <ul className="text-xs text-text-primary mt-1 list-disc list-inside">
                   <li>Your consumer tokens haven&apos;t been approved yet</li>
                   <li>xAuth wasn&apos;t requested/enabled for your app</li>
                   <li>Check the server console for more debug information</li>
@@ -195,8 +195,8 @@ INSTAPAPER_CONSUMER_SECRET=your_secret`}
           <CardContent className="space-y-4">
             <div className="space-y-2">
               <Label>Step 1: Get API Key</Label>
-              <p className="text-sm text-gray-600">
-                Get your API key from <a href="https://snipd.com/developers" className="text-blue-600 hover:underline" target="_blank">Snipd Developers</a>
+              <p className="text-sm text-text-secondary">
+                Get your API key from <a href="https://snipd.com/developers" className="text-link hover:underline" target="_blank">Snipd Developers</a>
               </p>
             </div>
 
@@ -222,7 +222,7 @@ INSTAPAPER_CONSUMER_SECRET=your_secret`}
       </div>
 
       <div className="text-center">
-        <p className="text-sm text-gray-600">
+        <p className="text-sm text-text-secondary">
           After setup, you can use the integrations in your components and pages.
         </p>
       </div>

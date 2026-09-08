@@ -54,9 +54,11 @@ export default function RootLayout({
     <html lang="en" className={`h-full ${fontVariables}`} suppressHydrationWarning>
       <body className="flex flex-col min-h-screen bg-background text-text-primary font-body">
         {/*
-          next-themes writes one class, and both token systems read it: the
-          --ty-* contract matches .ty-theme-* directly, and globals.css hangs
-          the Rosé Pine --color-* values off the same two selectors.
+          next-themes writes one class and the token contract reads it: tokens.css
+          declares every --ty-* role under .ty-theme-mcrn / .ty-theme-earth, so a
+          theme swap is this one attribute and nothing else in the app has to
+          know. (Milestone 5 had a second Rosé Pine palette riding the same two
+          selectors; Milestone 6 retired it.)
 
           `value` maps the theme *names* to those classes. The names stay
           light/dark because that is what enableSystem resolves a system

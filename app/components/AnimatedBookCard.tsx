@@ -48,7 +48,7 @@ const AnimatedBookCard: React.FC<AnimatedBookCardProps> = ({ slug, title, author
     <Link href={`/books/${slug}`}>
       <div
         ref={cardRef}
-        className="border rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow bg-rosePine-surface dark:bg-rosePineMoon-surface"
+        className="border rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow bg-layer-01"
       >
         <Image
           src={image}
@@ -58,10 +58,10 @@ const AnimatedBookCard: React.FC<AnimatedBookCardProps> = ({ slug, title, author
           className="object-cover w-full h-48"
         />
         <div className="p-4">
-          <h2 className="text-xl font-semibold font-mono mb-2 text-rosePine-text dark:text-rosePineMoon-text">{title}</h2>
-          <p className="text-sm text-rosePine-subtle dark:text-rosePineMoon-subtle mb-2">by {author}</p>
-          <p className="text-sm text-rosePine-text dark:text-rosePineMoon-text mb-2">{description}</p>
-          <span className="text-sm text-rosePine-foam dark:text-rosePineMoon-foam">{genre}</span>
+          <h2 className="text-xl font-semibold font-mono mb-2 text-text-primary">{title}</h2>
+          <p className="text-sm text-text-secondary mb-2">by {author}</p>
+          <p className="text-sm text-text-primary mb-2">{description}</p>
+          <span className="text-sm text-link">{genre}</span>
         </div>
       </div>
     </Link>

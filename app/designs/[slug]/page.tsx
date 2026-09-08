@@ -75,7 +75,7 @@ export default async function Design({ params }: { params: Promise<{ slug: strin
       <div className="mb-6">
         <span className="font-semibold">Category:</span> {data.category}
       </div>
-      <div className="prose text-rosePine-text dark:text-rosePineDawn-text max-w-none">
+      <div className="prose text-text-primary dark:text-text-primary max-w-none">
         <MDXRemote source={content} />
       </div>
       <CategoryTagDisplay

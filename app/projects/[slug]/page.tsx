@@ -82,7 +82,7 @@ export default async function Project({ params }: { params: Promise<{ slug: stri
       </div>
       {data.link && (
         <div className="mt-8">
-          <a href={data.link} target="_blank" rel="noopener noreferrer" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition-colors">
+          <a href={data.link} target="_blank" rel="noopener noreferrer" className="bg-interactive text-text-on-color px-4 py-2 rounded hover:bg-interactive-hover transition-colors">
             View Project
           </a>
         </div>

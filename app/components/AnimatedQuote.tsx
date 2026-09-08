@@ -34,10 +34,10 @@ const AnimatedQuote: React.FC<AnimatedQuoteProps> = ({ quote, author, content })
       <blockquote ref={quoteRef} className="text-4xl leading-10 leading-[1.5] font-serif font-semibold italic mt-8">
         {quote}
       </blockquote>
-      <p ref={authorRef} className="text-right text-rosePine-muted mb-12 mt-8">{author}</p>
+      <p ref={authorRef} className="text-right text-text-placeholder mb-12 mt-8">{author}</p>
       <div ref={contextRef} className="max-w-2xl mx-auto mt-8">
-        <h2 className="text-xl text-rosePine-rose font-bold font-mono mb-4">Context</h2>
-        <div className="prose text-rosePine-text dark:prose-rosePine-text max-w-none">
+        <h2 className="text-xl text-text-emphasis font-bold font-mono mb-4">Context</h2>
+        <div className="prose text-text-primary max-w-none">
           {content}
         </div>
       </div>

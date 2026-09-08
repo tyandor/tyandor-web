@@ -186,26 +186,26 @@ export default function TagsPage() {
     <div className="max-w-6xl mx-auto p-4">
       <div className="text-center mb-12">
         <div className="text-6xl mb-4">🏷️</div>
-        <h1 className="text-4xl font-bold font-mono mb-4 text-rosePine-text dark:text-rosePineMoon-text">
+        <h1 className="text-4xl font-bold font-mono mb-4 text-text-primary">
           Tags
         </h1>
-        <p className="text-lg text-rosePine-subtle dark:text-rosePineMoon-subtle max-w-2xl mx-auto">
+        <p className="text-lg text-text-secondary max-w-2xl mx-auto">
           Explore all content organized by tags across articles, quotes, ideas, projects, tools, designs, and books.
         </p>
       </div>
 
       {allTags.length > 0 && (
         <section className="mb-12">
-          <h2 className="text-2xl font-bold font-mono mb-6 text-rosePine-text dark:text-rosePineMoon-text">
+          <h2 className="text-2xl font-bold font-mono mb-6 text-text-primary">
             All Tags
           </h2>
-          <div className="border border-rosePine-surface dark:border-rosePineMoon-surface rounded-lg p-6">
+          <div className="border border-border-subtle rounded-lg p-6">
             <div className="flex flex-wrap gap-2">
               {allTags.map((tag) => (
                 <Link
                   key={tag.name}
                   href={`/tag/${tag.name.toLowerCase()}`}
-                  className={`inline-block px-3 py-1 bg-rosePine-surface dark:bg-rosePineMoon-surface text-rosePine-text dark:text-rosePineMoon-text hover:bg-rosePine-foam dark:hover:bg-rosePineMoon-foam hover:text-rosePine-base dark:hover:text-rosePineMoon-base rounded-full transition-colors ${getTagSize(tag.items.length, maxTagCount)}`}
+                  className={`inline-block px-3 py-1 bg-layer-01 text-text-primary hover:bg-link hover:text-text-on-color rounded-full transition-colors ${getTagSize(tag.items.length, maxTagCount)}`}
                 >
                   #{tag.name} ({tag.items.length})
                 </Link>
@@ -216,22 +216,22 @@ export default function TagsPage() {
       )}
 
       {Object.keys(contentByType).length === 0 ? (
-        <p className="text-center text-rosePine-subtle dark:text-rosePineMoon-subtle">
+        <p className="text-center text-text-secondary">
           No tagged content found.
         </p>
       ) : (
         <div className="space-y-12">
           {Object.entries(contentByType).map(([type, tags]) => (
-            <section key={type} className="border border-rosePine-surface dark:border-rosePineMoon-surface rounded-lg p-6">
-              <h2 className="text-2xl font-bold font-mono mb-6 text-rosePine-text dark:text-rosePineMoon-text flex items-center gap-2">
+            <section key={type} className="border border-border-subtle rounded-lg p-6">
+              <h2 className="text-2xl font-bold font-mono mb-6 text-text-primary flex items-center gap-2">
                 <span className="text-2xl">{getTypeIcon(type)}</span>
                 {getTypeDisplayName(type)}
               </h2>
 
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {tags.map((tag) => (
-                  <div key={`${type}-${tag.name}`} className="border border-rosePine-highlight dark:border-rosePineMoon-highlight rounded-lg p-4 hover:border-rosePine-foam dark:hover:border-rosePineMoon-foam transition-colors">
-                    <h3 className="text-lg font-semibold font-mono mb-3 text-rosePine-text dark:text-rosePineMoon-text">
+                  <div key={`${type}-${tag.name}`} className="border border-border-subtle rounded-lg p-4 hover:border-link transition-colors">
+                    <h3 className="text-lg font-semibold font-mono mb-3 text-text-primary">
                       #{tag.name}
                     </h3>
                     <div className="space-y-2">
@@ -239,11 +239,11 @@ export default function TagsPage() {
                         <div key={`${item.type}-${item.slug}`}>
                           <Link
                             href={getContentUrl(item)}
-                            className="text-sm text-rosePine-text dark:text-rosePineMoon-text hover:text-rosePine-foam dark:hover:text-rosePineMoon-foam transition-colors line-clamp-1"
+                            className="text-sm text-text-primary hover:text-link transition-colors line-clamp-1"
                           >
                             {item.title}
                           </Link>
-                          <div className="text-xs text-rosePine-subtle dark:text-rosePineMoon-subtle">
+                          <div className="text-xs text-text-secondary">
                             {item.author && <span>by {item.author} • </span>}
                             {item.date && new Date(item.date).toISOString().split('T')[0]}
                           </div>
@@ -252,7 +252,7 @@ export default function TagsPage() {
                       {tag.items.length > 3 && (
                         <Link
                           href={`/tag/${tag.name.toLowerCase()}`}
-                          className="text-xs text-rosePine-foam dark:text-rosePineMoon-foam hover:underline"
+                          className="text-xs text-link hover:underline"
                         >
                           View all {tag.items.length} items →
                         </Link>
@@ -267,7 +267,7 @@ export default function TagsPage() {
       )}
 
       <div className="mt-12 text-center">
-        <Link href="/" className="text-rosePine-foam dark:text-rosePineMoon-foam hover:underline">
+        <Link href="/" className="text-link hover:underline">
           ← Back to home
         </Link>
       </div>

@@ -199,16 +199,24 @@ Visit `/setup-integrations` for a web interface to:
 
 ## 🎨 Styling & Theming
 
-- **CSS Framework**: Tailwind CSS with custom Rosé Pine color scheme
-- **Components**: Shadcn/ui component library
-- **Theme**: Dark/light mode support via `next-themes`
-- **Typography**: `@tailwindcss/typography` for prose content
+- **Design system**: [`@tyandor/tokens`](https://design.tyandor.com) — colour,
+  type, spacing, motion and elevation, in two themes
+- **CSS Framework**: Tailwind CSS, extending the token preset
+- **Components**: Shadcn/ui, mapped onto the token roles
+- **Theme**: MCRN (dark) and Earth (light) via `next-themes`, one class on `<html>`
+- **Typography**: iA Writer Duo + Mono from `@tyandor/fonts`;
+  `@tailwindcss/typography` for prose
 - **Animations**: GSAP for scroll-triggered animations
 
-### Custom Colors
-- `rosePine-*` - Main theme colors
-- `rosePineDawn-*` - Light theme variants  
-- `rosePineMoon-*` - Dark theme variants
+### Colours
+
+Roles, not values: `bg-background`, `bg-layer-01`, `text-text-primary`,
+`text-text-emphasis`, `text-link`, `bg-interactive`, `border-border-subtle`.
+Both themes are carried by the token, so a `dark:` variant is almost never
+needed. See [DESIGN.md](DESIGN.md) for the site's conventions and
+[design.tyandor.com](https://design.tyandor.com) for the full reference.
+
+Rosé Pine was retired in Milestone 6.
 
 ## 🚀 Deployment
 

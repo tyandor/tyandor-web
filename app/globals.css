@@ -3,82 +3,29 @@
 @tailwind utilities;
 
 /*
- * Rosé Pine, still installed.
+ * Rosé Pine is retired (Milestone 6).
  *
- * Everything outside the shell still paints through --color-*; Milestone 6
- * retires them. The selectors below are the token contract's own theme classes
- * rather than .dark/.light, because next-themes writes exactly one class and
- * both systems have to read it. See app/layout.tsx.
- *
- * :root keeps the Dawn values as the pre-hydration default. next-themes' inline
- * script sets the class in <head> before first paint, so this is only ever the
- * ground for the split second before that runs, and for the no-JS case.
+ * The fifteen --color-* variables that used to be declared here, once under
+ * :root and again under each theme class, are gone. Every surface now resolves
+ * through --ty-* from @tyandor/tokens, which tokens.css already redeclares per
+ * theme — so a theme swap is one class on <html> and nothing in this file has
+ * to know about it. See app/layout.tsx for how next-themes writes that class.
  */
 @layer base {
+  /*
+   * shadcn's radius scale. tailwind.config.js resolves rounded-lg/md/sm through
+   * this, so an undefined value makes every one of them compute to 0px — which
+   * is exactly what happened between Milestone 5 and here: the borderRadius
+   * block moved into the live config while the only --radius declaration sat in
+   * styles/globals.css, a file nothing imported and Milestone 5 deleted.
+   *
+   * It lives here rather than in @tyandor/tokens because the token package has
+   * no radius scale yet. If one is added upstream, this becomes an alias.
+   */
   :root {
-    --color-base: 250 240 235;
-    --color-surface: 255 250 243;
-    --color-overlay: 242 233 225;
-    --color-muted: 152 147 165;
-    --color-subtle: 121 117 147;
-    --color-text: 87 82 121;
-    --color-love: 180 99 122;
-    --color-gold: 234 157 52;
-    --color-rose: 215 130 126;
-    --color-pine: 40 105 131;
-    --color-foam: 86 148 159;
-    --color-iris: 144 122 169;
-    --color-highlight-low: 244 237 232;
-    --color-highlight-med: 223 218 217;
-    --color-highlight-high: 206 202 205;
-    --chart-1: #ebbcba;
-    --chart-2: #ea9a97;
-    --chart-3: #d7827e;
-    --chart-4: #b4637a;
+    --radius: 0.5rem;
   }
 
-  .ty-theme-mcrn {
-    --color-base: 35 33 54;
-    --color-surface: 42 39 63;
-    --color-overlay: 57 53 82;
-    --color-muted: 110 106 134;
-    --color-subtle: 144 140 170;
-    --color-text: 224 222 244;
-    --color-love: 235 111 146;
-    --color-gold: 246 193 119;
-    --color-rose: 234 154 151;
-    --color-pine: 62 143 176;
-    --color-foam: 156 207 216;
-    --color-iris: 196 167 231;
-    --color-highlight-low: 42 40 62;
-    --color-highlight-med: 68 65 90;
-    --color-highlight-high: 86 82 110;
-  }
-
-  .ty-theme-earth {
-    --color-base: 250 244 237;
-    --color-surface: 255 250 243;
-    --color-overlay: 242 233 225;
-    --color-muted: 152 147 165;
-    --color-subtle: 121 117 147;
-    --color-text: 87 82 121;
-    --color-love: 180 99 122;
-    --color-gold: 234 157 52;
-    --color-rose: 215 130 126;
-    --color-pine: 40 105 131;
-    --color-foam: 86 148 159;
-    --color-iris: 144 122 169;
-    --color-highlight-low: 244 237 232;
-    --color-highlight-med: 223 218 217;
-    --color-highlight-high: 206 202 205;
-  }
-}
-
-/*
- * The shell is on the token contract, so the page ground comes from --ty-*.
- * Unmigrated surfaces still set their own bg-rosePine-* and paint over it.
- */
-@layer base {
   body {
     background-color: var(--ty-background);
     color: var(--ty-text-primary);
@@ -93,37 +40,54 @@
 }
 
 /*
- * @tailwindcss/typography defaults body copy to gray-700, which was only ever
- * legible against the light theme. Measured on the dark theme it was 1.52:1
- * before this branch and 1.90:1 after — both far under AA, so dark-mode
- * readers have been reading prose they could not see.
+ * Long-form prose.
  *
- * Setting the plugin's own variables rather than a `.prose p` rule: the plugin
- * resolves every element through --tw-prose-*, so this reaches list markers,
- * quotes and captions too, and it does not depend on out-specifying the
- * `:where()` selectors it ships.
+ * @tailwindcss/typography hard-codes a gray ramp that only ever suited a light
+ * background: body copy landed at 1.52:1 on the dark theme, which is prose a
+ * reader cannot see. Setting the plugin's own variables rather than writing
+ * `.prose p` rules is deliberate — the plugin resolves every element through
+ * --tw-prose-*, so this reaches list markers, table borders, captions and code
+ * without having to out-specify the :where() selectors it ships.
  *
- * Deliberately still on Rosé Pine's --color-text, not a --ty-* role. This is a
- * contrast fix, not the prose migration; Milestone 6 moves prose onto tokens
- * and this block goes with it.
+ * Milestone 5 pointed these at Rosé Pine's --color-text as a stopgap contrast
+ * fix. They now carry role tokens, so prose themes with everything else and the
+ * ramp is expressed once, in the token package, rather than twice.
  */
 .prose {
-  --tw-prose-body: rgb(var(--color-text) / 1);
-  --tw-prose-bullets: rgb(var(--color-muted) / 1);
-  --tw-prose-counters: rgb(var(--color-muted) / 1);
-  --tw-prose-captions: rgb(var(--color-subtle) / 1);
-  --tw-prose-hr: rgb(var(--color-highlight-med) / 1);
-  --tw-prose-quote-borders: rgb(var(--color-highlight-high) / 1);
+  --tw-prose-body: var(--ty-text-primary);
+  --tw-prose-headings: var(--ty-text-emphasis);
+  --tw-prose-lead: var(--ty-text-secondary);
+  --tw-prose-links: var(--ty-link);
+  --tw-prose-bold: var(--ty-text-emphasis);
+  --tw-prose-counters: var(--ty-text-secondary);
+  --tw-prose-bullets: var(--ty-border-strong);
+  --tw-prose-hr: var(--ty-border-subtle);
+  --tw-prose-quotes: var(--ty-text-emphasis);
+  --tw-prose-quote-borders: var(--ty-border-strong);
+  --tw-prose-captions: var(--ty-text-secondary);
+  --tw-prose-code: var(--ty-text-emphasis);
+  --tw-prose-pre-code: var(--ty-text-primary);
+  --tw-prose-pre-bg: var(--ty-layer-01);
+  --tw-prose-th-borders: var(--ty-border-strong);
+  --tw-prose-td-borders: var(--ty-border-subtle);
 
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  a,
-  blockquote,
-  strong,
-  em {
-    color: rgb(var(--color-text) / 1);
-  }
+  /* The plugin ships a second, inverted ramp for `prose-invert`. Point it at the
+     same variables: the token layer already swaps per theme, so a separate dark
+     ramp is one more thing that can disagree with the first. */
+  --tw-prose-invert-body: var(--ty-text-primary);
+  --tw-prose-invert-headings: var(--ty-text-emphasis);
+  --tw-prose-invert-lead: var(--ty-text-secondary);
+  --tw-prose-invert-links: var(--ty-link);
+  --tw-prose-invert-bold: var(--ty-text-emphasis);
+  --tw-prose-invert-counters: var(--ty-text-secondary);
+  --tw-prose-invert-bullets: var(--ty-border-strong);
+  --tw-prose-invert-hr: var(--ty-border-subtle);
+  --tw-prose-invert-quotes: var(--ty-text-emphasis);
+  --tw-prose-invert-quote-borders: var(--ty-border-strong);
+  --tw-prose-invert-captions: var(--ty-text-secondary);
+  --tw-prose-invert-code: var(--ty-text-emphasis);
+  --tw-prose-invert-pre-code: var(--ty-text-primary);
+  --tw-prose-invert-pre-bg: var(--ty-layer-01);
+  --tw-prose-invert-th-borders: var(--ty-border-strong);
+  --tw-prose-invert-td-borders: var(--ty-border-subtle);
 }

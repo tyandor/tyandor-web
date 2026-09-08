@@ -47,7 +47,7 @@ const AnimatedToolCard: React.FC<AnimatedToolCardProps> = ({ slug, title, descri
     <Link href={`/tools/${slug}`}>
       <div
         ref={cardRef}
-        className="border rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow bg-rosePine-surface dark:bg-rosePineMoon-surface"
+        className="border rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow bg-layer-01"
       >
         <Image
           src={image}
@@ -57,9 +57,9 @@ const AnimatedToolCard: React.FC<AnimatedToolCardProps> = ({ slug, title, descri
           className="object-cover w-full h-48"
         />
         <div className="p-4">
-          <h2 className="text-xl font-semibold font-mono mb-2 text-rosePine-text dark:text-rosePineMoon-text">{title}</h2>
-          <p className="text-sm text-rosePine-subtle dark:text-rosePineMoon-subtle mb-2">{description}</p>
-          <span className="text-sm text-rosePine-foam dark:text-rosePineMoon-foam">{category}</span>
+          <h2 className="text-xl font-semibold font-mono mb-2 text-text-primary">{title}</h2>
+          <p className="text-sm text-text-secondary mb-2">{description}</p>
+          <span className="text-sm text-link">{category}</span>
         </div>
       </div>
     </Link>
