@@ -1,6 +1,5 @@
 /** @type {import('tailwindcss').Config} */
 const tyandor = require('@tyandor/tokens/tailwind-preset')
-const defaultTheme = require('tailwindcss/defaultTheme')
 
 // The preset ships the named accents as an object (accent.amber, accent.cyan…),
 // while shadcn wants a single `accent` colour. Keep both: spread the palette and
@@ -8,40 +7,10 @@ const defaultTheme = require('tailwindcss/defaultTheme')
 // reaches the expressive palette.
 const { accent } = tyandor.theme.extend.colors
 
-// Rosé Pine, still installed. Everything outside the shell still paints through
-// these; Milestone 6 retires them. One object under two names because that is
-// the truth of it — `rosePineDawn` was never a second theme, just a second name
-// for the same variables, so `dark:text-rosePineDawn-text` never swapped
-// anything. The variables themselves change under .ty-theme-*, in globals.css.
-const rosePine = {
-  base: 'rgb(var(--color-base) / <alpha-value>)',
-  surface: 'rgb(var(--color-surface) / <alpha-value>)',
-  overlay: 'rgb(var(--color-overlay) / <alpha-value>)',
-  muted: 'rgb(var(--color-muted) / <alpha-value>)',
-  subtle: 'rgb(var(--color-subtle) / <alpha-value>)',
-  text: 'rgb(var(--color-text) / <alpha-value>)',
-  love: 'rgb(var(--color-love) / <alpha-value>)',
-  gold: 'rgb(var(--color-gold) / <alpha-value>)',
-  rose: 'rgb(var(--color-rose) / <alpha-value>)',
-  pine: 'rgb(var(--color-pine) / <alpha-value>)',
-  foam: 'rgb(var(--color-foam) / <alpha-value>)',
-  iris: 'rgb(var(--color-iris) / <alpha-value>)',
-  highlightLow: 'rgb(var(--color-highlight-low) / <alpha-value>)',
-  highlightMed: 'rgb(var(--color-highlight-med) / <alpha-value>)',
-  highlightHigh: 'rgb(var(--color-highlight-high) / <alpha-value>)',
-}
-
 // shadcn's vocabulary, resolved to Expanse roles. components/ui/* names colours
 // `foreground`, `card`, `ring` and so on. Those were declared only in
-// tailwind.config.ts, which Tailwind never loaded — .js wins — so they have been
-// resolving to nothing since the day they were added. Mapping them onto role
-// tokens is what PLAN.md step 4 means by "shadcn components keep working on the
-// new tokens".
-//
-// This is also why the mapping cannot wait for Milestone 6: the preset defines
-// `background`, so adding it alone would paint `bg-background` near-black while
-// `text-foreground` stayed unset. A half-styled dialog is worse than an
-// unstyled one.
+// tailwind.config.ts, which Tailwind never loaded — .js wins — so they resolved
+// to nothing until Milestone 5 mapped them here.
 const role = (name) => `rgb(var(--ty-${name}-rgb) / <alpha-value>)`
 
 const shadcn = {
@@ -73,16 +42,13 @@ module.exports = {
   // can silently disagree with the one the tokens actually read.
   darkMode: ['selector', '.ty-theme-mcrn'],
 
+  // Colours, spacing, type, breakpoints, motion and elevation all arrive through
+  // the preset now. Rosé Pine's fifteen --color-* variables were retired in
+  // Milestone 6; the only palette left here is shadcn's, and it is a translation
+  // layer onto role tokens rather than a second set of values.
   theme: {
     extend: {
-      // ── Milestone 5 hold ──────────────────────────────────────────────────
-      // The preset moves sm/md/lg to Carbon's 20/42/66rem. That is the right end
-      // state, but it retimes 94 responsive utilities across 22 routes, which is
-      // a layout change and not a shell migration. Pin Tailwind's defaults until
-      // Milestone 6 adopts the grid deliberately, then delete this block.
-      screens: { ...defaultTheme.screens },
-
-      colors: { rosePine, rosePineDawn: rosePine, ...shadcn },
+      colors: shadcn,
 
       borderRadius: {
         lg: 'var(--radius)',
@@ -92,5 +58,10 @@ module.exports = {
     },
   },
 
-  plugins: [require('@tailwindcss/typography')],
+  // tailwindcss-animate has been a dependency since the shadcn install but was
+  // only ever registered in tailwind.config.ts, the file Tailwind never read —
+  // so the 124 animation classes across components/ui/* have never run. shadcn
+  // assumes it is present; registering it is what those components were written
+  // against.
+  plugins: [require('@tailwindcss/typography'), require('tailwindcss-animate')],
 }

@@ -44,9 +44,9 @@ const AnimatedArticleCard: React.FC<AnimatedArticleCardProps> = ({ slug, title, 
 
   return (
     <Link href={`/articles/${slug}`}>
-      <div className="w-full my-8 px-6 py-8 border rounded-lg hover:shadow-lg transition-shadow bg-rosePine-surface dark:bg-rosePineMoon-surface">
+      <div className="w-full my-8 px-6 py-8 border rounded-lg hover:shadow-lg transition-shadow bg-layer-01">
         <h2 className="text-lg font-bold font-mono">{title}</h2>
-        <p className="text-sm text-rosePine-text dark:text-rosePineMoon-text">
+        <p className="text-sm text-text-primary">
           {description}
         </p>
       </div>

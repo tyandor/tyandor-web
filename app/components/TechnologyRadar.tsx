@@ -29,8 +29,13 @@ const TechnologyRadar: React.FC<TechnologyRadarProps> = ({ technologies }) => {
 
     const angleScale = d3.scaleLinear().domain([0, quadrants.length]).range([0, 2 * Math.PI]);
     const radiusScale = d3.scaleLinear().domain([0, rings.length]).range([0, radius]);
-    const colorScale = d3.scaleOrdinal<string, string>().domain(quadrants).range(['#56949f', '#286983', '#3e8fb0', '#31748f']);
-    const ringColors = ['var(--chart-1)', 'var(--chart-2)', 'var(--chart-3)', 'var(--chart-4)'];
+    // Quadrant fills and ring strokes both come from the token chart series, so
+    // the radar repaints with the theme. These were four hard-coded Rosé Pine
+    // hexes and four --chart-N variables declared in globals.css — two private
+    // palettes for one chart, neither of which themed.
+    const series = ['var(--ty-chart-01)', 'var(--ty-chart-02)', 'var(--ty-chart-03)', 'var(--ty-chart-04)'];
+    const colorScale = d3.scaleOrdinal<string, string>().domain(quadrants).range(series);
+    const ringColors = series;
 
     const svg = d3.select(svgRef.current)
       .attr('width', width)
@@ -47,7 +52,7 @@ const TechnologyRadar: React.FC<TechnologyRadarProps> = ({ technologies }) => {
       .attr('class', 'ring')
       .attr('r', (d, i) => radiusScale(rings.length - i))
       .style('fill', (d, i) => ringColors[i])
-      .style('stroke', 'hsl(var(--border))');
+      .style('stroke', 'var(--ty-border-subtle)');
 
     // Ring labels
     g.selectAll('.ring-label')
@@ -57,7 +62,7 @@ const TechnologyRadar: React.FC<TechnologyRadarProps> = ({ technologies }) => {
       .attr('class', 'ring-label')
       .attr('y', (d, i) => -radiusScale(i + 1) + 25)
       .attr('text-anchor', 'middle')
-      .style('fill', 'hsl(var(--muted-foreground))')
+      .style('fill', 'var(--ty-text-on-color)')
       .style('font-weight', 'normal')
       .style('font-size', '10px')
       .text(d => d.toUpperCase());
@@ -72,7 +77,7 @@ const TechnologyRadar: React.FC<TechnologyRadarProps> = ({ technologies }) => {
       .attr('y1', 0)
       .attr('x2', (d, i) => Math.cos(angleScale(i) - Math.PI / 4) * radius)
       .attr('y2', (d, i) => Math.sin(angleScale(i) - Math.PI / 4) * radius)
-      .style('stroke', 'hsl(var(--border))');
+      .style('stroke', 'var(--ty-border-subtle)');
 
     // Quadrant labels - positioned at corners
     const quadrantPositions = [
@@ -90,7 +95,7 @@ const TechnologyRadar: React.FC<TechnologyRadarProps> = ({ technologies }) => {
       .attr('x', (d, i) => quadrantPositions[i].x)
       .attr('y', (d, i) => quadrantPositions[i].y)
       .attr('text-anchor', (d, i) => quadrantPositions[i].anchor)
-      .style('fill', 'hsl(var(--muted-foreground))')
+      .style('fill', 'var(--ty-text-secondary)')
       .style('font-weight', 'bold')
       .style('font-size', '12px')
       .text(d => d.toUpperCase());
@@ -151,7 +156,7 @@ const TechnologyRadar: React.FC<TechnologyRadarProps> = ({ technologies }) => {
     blips.append('circle')
       .attr('r', 5)
       .style('fill', d => colorScale(d.quadrant))
-      .style('stroke', 'hsl(var(--background))')
+      .style('stroke', 'var(--ty-background)')
       .style('stroke-width', 1)
       .on('mouseover', (event, d) => showTooltip(event, d))
       .on('mousemove', (event) => moveTooltip(event))
@@ -160,7 +165,7 @@ const TechnologyRadar: React.FC<TechnologyRadarProps> = ({ technologies }) => {
     blips.append('text')
       .attr('dy', '0.35em')
       .attr('x', 10)
-      .style('fill', 'hsl(var(--foreground))')
+      .style('fill', 'var(--ty-text-on-color)')
       .style('font-size', '12px')
       .text(d => d.name);
 
@@ -171,7 +176,7 @@ const TechnologyRadar: React.FC<TechnologyRadarProps> = ({ technologies }) => {
       <svg ref={svgRef}></svg>
       <div
         ref={tooltipRef}
-        className="tooltip absolute z-10 invisible bg-rosePine-surface text-rosePine-text border border-rosePine-highlight-med p-3 rounded-lg shadow-lg max-w-xs"
+        className="tooltip absolute z-10 invisible bg-layer-01 text-text-primary border border-border-subtle-med p-3 rounded-lg shadow-lg max-w-xs"
       ></div>
     </div>
   );

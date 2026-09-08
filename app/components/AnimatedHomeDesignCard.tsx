@@ -42,7 +42,7 @@ const AnimatedHomeDesignCard: React.FC<AnimatedHomeDesignCardProps> = ({ slug, t
 
   return (
     <Link href={`/designs/${slug}`}>
-      <div ref={cardRef} className="border rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow bg-rosePine-surface dark:bg-rosePineMoon-surface">
+      <div ref={cardRef} className="border rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow bg-layer-01">
         <Image
           src={image}
           alt={title}
@@ -51,8 +51,8 @@ const AnimatedHomeDesignCard: React.FC<AnimatedHomeDesignCardProps> = ({ slug, t
           className="object-cover w-full h-48"
         />
         <div className="p-4">
-          <h3 className="text-lg font-semibold font-mono mb-2 text-rosePine-text dark:text-rosePineMoon-text">{title}</h3>
-          <p className="text-sm text-rosePine-subtle dark:text-rosePineMoon-subtle">{description}</p>
+          <h3 className="text-lg font-semibold font-mono mb-2 text-text-primary">{title}</h3>
+          <p className="text-sm text-text-secondary">{description}</p>
         </div>
       </div>
     </Link>

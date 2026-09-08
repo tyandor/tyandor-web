@@ -48,7 +48,7 @@ const AnimatedProjectCard: React.FC<AnimatedProjectCardProps> = ({ slug, title, 
     <Link href={`/projects/${slug}`}>
       <div
         ref={cardRef}
-        className="border rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow bg-rosePine-surface dark:bg-rosePineMoon-surface"
+        className="border rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow bg-layer-01"
       >
         <Image
           src={image}
@@ -58,11 +58,11 @@ const AnimatedProjectCard: React.FC<AnimatedProjectCardProps> = ({ slug, title, 
           className="object-cover w-full h-48"
         />
         <div className="p-4">
-          <h2 className="text-xl font-semibold font-mono mb-2 text-rosePine-text dark:text-rosePineMoon-text">{title}</h2>
-          <p className="text-sm text-rosePine-subtle dark:text-rosePineMoon-subtle mb-2">{description}</p>
+          <h2 className="text-xl font-semibold font-mono mb-2 text-text-primary">{title}</h2>
+          <p className="text-sm text-text-secondary mb-2">{description}</p>
           <div className="flex justify-between items-center">
-            <span className="text-sm text-rosePine-muted dark:text-rosePineMoon-muted">{status}</span>
-            <span className="text-sm text-rosePine-foam dark:text-rosePineMoon-foam">{technologies.join(', ')}</span>
+            <span className="text-sm text-text-placeholder">{status}</span>
+            <span className="text-sm text-link">{technologies.join(', ')}</span>
           </div>
         </div>
       </div>

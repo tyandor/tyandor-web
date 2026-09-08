@@ -76,7 +76,7 @@ export function LoadingAnimation({ onComplete }: { onComplete: () => void }) {
   if (!isVisible) return null
 
   return (
-    <div className="loading-overlay fixed inset-0 z-50 bg-rosePine-overlay dark:bg-rosePineMoon-overlay flex items-center justify-center">
+    <div className="loading-overlay fixed inset-0 z-50 bg-layer-02 flex items-center justify-center">
       <div className="loading-logo">
         <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" className="w-[640px] h-80">
           <defs>

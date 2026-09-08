@@ -8,7 +8,7 @@ This is a personal website for Tyler Andor, built with Next.js 14 and the App Ro
 
 *   **Framework:** Next.js 14 (App Router)
 *   **Language:** TypeScript
-*   **Styling:** Tailwind CSS with a custom Rosé Pine color scheme
+*   **Styling:** Tailwind CSS over the `@tyandor/tokens` design system
 *   **UI Components:** shadcn/ui
 *   **Content:** MDX with `gray-matter` for frontmatter and `next-mdx-remote` for rendering
 *   **Database:** Neon (Postgres) for Technology Radar
@@ -89,4 +89,8 @@ API keys and connection strings (e.g., `RADAR_POSTGRES_URL`) should be stored in
 
 ### Styling
 
-The project uses Tailwind CSS for styling, with a custom color scheme based on Rosé Pine. The `tailwind.config.ts` file contains the theme configuration. The UI is built with shadcn/ui components, which are located in `components/ui/`.
+The project uses Tailwind CSS for styling over the `@tyandor/tokens` design system, which supplies colour, type, spacing, motion and elevation in two themes (MCRN dark, Earth light). Colours are referenced as roles — `bg-background`, `text-text-primary`, `text-link` — never as hex values.
+
+`tailwind.config.js` holds the configuration and extends the token preset. Note the `.ts` file was deleted in Milestone 5: Tailwind resolves `.js` first, so the `.ts` config had never been loaded. The UI is built with shadcn/ui components in `components/ui/`, whose colour names are mapped onto token roles in the config.
+
+See `DESIGN.md` for this site's conventions and https://design.tyandor.com for the full token reference.

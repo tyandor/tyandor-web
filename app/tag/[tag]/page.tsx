@@ -105,26 +105,26 @@ export default async function TagPage({ params }: { params: Promise<{ tag: strin
 
   return (
     <div className="max-w-4xl mx-auto p-4">
-      <h1 className="text-3xl font-bold font-mono mb-8 text-rosePine-text dark:text-rosePineMoon-text">
+      <h1 className="text-3xl font-bold font-mono mb-8 text-text-primary">
         Content tagged with #{t}
       </h1>
       {allContent.length === 0 ? (
-        <p className="text-rosePine-subtle dark:text-rosePineMoon-subtle">
+        <p className="text-text-secondary">
           No content found with this tag.
         </p>
       ) : (
         <div className="grid gap-6">
           {allContent.map((item) => (
-            <div key={`${item.type}-${item.slug}`} className="border border-rosePine-surface dark:border-rosePineMoon-surface p-6 rounded-lg hover:border-rosePine-foam dark:hover:border-rosePineMoon-foam transition-colors">
+            <div key={`${item.type}-${item.slug}`} className="border border-border-subtle p-6 rounded-lg hover:border-link transition-colors">
               <div className="flex items-start justify-between mb-2">
-                <Link href={getContentUrl(item)} className="text-xl font-semibold text-rosePine-text dark:text-rosePineMoon-text hover:text-rosePine-foam dark:hover:text-rosePineMoon-foam transition-colors">
+                <Link href={getContentUrl(item)} className="text-xl font-semibold text-text-primary hover:text-link transition-colors">
                   {item.title}
                 </Link>
-                <span className="text-xs bg-rosePine-surface dark:bg-rosePineMoon-surface px-2 py-1 rounded-full text-rosePine-subtle dark:text-rosePineMoon-subtle">
+                <span className="text-xs bg-layer-01 px-2 py-1 rounded-full text-text-secondary">
                   {item.type}
                 </span>
               </div>
-              <div className="text-sm text-rosePine-subtle dark:text-rosePineMoon-subtle">
+              <div className="text-sm text-text-secondary">
                 {item.author && <span>by {item.author} • </span>}
                 {item.date && new Date(item.date).toISOString().split('T')[0]}
               </div>
@@ -133,7 +133,7 @@ export default async function TagPage({ params }: { params: Promise<{ tag: strin
         </div>
       )}
       <div className="mt-8">
-        <Link href="/" className="text-rosePine-foam dark:text-rosePineMoon-foam hover:underline">
+        <Link href="/" className="text-link hover:underline">
           ← Back to home
         </Link>
       </div>

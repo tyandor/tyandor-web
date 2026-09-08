@@ -21,7 +21,7 @@ const AnimatedBox: React.FC = () => {
     <div className="flex justify-center items-center h-40">
       <div 
         ref={boxRef} 
-        className="w-20 h-20 bg-rosePine-pine dark:bg-rosePineDawn-pine"
+        className="w-20 h-20 bg-interactive"
       >
         Animated Box
       </div>

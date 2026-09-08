@@ -2,295 +2,246 @@
 
 Design standards for [tyandor.com](https://tyandor.com).
 
+The colour, type, spacing, motion and elevation systems are **not defined here**.
+They come from [`@tyandor/tokens`](https://design.tyandor.com), and that site is
+the reference: every role, both themes, with live swatches and contrast figures.
+This file covers only what is specific to this site — the shell, the content
+patterns, the animation rules and the branding.
+
+If you are looking for a hex value, you are looking in the wrong file. That is
+the point of the split: values live in one place so the terminal themes, the
+editor themes and this site cannot drift apart.
+
 ---
 
-## Color System: Rosé Pine
+## The token contract
 
-The site uses the [Rosé Pine](https://rosepinetheme.com/) color palette exclusively. Three variants are active:
+Two imports in `app/layout.tsx` supply everything:
 
-- **Default / `:root`** — Rosé Pine Dawn (warm light theme)
-- **`.dark`** — Rosé Pine Moon (purple dark theme)
-- **`.light`** — Rosé Pine Dawn (same as `:root`, explicit override)
-
-### Rosé Pine Dawn (light mode)
-
-| Token             | CSS Variable                  | RGB               | Hex       | Role                                 |
-|-------------------|-------------------------------|-------------------|-----------|--------------------------------------|
-| `base`            | `--color-base`                | 250 244 237       | `#FAF4ED` | Page background                      |
-| `surface`         | `--color-surface`             | 255 250 243       | `#FFFAF3` | Card / elevated surface              |
-| `overlay`         | `--color-overlay`             | 242 233 225       | `#F2E9E1` | Nav, footer, sunken layer            |
-| `muted`           | `--color-muted`               | 152 147 165       | `#988BA2` | De-emphasised text, placeholders     |
-| `subtle`          | `--color-subtle`              | 121 117 147       | `#797593` | Secondary text, quote attributions   |
-| `text`            | `--color-text`                | 87 82 121         | `#575279` | Body text                            |
-| `love`            | `--color-love`                | 180 99 122        | `#B4637A` | Logo, primary accent, focus rings    |
-| `gold`            | `--color-gold`                | 234 157 52        | `#EA9D34` | Hover on logo, highlighted items     |
-| `rose`            | `--color-rose`                | 215 130 126       | `#D7827E` | Section headings (`articles`, etc.)  |
-| `pine`            | `--color-pine`                | 40 105 131        | `#286083` | Link hover states                    |
-| `foam`            | `--color-foam`                | 86 148 159        | `#56949F` | Category pill border & text          |
-| `iris`            | `--color-iris`                | 144 122 169       | `#907AA9` | Available for accent use             |
-| `highlight-low`   | `--color-highlight-low`       | 244 237 232       | `#F4EDE8` | Card borders, subtle dividers        |
-| `highlight-med`   | `--color-highlight-med`       | 223 218 217       | `#DFDAD9` | Hover backgrounds                    |
-| `highlight-high`  | `--color-highlight-high`      | 206 202 205       | `#CECACD` | Active / selected states             |
-
-### Rosé Pine Moon (dark mode, `.dark`)
-
-| Token             | RGB               | Hex       |
-|-------------------|-------------------|-----------|
-| `base`            | 35 33 54          | `#232136` |
-| `surface`         | 42 39 63          | `#2A273F` |
-| `overlay`         | 57 53 82          | `#393552` |
-| `muted`           | 110 106 134       | `#6E6A86` |
-| `subtle`          | 144 140 170       | `#908CAA` |
-| `text`            | 224 222 244       | `#E0DEF4` |
-| `love`            | 235 111 146       | `#EB6F92` |
-| `gold`            | 246 193 119       | `#F6C177` |
-| `rose`            | 234 154 151       | `#EA9A97` |
-| `pine`            | 62 143 176        | `#3E8FB0` |
-| `foam`            | 156 207 216       | `#9CCFD8` |
-| `iris`            | 196 167 231       | `#C4A7E7` |
-| `highlight-low`   | 42 40 62          | `#2A283E` |
-| `highlight-med`   | 68 65 90          | `#44415A` |
-| `highlight-high`  | 86 82 110         | `#56526E` |
-
-### Tailwind Usage
-
-Colors are referenced via the `rosePine-*` and `rosePineMoon-*` prefixes in Tailwind classes. The `rosePineDawn` alias maps to the same CSS variables and is used in dark-mode variants (`:dark:text-rosePineDawn-*`).
-
-```
-text-rosePine-text        text-rosePineMoon-text
-bg-rosePine-surface       bg-rosePineMoon-surface
-border-rosePine-foam      border-rosePineMoon-foam
-hover:text-rosePine-rose  dark:hover:text-rosePineMoon-rose
+```ts
+import '@tyandor/tokens/tokens.css'   // --ty-* roles, both themes
+import { fontVariables } from '@tyandor/fonts/next'
 ```
 
-### Chart Colors
+`tailwind.config.js` extends the token preset, so roles are reachable as
+ordinary utilities: `bg-background`, `text-text-primary`, `border-border-subtle`,
+`text-link`, `bg-interactive`.
 
-Four accent values for data visualisation:
+### Roles this site actually uses
 
-| Swatch | Hex       |
-|--------|-----------|
-| 1      | `#EBBCBA` |
-| 2      | `#EA9A97` |
-| 3      | `#D7827E` |
-| 4      | `#B4637A` |
+| Utility | Role | Used for |
+|---|---|---|
+| `bg-background` | page ground | `<body>` |
+| `bg-layer-01` | first raised surface | the main content card, article cards |
+| `bg-layer-02` | second raised surface | nav, footer, tag chips, modal panels |
+| `bg-layer-hover` | hover fill | chip and row hover |
+| `text-text-primary` | body copy | prose, card body |
+| `text-text-secondary` | captions, metadata | nav links, dates, quadrant labels |
+| `text-text-emphasis` | headings | page heroes, card titles, section names |
+| `text-text-placeholder` | lowest-contrast text | the `§` divider, de-emphasised notes |
+| `text-link` / `border-link` | links | inline links, category chips |
+| `bg-interactive` | primary action fill | buttons, the skip link, the logo mark |
+| `text-text-on-color` | label on a filled colour | button text, chart labels on ring fills |
+| `border-border-subtle` | dividers, card outlines | most borders |
+| `--ty-chart-01…04` | chart series | the technology radar |
 
-All four sit within the rose/love range of the palette for a cohesive radar chart.
+**Never hardcode a hex, an `rgb()` or a Tailwind palette colour** (`text-gray-500`,
+`bg-blue-600`). If no role fits, that is a signal the token package is missing
+one — raise it upstream rather than inventing a local value. Two places still
+break this rule; see *Known gaps*.
+
+---
+
+## Theming
+
+`next-themes` writes **one class** on `<html>`, and the token contract reads it:
+
+```tsx
+<ThemeProvider attribute="class" defaultTheme="system" enableSystem
+  value={{ light: 'ty-theme-earth', dark: 'ty-theme-mcrn' }}>
+```
+
+Three things about this are load-bearing:
+
+- The theme **names** stay `light` / `dark`. That is what `enableSystem` resolves
+  a system preference to; rename them and system mode silently stops matching.
+- `tailwind.config.js` sets `darkMode: ['selector', '.ty-theme-mcrn']`, so a
+  `dark:` variant keys off the same class the tokens read. One source of truth.
+- **You almost never need a `dark:` variant.** The role tokens already carry both
+  themes. `text-text-primary` is correct in MCRN and Earth. Writing
+  `text-text-primary dark:text-text-primary` is noise; writing a *different* role
+  under `dark:` usually means the wrong role was picked in the first place.
+
+Earth is the light theme, MCRN the dark one. The default is `system`.
 
 ---
 
 ## Typography
 
-### Fonts
+| Role | Family | Source |
+|---|---|---|
+| Body | **iA Writer Duo** | `@tyandor/fonts/next`, `font-body` |
+| Mono | **iA Writer Mono** | `@tyandor/fonts/next`, `font-mono` |
+| Serif | system serif | `font-serif`, blockquote attributions only |
 
-| Role        | Family         | Loading                          |
-|-------------|----------------|----------------------------------|
-| Primary     | **Inter**      | `next/font/google` (latin subset) |
-| Headings    | `font-mono`    | System monospace stack           |
-| Prose body  | `font-sans`    | System sans-serif stack          |
-| Blockquotes | `font-serif`   | System serif stack               |
+Loaded through `next/font/local` from the fonts package, which self-hosts
+subsetted woff2 and returns the CSS variables as `fontVariables`.
 
-Inter is loaded via `next/font` and applied to the `<body>` via the `inter.className` on `<body>`. The default `body` declaration in `globals.css` references `Arial, Helvetica, sans-serif` as a fallback — Inter takes precedence when loaded.
-
-### Scale & Usage
-
-| Context                       | Class                                    |
-|-------------------------------|------------------------------------------|
-| Article hero title            | `text-5xl md:text-8xl font-bold font-mono` |
-| Section headings (home)       | `text-2xl font-bold font-mono`           |
-| Card titles                   | `text-lg font-bold font-mono`            |
-| Body / card description       | `text-sm` / `text-base` (default)        |
-| Blockquote pull quote         | `text-4xl italic font-bold font-serif`   |
-| Quote attribution             | `text-sm font-sans text-right`           |
-| Published date                | `text-gray-500 font-serif`              |
-| Category / tag badges         | `text-sm` (categories), `text-xs` (tags) |
-
-Prose content inside `<article>` uses the `prose` class from `@tailwindcss/typography`, scoped to Rosé Pine text color.
+| Context | Class |
+|---|---|
+| Page hero | `text-7xl font-bold font-mono text-text-emphasis` |
+| Article hero | `text-5xl md:text-8xl font-bold font-mono` |
+| Section heading | `text-2xl font-bold font-mono` (lowercase: `articles`, `tools`) |
+| Card title | `text-lg font-bold font-mono` |
+| Body | `text-sm` / `text-base` |
+| Pull quote | `text-4xl italic font-bold font-serif` |
 
 ---
 
 ## Layout
 
-### Page Shell
-
 ```
-┌──────────────────────────────────────────┐
-│  header  (bg-rosePine-overlay)           │
-├──────────────────────────────────────────┤
-│  main                                    │
-│  (container mx-auto, px 2/4/8)          │
-│  (bg-rosePine-base, border-radius: 5rem) │
-│  (shadow-2xl, rounded-2xl)              │
-├──────────────────────────────────────────┤
-│  footer  (bg-rosePine-overlay)           │
-└──────────────────────────────────────────┘
+┌────────────────────────────────────────┐
+│  header   bg-layer-02                  │
+├────────────────────────────────────────┤
+│  main     bg-layer-01                  │
+│           container, px-2 sm:px-4 md:px-8
+│           border-radius: 5rem (inline) │
+├────────────────────────────────────────┤
+│  footer   bg-layer-02                  │
+└────────────────────────────────────────┘
 ```
 
-- The outer body is `bg-rosePine-overlay` (the warm overlay tone), creating a visible contrast frame around the main card.
-- The main content card has an aggressive `border-radius: 5rem` (hardcoded inline), making it a large pill shape.
-- Container max-width is standard Next.js `container` with responsive horizontal padding (`px-2 sm:px-4 md:px-8`).
-- Content has `mt-2 mb-10 py-12` vertical spacing in the shell, `mt-14` inside individual article pages.
+The body ground is `bg-background`; the main card sits on it as a large pill with
+an inline `border-radius: 5rem`. That radius is deliberately not a token — it is
+a one-off shape, not a scale step.
 
-### Content Width Tiers
+**Breakpoints are Carbon's**, via the preset: `sm` 20rem, `md` 42rem, `lg` 66rem,
+`xlg` 82rem, `max` 99rem. Note `sm` is 320px, not Tailwind's 640px — an `sm:`
+utility applies at essentially every width. Reach for `md:` when you mean
+"tablet and up".
 
-| Tier          | Class         | Use                              |
-|---------------|---------------|----------------------------------|
-| Narrow prose  | `max-w-4xl`   | Article body, articles list      |
-| Medium grid   | `max-w-6xl`   | Tools, designs grids             |
-| Full content  | `max-w-7xl`   | Quote feature, wide layouts      |
-
-### Grid Patterns
-
-- Articles list: `grid grid-cols-1 gap-4`
-- Tools on home: `grid gap-6 md:grid-cols-2`
-- Designs on home: `grid gap-6 md:grid-cols-3`
-- Categories/tags in `CategoryTagDisplay`: `grid grid-cols-1 md:grid-cols-2 gap-8`
+| Tier | Class | Use |
+|---|---|---|
+| Narrow prose | `max-w-4xl` | article body |
+| Medium grid | `max-w-6xl` | tools, designs |
+| Full | `max-w-7xl` | quote features |
 
 ---
 
-## Cards & Surfaces
+## Components
 
-### Article Cards
+### Article card
+`bg-layer-01`, `border border-border-subtle`, `rounded-lg`, `p-4 md:p-8`,
+`hover:shadow-lg transition-shadow`.
 
-- Background: `bg-rosePine-surface dark:bg-rosePineMoon-surface`
-- Border: `border border-rosePine-highlightLow dark:border-rosePineMoon-highlightLow`
-- Border radius: `rounded-lg`
-- Padding: `p-4 md:p-8`
-- Hover: `hover:shadow-lg transition-shadow`
-
-### Category Pill (foam-tinted)
-
+### Category chip — reads as a link, because it is one
 ```
-bg-rosePine-surface border-rosePine-foam text-rosePine-foam
-hover: bg-rosePine-foam text-rosePine-base
+bg-layer-01 border border-link text-link rounded-md
+hover:bg-link hover:text-text-on-color
 ```
-Shape: `rounded-md`, size: `text-sm px-2 py-1`.
 
-### Tag Pill (rose-tinted)
-
+### Tag chip — metadata, one step quieter
 ```
-bg-rosePine-rose/10 text-rosePine-rose border-rosePine-rose/20
-hover: bg-rosePine-rose text-rosePine-base
+bg-layer-02 text-text-secondary border border-border-subtle rounded-full
+hover:bg-layer-hover hover:text-text-primary
 ```
-Shape: `rounded-full`, size: `text-xs px-2 py-1`. Tags are prefixed with `#`.
+Prefixed with `#`. The weight difference between the two chips is intentional:
+categories are navigation, tags are annotation.
 
-### `CategoryTagDisplay` Container
-
-Background `bg-rosePine-overlay`, border `border-rosePine-surface`, `rounded-lg`, inner section separator uses `border-dotted border-rosePine-subtle/40`.
-
----
-
-## Navigation
-
-- Header background: `bg-rosePine-overlay`
-- Logo: SVG mark (`/public/tyandor-logo.svg`), width 100px, links to `/`
-- Nav links (desktop): `text-rosePine-muted hover:text-rosePine-text dark:text-rosePineDawn-text dark:hover:text-rosePineDawn-pine`
-- Breakpoint: desktop nav visible at `lg:` (1024px+), mobile hamburger below
-- Mobile menu: GSAP-animated expand/collapse (`height: 0 → auto`, `opacity: 0 → 1`, 300ms)
-- Hamburger: 3 bars → X via GSAP rotate+translate (300ms timeline)
-- Theme toggle: sun/moon icon swap (Lucide), `hover:bg-rosePine-highlightLow`
+### Radius
+`rounded-lg` / `md` / `sm` resolve through `--radius` (0.5rem), declared in
+`app/globals.css`. The token package has no radius scale yet; if one lands
+upstream, that declaration becomes an alias.
 
 ---
 
 ## Animations
 
-All scroll-triggered animations use **GSAP 3.11.4** loaded from CDN. The `ScrollTrigger` plugin is registered in each component's `useEffect`.
+GSAP with `ScrollTrigger`, registered per component in `useEffect`.
 
-### Standard Entrance Animation
-
-Most `Animated*` cards use:
 ```js
 fromTo(el, { opacity: 0, y: 50 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' })
 scrollTrigger: { start: 'top bottom-=100', toggleActions: 'play none none reverse' }
 ```
 
-### Article Detail Cards (full list page)
+- Animated components are `dynamic(() => import(...), { ssr: false })`.
+- Never call GSAP outside a `useEffect`.
+- `power3.out` is the standard ease. 0.8s standard, 1s for large elements.
+- Durations and easings that need to match the rest of the system use the motion
+  tokens: `duration-fast-02`, `ease-standard-productive`.
 
-More dramatic entrance with 3D tilt:
-```js
-fromTo(el, { opacity: 0, y: 100, rotateX: 45 }, { opacity: 1, y: 0, rotateX: 0, duration: 1, ease: 'power3.out' })
-```
-
-### Quote Block
-
-Starts `opacity-0` inline, animated in after the articles section scrolls past `bottom center`.
-
-### Rules
-
-- All animated components use `dynamic(() => import(...), { ssr: false })` — no SSR for GSAP components.
-- Never apply GSAP outside a `useEffect`.
-- Ease: `power3.out` is the standard; do not introduce new easing without justification.
-- Animation duration: 0.8s standard, 1s for large/dramatic elements.
+The home page gates its content behind a GSAP loading overlay. In any headless or
+hidden-pane environment `requestAnimationFrame` does not fire, so the overlay
+never clears and the page looks empty. That is the harness, not the site — drive
+`gsap.ticker.tick()` by hand to verify.
 
 ---
 
-## Branding & Identity
+## Branding
 
-- **Logo mark**: `∧∨` (logical AND / OR symbols) used in `<title>` and footer. SVG version in `/public/tyandor-logo.svg`.
-- **Site name**: `∧∨` displayed in metadata, plain text `Tyler Andor` in prose contexts.
-- **Section heading style**: lowercase `font-mono` in `text-rosePine-rose` (e.g., `articles`, `tools`, `design`).
-- **Separator glyph**: `§` (section sign, `&sect;`) used as a visual divider beneath article titles.
-
----
-
-## Iconography
-
-Icons are sourced from **Lucide React** (`lucide-react`). Only use Lucide — do not introduce other icon libraries.
-
-Examples in use:
-- `SunIcon` — light mode indicator in theme toggle
-- `MoonIcon` — dark mode indicator in theme toggle
+- **Mark**: `∧∨`, used in `<title>` and the footer. SVG at `/public/tyandor-logo.svg`.
+- **Section headings**: lowercase mono in `text-text-emphasis`.
+- **Divider glyph**: `§` (`&sect;`) beneath article titles, `text-text-placeholder`.
+- **Icons**: Lucide React only. Do not add another icon library.
 
 ---
 
-## Dark / Light Mode
+## Prose
 
-- Toggled via `next-themes` with `attribute="class"` strategy.
-- Default: `system` (follows OS preference).
-- The `ThemeProvider` wraps the entire app in `RootLayout`.
-- Dark mode class is `.dark` on `<html>`.
-- Always pair light and dark variants in component classes:
-  ```
-  text-rosePine-text dark:text-rosePineMoon-text
-  bg-rosePine-surface dark:bg-rosePineMoon-surface
-  ```
+`@tailwindcss/typography` with the `prose` class. Its ramp is remapped onto role
+tokens in `app/globals.css` by setting `--tw-prose-*` rather than writing
+`.prose p` rules — the plugin resolves every element through those variables, so
+one block reaches list markers, table borders and captions without fighting the
+`:where()` selectors it ships.
 
----
+`prose-invert` is pointed at the same variables. The token layer already swaps per
+theme, so a second ramp would just be something else that can disagree.
 
-## Spacing & Radius
-
-| Token     | Value             | Source                          |
-|-----------|-------------------|---------------------------------|
-| `--radius` | `0.5rem`         | Shadcn/ui default               |
-| `rounded-lg` | `0.5rem`       | Standard card radius            |
-| `rounded-md` | `calc(0.5rem - 2px)` | Category pill              |
-| `rounded-full` | 9999px        | Tag pill                        |
-| Main content card | `5rem`   | Inline style on `<main>`        |
-
----
-
-## Prose / MDX Content
-
-- Uses `@tailwindcss/typography` (`prose` class).
-- Heading and inline elements (`h1`–`h5`, `a`, `blockquote`, `strong`, `em`) are forced to `rgb(var(--color-text) / 1)` via a `.prose` override in `globals.css`, overriding the default gray scale.
-- `max-w-none` prevents the prose container from constraining the layout — the parent `max-w-4xl` handles width.
-- GFM (GitHub Flavored Markdown) is enabled via `remarkGfm`.
+`max-w-none` on the prose container; the parent `max-w-4xl` handles width.
 
 ---
 
 ## Accessibility
 
-- Skip-to-content link: visually hidden, revealed on focus (`sr-only focus:not-sr-only`), styled `bg-rosePine-love text-rosePine-base`.
-- Navigation uses `role="navigation"`, `role="menubar"`, `role="menuitem"`.
-- Mobile toggle has `aria-label="Toggle mobile menu"` and `aria-expanded`.
-- Shadcn/ui components are accessible by default — maintain this when customising them.
-- Focus ring: `focus:ring-2 focus:ring-rosePine-love`.
+- Skip link: `sr-only focus:not-sr-only`, `bg-interactive text-text-on-accent`.
+- Focus: one global `*:focus-visible` outline at `2px solid var(--ty-focus)`.
+  Do not add component-level focus rings in another colour.
+- Nav carries `role="navigation"`; the mobile toggle carries `aria-expanded`.
+- Every role pairing in the token package is contrast-gated upstream. That gate
+  does not know about pairings invented here, so if you put text on an unusual
+  ground, check it.
 
 ---
 
-## What Not to Do
+## Known gaps
 
-- Do not use the shadcn/ui default gray-scale color tokens (`--background`, `--foreground`, etc.) for new UI — use `rosePine-*` tokens instead. The shadcn tokens remain for Shadcn component internals only.
-- Do not add new font families. Inter + system mono/serif/sans is the full stack.
-- Do not write GSAP animations outside a `useEffect`, and never in SSR-rendered components.
-- Do not use `npm` — the runtime is Bun.
-- Do not hardcode hex or RGB colors in component classes — always use the `rosePine-*` Tailwind tokens.
+Three things are deliberately unfinished rather than quietly wrong:
+
+1. **No radius scale upstream.** `--radius` is declared in `app/globals.css`
+   because `@tyandor/tokens` has no radius tokens. If a scale lands upstream,
+   that declaration becomes an alias.
+2. **No tinted support surfaces.** Every `support-*` role is `kind: "text"`, so a
+   warning or error callout has no coloured background to sit on. The callouts in
+   `app/setup-integrations/page.tsx` use `bg-layer-02` with a `border-support-*`
+   left rule instead, which works but is a workaround for a missing role.
+3. **`support-warning` is not AA at body size in Earth.** It measures 3.55:1 on
+   `layer-02`, so it is usable for borders, icons and large text but not 14px
+   copy. That is why the warning callout's body is `text-text-primary` while the
+   error callout's is `text-support-error` (5.44:1 Earth, 6.38:1 MCRN).
+
+Separately, `components/ui/sidebar.tsx` references `--sidebar-*` variables that
+nothing declares. It is not imported anywhere, so it renders nowhere — delete it
+or wire it up before using it.
+
+---
+
+## What not to do
+
+- Do not hardcode a hex, `rgb()`, or Tailwind palette colour. Use a role.
+- Do not add a `dark:` variant that names a different role — the tokens already
+  theme themselves.
+- Do not add font families. Duo + Mono is the stack.
+- Do not call GSAP outside `useEffect`, or in an SSR component.
+- Do not reintroduce a second palette. One contract, one source of truth.
+- Do not use `npm`. The runtime is Bun.

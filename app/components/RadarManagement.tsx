@@ -119,7 +119,7 @@ export default function RadarManagement({ technologies, history, onDataChange }:
                     <AlertDialogTrigger asChild>
                       <Button variant="destructive" size="sm">Delete</Button>
                     </AlertDialogTrigger>
-                    <AlertDialogContent className="bg-rosePine-surface">
+                    <AlertDialogContent className="bg-layer-01">
                       <AlertDialogHeader>
                         <AlertDialogTitle>Are you sure?</AlertDialogTitle>
                         <AlertDialogDescription>
@@ -167,7 +167,7 @@ export default function RadarManagement({ technologies, history, onDataChange }:
       </div>
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogContent className="bg-rosePine-surface">
+        <DialogContent className="bg-layer-01">
           <DialogHeader>
             <DialogTitle>{selectedTech?.id ? 'Edit' : 'Add'} Technology</DialogTitle>
           </DialogHeader>
@@ -186,7 +186,7 @@ export default function RadarManagement({ technologies, history, onDataChange }:
                 <SelectTrigger>
                   <SelectValue placeholder="Select a quadrant" />
                 </SelectTrigger>
-                <SelectContent className="bg-rosePine-surface">
+                <SelectContent className="bg-layer-01">
                   <SelectItem value="Techniques">Techniques</SelectItem>
                   <SelectItem value="Tools">Tools</SelectItem>
                   <SelectItem value="Platforms">Platforms</SelectItem>
@@ -200,7 +200,7 @@ export default function RadarManagement({ technologies, history, onDataChange }:
                 <SelectTrigger>
                   <SelectValue placeholder="Select a ring" />
                 </SelectTrigger>
-                <SelectContent className="bg-rosePine-surface">
+                <SelectContent className="bg-layer-01">
                   <SelectItem value="Adopt">Adopt</SelectItem>
                   <SelectItem value="Trial">Trial</SelectItem>
                   <SelectItem value="Assess">Assess</SelectItem>

@@ -62,16 +62,16 @@ export default async function Article({ params }: { params: Promise<{ slug: stri
     <article className="mt-14">
       <div className="text-center">
         <h1 className="text-5xl md:text-8xl font-bold font-mono leading-[1.4] mb-4">{data.title}</h1>
-        <p className="text-gray-500 mt-8 font-serif">
+        <p className="text-text-secondary mt-8 font-serif">
           Published {new Date(data.date).toISOString().split('T')[0]}
           {data.updated && (
             <span> | Updated {new Date(data.updated).toISOString().split('T')[0]}</span>
           )}
         </p>
-        <p className="text-2xl mt-6 text-rosePineMoon-muted dark:text-rosePine-muted">&sect;</p>
+        <p className="text-2xl mt-6 text-text-placeholder">&sect;</p>
       </div>
       <div className="max-w-4xl mx-auto p-4">
-        <div className="prose text-rosePine-text dark:prose-rosePine-text max-w-none mt-10">
+        <div className="prose text-text-primary max-w-none mt-10">
           <MDXRemote 
             source={content} 
             components={components}
